@@ -19,6 +19,7 @@ class CreateSettingsTable extends Migration
             $table->string('name', 128)->comment('系统名称');
             $table->timestamp('begin_at')->nullable()->comment('起始时间');
             $table->timestamp('end_at')->nullable()->comment('结束时间');
+            $table->string('year', 4)->comment('年度');
             $table->boolean('is_enable')->default(false)->comment('是否启用，0-禁用，1-启用');
             $table->timestamps();
         });

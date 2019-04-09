@@ -17,10 +17,10 @@ return [
     ],
 
     'observers' => [
-        App\Entities\User::class,
-        App\Entities\Role::class,
-        App\Entities\Permission::class,
-        App\Entities\Department::class,
-        App\Entities\Setting::class,
+        // App\Entities\User::class,
+        // App\Entities\Role::class,
+        // App\Entities\Permission::class,
+        // App\Entities\Department::class,
+        // App\Entities\Setting::class,
     ],
 ];

@@ -15,7 +15,7 @@ class CreateSubjectsTable extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 20)->comment('名称');
+            $table->string('name', 20)->unique()->comment('名称');
         });
     }
 
