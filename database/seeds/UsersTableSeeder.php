@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
             'password' => '123456',
             'name' => '超级管理员',
             'is_super' => true,
+            'creator_id' => 1,
         ]);
     }
 }
