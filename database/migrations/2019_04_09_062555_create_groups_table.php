@@ -17,7 +17,6 @@ class CreateGroupsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 50)->unique()->comment('组名称');
             $table->text('description')->nullable()->comment('组描述');
-            $table->timestamps();
         });
     }
 
