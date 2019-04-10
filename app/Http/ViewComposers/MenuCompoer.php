@@ -16,7 +16,7 @@ class MenuComposer
      */
     public function compose(View $view)
     {
-        $title = Arr::get(config('menu.sidebar'), request()->segment(1) . '.index.title');
+        $title = Arr::get(config('menu.sidebar'), request()->segment(1) . '.title');
         
         $view->with(compact('title'));
     }

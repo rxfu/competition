@@ -25,42 +25,44 @@
                 @foreach (config('menu.sidebar') as $items)
                     @if (is_array($items))
                         @foreach ($items as $item)
-                            @isset($item['children'])
-                                <li class="nav-item has-treeview">
-                                    <a href="{{ isset($item['route']) ? route($item['route']) : '#' }}" class="nav-link{{ $item['route'] === request()->segment(1) . '.index' ? ' active' : '' }}">
-                                        @isset ($item['icon'])
-                                            <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
-                                        @endisset
-                                        <p>
-                                            {{ $item['title'] ?? '无标题' }}
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        @foreach ($item['children'] as $subitem)
-                                            <li class="nav-item">
-                                                <a href="{{ isset($subitem['route']) ? route($subitem['route']) : '#' }}" class="nav-link{{ $subitem['route'] === request()->segment(1) . '.index' ? ' active' : '' }}">
-                                                    @isset ($subitem['icon'])               
-                                                        <i class="nav-icon fas fa-{{ $subitem['icon'] }}"></i>
-                                                    @else
-                                                        <i class="nav-icon far fa-circle"></i>
-                                                    @endisset
-                                                    <p>{{ $subitem['title'] ?? '无标题' }}</p>
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </li>
-                            @else
-                                <li class="nav-item">
-                                    <a href="{{ isset($item['route']) ? route($item['route']) : '#' }}" class="nav-link{{ $item['route'] === request()->segment(1) . '.index' ? ' active' : '' }}">
-                                        @isset ($item['icon'])
-                                            <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
-                                        @endisset
-                                        <p>{{ $item['title'] ?? '无标题' }}</p>
-                                    </a>
-                                </li>
-                            @endisset
+                            @if (is_array($item))
+                                @isset($item['children'])
+                                    <li class="nav-item has-treeview">
+                                        <a href="{{ isset($item['route']) ? route($item['route']) : '#' }}" class="nav-link{{ $item['route'] === request()->segment(1) . '.index' ? ' active' : '' }}">
+                                            @isset ($item['icon'])
+                                                <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
+                                            @endisset
+                                            <p>
+                                                {{ $item['title'] ?? '无标题' }}
+                                                <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            @foreach ($item['children'] as $subitem)
+                                                <li class="nav-item">
+                                                    <a href="{{ isset($subitem['route']) ? route($subitem['route']) : '#' }}" class="nav-link{{ $subitem['route'] === request()->segment(1) . '.index' ? ' active' : '' }}">
+                                                        @isset ($subitem['icon'])               
+                                                            <i class="nav-icon fas fa-{{ $subitem['icon'] }}"></i>
+                                                        @else
+                                                            <i class="nav-icon far fa-circle"></i>
+                                                        @endisset
+                                                        <p>{{ $subitem['title'] ?? '无标题' }}</p>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a href="{{ isset($item['route']) ? route($item['route']) : '#' }}" class="nav-link{{ $item['route'] === request()->segment(1) . '.index' ? ' active' : '' }}">
+                                            @isset ($item['icon'])
+                                                <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
+                                            @endisset
+                                            <p>{{ $item['title'] ?? '无标题' }}</p>
+                                        </a>
+                                    </li>
+                                @endisset
+                            @endif
                         @endforeach
                     @else
                         <li class="nav-header">{{ $items }}</li>
