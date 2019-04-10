@@ -2,25 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SaveSettingRequest;
 use App\Services\SettingService;
-use Illuminate\Http\Request;
 
 class SettingController extends BaseController
 {
-    public function __construct(SettingService $settingService, SaveSettingRequest $request)
+    protected $module = 'setting';
+
+    protected $storeRules = [
+        'slug' => 'required|unique:settings',
+        'name' => 'required',
+        'is_enable' => 'required',
+        'begin_at' => 'nullable|date',
+        'end_at' => 'nullable|date',
+    ];
+
+    public function __construct(SettingService $settingService)
     {
         $this->service = $settingService;
-        $this->request = $request;
-    }
 
-    public function store(SaveSettingRequest $request)
-    {
-        return $this->postSave($request);
-    }
-
-    public function update(SaveSettingRequest $request, $id)
-    {
-        return $this->putSave($request, $id);
+        $this->updateRules = [
+            'slug' => 'required|unique:settings,slug,' . request()->route('id'),
+            'name' => 'required',
+            'is_enable' => 'required',
+            'begin_at' => 'nullable|date',
+            'end_at' => 'nullable|date',
+        ];
     }
 }
