@@ -78,6 +78,8 @@ class Repository
         if (false === $object->update($attributes)) {
             throw new InvalidRequestException($this->getModel() . ': ' . $id . ' 对象更新失败', $this->getObject(), 'update');
         }
+
+        return $object;
     }
 
     public function delete($id, $force = false)

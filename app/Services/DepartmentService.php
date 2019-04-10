@@ -11,8 +11,8 @@ class DepartmentService extends Service
         $this->repository = $departments;
     }
 
-    public function getIsEnable()
+    public function getEnabled()
     {
-        return $this->repository->getIsEnable(true);
+        return $this->repository->getEnabled(true);
     }
 }

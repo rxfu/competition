@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SavePermissionRequest;
 use App\Services\PermissionService;
-use Illuminate\Http\Request;
 
 class PermissionController extends BaseController
 {
