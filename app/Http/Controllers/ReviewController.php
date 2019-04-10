@@ -2,9 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Services\ReviewService;
 
-class ReviewController extends Controller
+class ReviewController extends BaseController
 {
-    //
+    protected $module = 'review';
+
+    protected $storeRules = [
+        'name' => 'required',
+    ];
+
+    public function __construct(ReviewService $reviewService)
+    {
+        $this->service = $reviewService;
+
+        $this->updateRules = $this->storeRules;
+    }
 }

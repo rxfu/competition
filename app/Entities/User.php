@@ -12,14 +12,14 @@ class User extends Authenticatable
 {
     use Notifiable;
     use PresentableTrait;
-
+ 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'username', 'name', 'email', 'password', 'is_enable', 'is_super',
+        'username', 'password', 'name', 'email', 'is_enable', 'is_super', 'birthday', 'idnumber', 'gender_id', 'education_id', 'degree_id', 'department_id', 'subject_id', 'major', 'direction', 'position', 'phone', 'address', 'leader', 'leader_phone', 'group_id', 'course', 'teaching_begin_time', 'portrait', 'creator_id',
     ];
 
     /**
@@ -62,5 +62,20 @@ class User extends Authenticatable
     public function logs()
     {
         return $this->hasMany('App\Entities\Log');
+    }
+
+    public function document()
+    {
+        return $this->hasOne('App\Entities\Document');
+    }
+
+    public function markerReviews()
+    {
+        return $this->hasMany('App\Entities\Review', 'marker_id');
+    }
+
+    public function playerReviews()
+    {
+        return $this->hasMany('App\Entities\Review', 'player_id');
     }
 }

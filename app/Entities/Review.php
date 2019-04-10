@@ -6,5 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    //
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'year', 'marker_id', 'player_id', 'design_score', 'live_score',
+    ];
+
+    public function marker()
+    {
+        return $this->belongsTo('App\Entities\User', 'marker_id');
+    }
+
+    public function player()
+    {
+        return $this->belongsTo('App\Entities\User', 'player_id');
+    }
 }
