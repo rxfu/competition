@@ -12,8 +12,6 @@ class SettingController extends BaseController
     {
         $this->service = $settingService;
         $this->request = $request;
-        $this->model = 'setting';
-        $this->modname = '系统设置';
     }
 
     public function store(SaveSettingRequest $request)

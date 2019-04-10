@@ -12,8 +12,6 @@ class DepartmentController extends BaseController
     {
         $this->service = $departmentService;
         $this->request = $request;
-        $this->model = 'department';
-        $this->modname = '部门';
     }
 
     public function store(SaveDepartmentRequest $request)

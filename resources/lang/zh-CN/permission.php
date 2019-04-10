@@ -1,7 +1,8 @@
 <?php
 
 return [
-    'slug' => '权限简称',
-    'name' => '权限名称',
-    'description' => '权限描述',
+    'module' => '权限',
+    'slug' => '简称',
+    'name' => '名称',
+    'description' => '描述',
 ];

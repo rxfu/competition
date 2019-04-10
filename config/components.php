@@ -39,7 +39,7 @@ return [
         [
             'field' => 'content',
             'list' => true,
-            'responsive' => 'hidden',
+            'responsive' => 'none',
         ],
         [
             'field' => 'created_at',

@@ -9,35 +9,23 @@ abstract class BaseController extends Controller
 {
     protected $service;
 
-    protected $model;
-
-    protected $modname;
-
     public function index()
     {
-        $modname = $this->modname;
-        $model = $this->model;
-
         $items = $this->service->getAll();
         
-        return view('pages.list', compact('modname', 'model', 'items'));
+        return view('pages.list', compact('items'));
     }
 
     public function create()
     {
-        $modname = $this->modname;
-
-        return view('pages.create', compact('modname'));
+        return view('pages.create');
     }
 
     public function edit($id)
     {
-        $modname = $this->modname;
-        $model = $this->model;
-
         $item = $this->service->get($id);
 
-        return view('pages.edit', compact('modname', 'model', 'item'));
+        return view('pages.edit', compact('item'));
     }
 
     public function postSave(Request $request)

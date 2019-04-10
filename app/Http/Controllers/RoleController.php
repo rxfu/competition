@@ -11,8 +11,6 @@ class RoleController extends BaseController
     {
         $this->service = $roleService;
         $this->request = $request;
-        $this->model = 'role';
-        $this->modname = '角色';
     }
 
     public function store(SaveRoleRequest $request)

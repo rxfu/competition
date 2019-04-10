@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'module' => '日志',
     'user_id' => '用户ID',
     'ip' => 'IP地址',
     'level' => '级别',

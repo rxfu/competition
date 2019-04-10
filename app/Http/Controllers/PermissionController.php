@@ -12,8 +12,6 @@ class PermissionController extends BaseController
     {
         $this->service = $permissionService;
         $this->request = $request;
-        $this->model = 'permission';
-        $this->modname = '权限';
     }
 
     public function store(SavePermissionRequest $request)

@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+	$model = request()->segment(1);
+	$components = config('components.' . $model);
+@endphp
 <div class="row justify-content-sm-center">
 	<div class="col-sm-8">
 		<div class="card card-success">
 			<div class="card-header">
-				<h3 class="card-title">创建{{ $modname ?? '' }}</h3>
+				<h3 class="card-title">创建{{ __($model . '.module') }}</h3>
 			</div>
 
-			@php
-				$model = request()->segment(1);
-				$components = config('components.' . $model);
-			@endphp
 		    <form role="form" id="create-form" name="create-form" method="post" action="{{ route($model . '.store') }}">
 		        @csrf
 				<div class="card-body">

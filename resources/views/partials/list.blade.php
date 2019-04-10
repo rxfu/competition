@@ -1,6 +1,6 @@
 <div class="card card-primary">
 	<div class="card-header">
-		<h3 class="card-title">{{ $modname ?? '' }}列表</h3>
+		<h3 class="card-title">{{ __($model . '.module') }}列表</h3>
 	</div>
 
 	<div class="card-body">

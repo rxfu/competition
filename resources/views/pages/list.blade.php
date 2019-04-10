@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+    $model = request()->segment(1);
+    $components = config('components.' . $model)
+@endphp
 <div class="row">
 	<div class="col-sm-12">
 		@if (config('components.' . $model . '.list'))
@@ -23,7 +27,7 @@
 <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables/responsive/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendor/datatables/responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script>
 $(function() {
 	$('.datatable').DataTable({

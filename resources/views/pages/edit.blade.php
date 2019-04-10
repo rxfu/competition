@@ -1,16 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+	$model = request()->segment(1);
+	$components = config('components.' . $model)
+@endphp
 <div class="row justify-content-sm-center">
 	<div class="col-sm-8">
 		<div class="card card-info">
 			<div class="card-header">
-				<h3 class="card-title">编辑{{ $modname ?? '' }}{{ $item->id }}</h3>
+				<h3 class="card-title">编辑{{ __($model . '.module') }}{{ $item->id }}</h3>
 			</div>
 			
-			@php
-				$components = config('components.' . $model)
-			@endphp
 		    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route($model . '.update', $item->id) }}">
 		        @csrf
 		        @method('put')

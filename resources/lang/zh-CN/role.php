@@ -1,6 +1,7 @@
 <?php
 
 return [
-    'name' => '角色名称',
-    'description' => '角色描述',
+    'module' => '角色',
+    'name' => '名称',
+    'description' => '描述',
 ];
