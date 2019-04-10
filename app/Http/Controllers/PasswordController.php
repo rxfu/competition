@@ -15,7 +15,7 @@ class PasswordController extends Controller
         $this->service = $userService;
     }
 
-    public function password()
+    public function edit()
     {
         return view('password.change');
     }

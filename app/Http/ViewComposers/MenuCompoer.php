@@ -16,8 +16,8 @@ class MenuComposer
      */
     public function compose(View $view)
     {
-        $title = Arr::get(config('menu.sidebar'), Route::currentRouteName() . '.title');
-
+        $title = Arr::get(config('menu.sidebar'), request()->segment(1) . '.index.title');
+        
         $view->with(compact('title'));
     }
 }

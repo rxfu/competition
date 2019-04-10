@@ -27,7 +27,7 @@
                         @foreach ($items as $item)
                             @isset($item['children'])
                                 <li class="nav-item has-treeview">
-                                    <a href="{{ isset($item['route']) ? route($item['route']) : '#' }}" class="nav-link{{ isset($item['route']) && (request()->route()->getName() === $item['route']) ? ' active' : '' }}">
+                                    <a href="{{ isset($item['route']) ? route($item['route']) : '#' }}" class="nav-link{{ $item['route'] === request()->segment(1) . '.index' ? ' active' : '' }}">
                                         @isset ($item['icon'])
                                             <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
                                         @endisset
@@ -39,7 +39,7 @@
                                     <ul class="nav nav-treeview">
                                         @foreach ($item['children'] as $subitem)
                                             <li class="nav-item">
-                                                <a href="{{ isset($subitem['route']) ? route($subitem['route']) : '#' }}" class="nav-link{{ isset($subitem['route']) && (request()->route()->getName() === $subitem['route']) ? ' active' : '' }}">
+                                                <a href="{{ isset($subitem['route']) ? route($subitem['route']) : '#' }}" class="nav-link{{ $subitem['route'] === request()->segment(1) . '.index' ? ' active' : '' }}">
                                                     @isset ($subitem['icon'])               
                                                         <i class="nav-icon fas fa-{{ $subitem['icon'] }}"></i>
                                                     @else
@@ -53,7 +53,7 @@
                                 </li>
                             @else
                                 <li class="nav-item">
-                                    <a href="{{ isset($item['route']) ? route($item['route']) : '#' }}" class="nav-link{{ isset($item['route']) && (request()->route()->getName() === $item['route']) ? ' active' : '' }}">
+                                    <a href="{{ isset($item['route']) ? route($item['route']) : '#' }}" class="nav-link{{ $item['route'] === request()->segment(1) . '.index' ? ' active' : '' }}">
                                         @isset ($item['icon'])
                                             <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
                                         @endisset

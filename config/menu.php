@@ -19,6 +19,20 @@ return [
                 'route' => 'home.dashboard',
             ],
         ],
+        'document' => [
+            'index' => [
+                'title' => '比赛材料管理',
+                'icon' => 'users',
+                'route' => 'document.index',
+            ],
+        ],
+        'review' => [
+            'index' => [
+                'title' => '评审管理',
+                'icon' => 'users',
+                'route' => 'review.index',
+            ],
+        ],
         'user' => [
             'index' => [
                 'title' => '用户管理',
@@ -40,11 +54,46 @@ return [
                 'route' => 'permission.index',
             ],
         ],
+        'group' => [
+            'index' => [
+                'title' => '专家组管理',
+                'icon' => 'users',
+                'route' => 'group.index',
+            ],
+        ],
+        'gender' => [
+            'index' => [
+                'title' => '性别管理',
+                'icon' => 'users',
+                'route' => 'gender.index',
+            ],
+        ],
         'department' => [
             'index' => [
-                'title' => '部门管理',
+                'title' => '院校管理',
                 'icon' => 'users',
                 'route' => 'department.index',
+            ],
+        ],
+        'subject' => [
+            'index' => [
+                'title' => '学科管理',
+                'icon' => 'users',
+                'route' => 'subject.index',
+            ],
+        ],
+        'education' => [
+            'index' => [
+                'title' => '学历管理',
+                'icon' => 'users',
+                'route' => 'education.index',
+            ],
+        ],
+        'degree' => [
+            'index' => [
+                'title' => '学位管理',
+                'icon' => 'users',
+                'route' => 'degree.index',
             ],
         ],
         'setting' => [
@@ -63,10 +112,10 @@ return [
         ],
         '个人设置',
         'password' => [
-            'password' => [
+            'edit' => [
                 'title' => '修改密码',
                 'icon' => 'shield-alt',
-                'route' => 'password.password',
+                'route' => 'password.edit',
             ],
         ],
     ],

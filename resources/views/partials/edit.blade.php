@@ -1,9 +1,9 @@
 <div class="card card-info">
 	<div class="card-header">
-		<h3 class="card-title">编辑{{ $modname ?? '' }}{{ $id }}</h3>
+		<h3 class="card-title">编辑{{ $modname ?? '' }}{{ $item->id }}</h3>
 	</div>
 
-    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route($model . '.update', $id) }}">
+    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route($model . '.update', $item->id) }}">
         @csrf
         @method('put')
 		<div class="card-body">

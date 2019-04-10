@@ -196,6 +196,16 @@ return [
     ],
     'setting' => [
         [
+            'field' => 'year',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'type' => 'text',
+            'required' => true,
+            'readonly' => true,
+            'default' => date('Y'),
+        ],
+        [
             'field' => 'slug',
             'list' => true,
             'create' => true,

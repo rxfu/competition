@@ -15,7 +15,7 @@ class Setting extends Model
      * @var array
      */
     protected $fillable = [
-        'slug', 'name', 'begin_at', 'end_at', 'is_enable',
+        'year', 'slug', 'name', 'begin_at', 'end_at', 'is_enable',
     ];
 
     /**
