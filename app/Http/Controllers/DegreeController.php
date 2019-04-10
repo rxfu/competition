@@ -2,9 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Services\DegreeService;
 
-class DegreeController extends Controller
+class DegreeController extends BaseController
 {
-    //
+    protected $module = 'degree';
+
+    protected $storeRules = [
+        'name' => 'required',
+    ];
+
+    public function __construct(DegreeService $degreeService)
+    {
+        $this->service = $degreeService;
+
+        $this->updateRules = $this->storeRules;
+    }
 }

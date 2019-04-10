@@ -193,6 +193,63 @@ return [
             'required' => true,
         ],
     ],
+    'group' => [
+        [
+            'field' => 'name',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'type' => 'text',
+            'required' => true,
+        ],
+        [
+            'field' => 'description',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'type' => 'textarea',
+        ],
+    ],
+    'gender' => [
+        [
+            'field' => 'name',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'type' => 'text',
+            'required' => true,
+        ],
+    ],
+    'subject' => [
+        [
+            'field' => 'name',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'type' => 'text',
+            'required' => true,
+        ],
+    ],
+    'education' => [
+        [
+            'field' => 'name',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'type' => 'text',
+            'required' => true,
+        ],
+    ],
+    'degree' => [
+        [
+            'field' => 'name',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'type' => 'text',
+            'required' => true,
+        ],
+    ],
     'setting' => [
         [
             'field' => 'year',

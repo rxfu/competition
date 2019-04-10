@@ -2,9 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Services\GenderService;
 
-class GenderController extends Controller
+class GenderController extends BaseController
 {
-    //
+    protected $module = 'gender';
+
+    protected $storeRules = [
+        'name' => 'required',
+    ];
+
+    public function __construct(GenderService $genderService)
+    {
+        $this->service = $genderService;
+
+        $this->updateRules = $this->storeRules;
+    }
 }

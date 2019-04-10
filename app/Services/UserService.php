@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Exceptions\InternalException;
 use App\Exceptions\InvalidRequestException;
 use App\Repositories\UserRepository;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 
 class UserService extends Service

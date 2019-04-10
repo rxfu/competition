@@ -12,7 +12,7 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'name', 'description',
     ];
 
     public $timestamps = false;

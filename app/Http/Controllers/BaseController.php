@@ -33,7 +33,7 @@ abstract class BaseController extends Controller
 
         $this->service->store($request->all());
 
-        return back()->withSuccess('创建' . trans($this->module . '.module') . '成功');
+        return redirect()->route($this->module . '.index')->withSuccess('创建' . trans($this->module . '.module') . '成功');
     }
 
     public function edit($id)
@@ -50,7 +50,7 @@ abstract class BaseController extends Controller
 
             $this->service->update($id, $request->all());
 
-            return back()->withSuccess('更新' . trans($this->module . '.module') . '成功');
+            return redirect()->route($this->module . '.index')->withSuccess('更新' . trans($this->module . '.module') . '成功');
         }
     }
 
