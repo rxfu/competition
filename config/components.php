@@ -187,7 +187,6 @@ return [
             'create' => true,
             'edit' => true,
             'presenter' => true,
-            'responsive' => 'none',
             'type' => 'radio',
             'values' => '1:是|0:否',
             'default' => '1',

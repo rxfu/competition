@@ -21,7 +21,7 @@ class SettingController extends BaseController
         $this->service = $settingService;
 
         $this->updateRules = [
-            'slug' => 'required|unique:settings,slug,' . request()->route('id'),
+            'slug' => 'required|unique:settings,slug,' . request('id'),
             'name' => 'required',
             'is_enable' => 'required',
             'begin_at' => 'nullable|date',

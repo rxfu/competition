@@ -8,19 +8,17 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends BaseController
 {
-    public function __construct(DepartmentService $departmentService, SaveDepartmentRequest $request)
+    protected $module = 'department';
+
+    protected $storeRules = [
+        'name' => 'required',
+        'is_enable' => 'required',
+    ];
+
+    public function __construct(DepartmentService $departmentService)
     {
         $this->service = $departmentService;
-        $this->request = $request;
-    }
 
-    public function store(SaveDepartmentRequest $request)
-    {
-        return $this->postSave($request);
-    }
-
-    public function update(SaveDepartmentRequest $request, $id)
-    {
-        return $this->putSave($request, $id);
+        $this->updateRules = $this->storeRules;
     }
 }

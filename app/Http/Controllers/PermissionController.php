@@ -8,19 +8,20 @@ use Illuminate\Http\Request;
 
 class PermissionController extends BaseController
 {
-    public function __construct(PermissionService $permissionService, SavePermissionRequest $request)
+    protected $module = 'permission';
+
+    protected $storeRules = [
+        'slug' => 'required|unique:permissions',
+        'name' => 'required',
+    ];
+
+    public function __construct(PermissionService $permissionService)
     {
         $this->service = $permissionService;
-        $this->request = $request;
-    }
 
-    public function store(SavePermissionRequest $request)
-    {
-        return $this->postSave($request);
-    }
-
-    public function update(SavePermissionRequest $request, $id)
-    {
-        return $this->putSave($request, $id);
+        $this->updateRules = [
+            'slug' => 'required|unique:permissions,slug,' . request('id'),
+            'name' => 'required',
+        ];
     }
 }

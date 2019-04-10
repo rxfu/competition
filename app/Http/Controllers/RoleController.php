@@ -2,24 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SaveRoleRequest;
 use App\Services\RoleService;
 
 class RoleController extends BaseController
 {
-    public function __construct(RoleService $roleService, SaveRoleRequest $request)
+    protected $module = 'role';
+
+    protected $storeRules = [
+        'name' => 'required',
+    ];
+
+    public function __construct(RoleService $roleService)
     {
         $this->service = $roleService;
-        $this->request = $request;
-    }
 
-    public function store(SaveRoleRequest $request)
-    {
-        return $this->postSave($request);
-    }
-
-    public function update(SaveRoleRequest $request, $id)
-    {
-        return $this->putSave($request, $id);
+        $this->updateRules = $this->storeRules;
     }
 }
