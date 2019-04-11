@@ -45,26 +45,4 @@ class UserService extends Service
             throw new InvalidRequestException('重置密码失败', $this->repository->getObject(), 'update');
         }
     }
-
-    public function store($data)
-    {
-        $object = parent::store($data);
-
-        try {
-            $object->departments()->sync($data['department']);
-        } catch (QueryException $e) {
-            throw new InternalException('创建院校分配失败', $this->repository->getObject(), 'store', $e);
-        }
-    }
-
-    public function update($id, $data)
-    {
-        $object = $this->repository->update($id, $data);
-
-        try {
-            $object->departments()->sync($data['department']);
-        } catch (QueryException $e) {
-            throw new InternalException('更新院校分配失败', $this->repository->getObject(), 'update', $e);
-        }
-    }
 }

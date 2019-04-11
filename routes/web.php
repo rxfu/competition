@@ -44,6 +44,11 @@ Route::middleware('auth')->group(function () {
         Route::put('change', 'PasswordController@change')->name('change');
         Route::put('reset/{id}', 'PasswordController@reset')->name('reset');
     });
+
+    Route::name('role.')->prefix('role')->group(function () {
+        Route::get('{id}/permission', 'RoleController@permission')->name('permission');
+        Route::post('{id}/assign', 'RoleController@assign')->name('assign');
+    });
     /*
     foreach (config('routes') as $group => $routes) {
         foreach ($routes as $route) {

@@ -53,8 +53,14 @@
 	                            </a>
 
 	                            @if (config('components.' . $model . '.reset'))
-							    	<a href="{{ route('password.reset', $item->getKey()) }}" class="btn btn-warning btn-flat btn-sm" title="重置密码">
+							    	<a href="{{ route('password.reset', $item->getKey()) }}" class="btn btn-secondary btn-flat btn-sm" title="重置密码">
 								        <i class="icon fa fa-key"></i> 重置密码
+								    </a>
+								@endif
+
+								@if (config('components.' . $model . '.assign'))
+							    	<a href="{{ route('role.permission', $item->getKey()) }}" class="btn btn-warning btn-flat btn-sm" title="分配权限">
+								        <i class="icon fa fa-key"></i> 分配权限
 								    </a>
 								@endif
 	                        </td>

@@ -124,6 +124,7 @@ return [
         ],
     ],
     'role' => [
+        'assign' => true,
         [
             'field' => 'name',
             'list' => true,
