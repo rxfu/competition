@@ -4,21 +4,49 @@ namespace App\Services;
 
 use App\Exceptions\InternalException;
 use App\Repositories\DocumentRepository;
-use Illuminate\Database\QueryException;
+use App\Repositories\UserRepository;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class DocumentService extends Service
 {
-    public function __construct(DocumentRepository $documents)
+    private $path;
+
+    private $users;
+
+    public function __construct(DocumentRepository $documents, UserRepository $users)
     {
         $this->repository = $documents;
+        $this->users = $users;
+        $this->path = 'teaching/' . date('Y') . '/';
     }
 
-    public function updateOrCreate($attributes, $data)
+    public function upload($file, $userId, $type, $filename)
     {
         try {
-            return $this->repository->getObject()->updateOrCreate($attributes, $data);
+            if (!is_null($file)) {
+                $user = $this->users->get($userId);
+    
+                $ext = $file->clientExtension();
+                $filename = $filename . '.' . $ext;
+                $path = $this->path . $user->phone;
+    
+                $success = $file->storeAs($path, $filename);
+                $data = [
+                    'year' => date('Y'),
+                    'user_id' => $user->id,
+                    $type => $filename,
+                ];
+    
+                if ($success) {
+                    $this->repository->getObject()->updateOrCreate(['user_id' => $user->id], $data);
+                } else {
+                    throw new InvalidRequestException('上传文件失败', $this->repository->getObject(), 'update');
+                }
+            }
+        } catch (FileNotFoundException $e) {
+            throw new InternalException('上传文件不存在', $this->repository->getObject(), 'upload', $e);
         } catch (QueryException $e) {
-            throw new InternalException('上传文件更新失败', $this->repository->getObject(), 'update', $e);
+            throw new InternalException('上传文件更新数据失败', $this->repository->getObject(), 'update', $e);
         }
     }
 }

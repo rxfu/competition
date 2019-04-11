@@ -25,36 +25,24 @@ class DocumentController extends BaseController
     public function store(Request $request)
     {
         if ($request->isMethod('post')) {
-            $user = $this->userService->get($request->input('user_id'));
+            $this->service->upload($request->file('syllabus'), $request->input('user_id'), 'syllabus', 'dagang');
+            $this->service->upload($request->file('design'), $request->input('user_id'), 'design', 'sheji');
+            $this->service->upload($request->file('section'), $request->input('user_id'), 'section', 'jieduan');
+            $this->service->upload($request->file('catalog'), $request->input('user_id'), 'catalog', 'mulu');
 
-            $syllabus = $request->file('syllabus')->storeAs($this->upload_path . $user->phone, 'dagang');
-            $design = $request->file('design')->storeAs($this->upload_path . $user->phone, 'sheji');
-            $section = $request->file('section')->storeAs($this->upload_path . $user->phone, 'jieduan');
-            $catalog = $request->file('catalog')->storeAs($this->upload_path . $user->phone, 'mulu');
-
-            if ($syllabus && $design && $section && $catalog) {
-                return parent::store($request);
-            } else {
-                return back()->withDanger('文件上传失败');
-            }
+            return redirect()->route($this->module . '.index')->withSuccess('上传' . trans($this->module . '.module') . '成功');
         }
     }
 
     public function update(Request $request, $id)
     {
         if ($request->isMethod('post')) {
-            $user = $this->userService->get($request->input('user_id'));
+            $this->service->upload($request->file('syllabus'), $request->input('user_id'), 'syllabus', 'dagang');
+            $this->service->upload($request->file('design'), $request->input('user_id'), 'design', 'sheji');
+            $this->service->upload($request->file('section'), $request->input('user_id'), 'section', 'jieduan');
+            $this->service->upload($request->file('catalog'), $request->input('user_id'), 'catalog', 'mulu');
 
-            $syllabus = $request->file('syllabus')->storeAs($this->upload_path . $user->phone, 'dagang');
-            $design = $request->file('design')->storeAs($this->upload_path . $user->phone, 'sheji');
-            $section = $request->file('section')->storeAs($this->upload_path . $user->phone, 'jieduan');
-            $catalog = $request->file('catalog')->storeAs($this->upload_path . $user->phone, 'mulu');
-
-            if ($syllabus && $design && $section && $catalog) {
-                return parent::update($request, $id);
-            } else {
-                return back()->withDanger('文件上传失败');
-            }
+            return redirect()->route($this->module . '.index')->withSuccess('上传' . trans($this->module . '.module') . '成功');
         }
     }
 }
