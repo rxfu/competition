@@ -14,13 +14,13 @@ class CreateDocumentsTable extends Migration
     public function up()
     {
         Schema::create('documents', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('year', 4)->comment('年度');
             $table->unsignedBigInteger('user_id')->comment('选手ID');
+            $table->string('year', 4)->comment('年度');
             $table->string('syllabus', 128)->nullable()->comment('教学大纲');
             $table->string('design', 128)->nullable()->comment('教学设计');
             $table->string('section', 128)->nullable()->comment('教学节段');
             $table->string('catalog', 128)->nullable()->comment('教学目录');
+            $table->unsignedInteger('seq')->nullable()->comment('抽签号');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

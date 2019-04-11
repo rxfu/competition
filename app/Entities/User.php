@@ -49,14 +49,44 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($value);
     }
 
-    public function roles()
+    public function role()
     {
-        return $this->belongsToMany('App\Entities\Role');
+        return $this->belongsTo('App\Entities\Role');
     }
 
-    public function departments()
+    public function department()
     {
-        return $this->belongsToMany('App\Entities\Department', 'user_department')->withTimestamps();
+        return $this->belongsTo('App\Entities\Department');
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo('App\Entities\Subject');
+    }
+
+    public function education()
+    {
+        return $this->belongsTo('App\Entities\Education');
+    }
+
+    public function degree()
+    {
+        return $this->belongsTo('App\Entities\Degree');
+    }
+
+    public function gender()
+    {
+        return $this->belongsTo('App\Entities\Gender');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo('App\Entities\User');
+    }
+
+    public function group()
+    {
+        return $this->belongsTo('App\Entities\Group');
     }
 
     public function logs()

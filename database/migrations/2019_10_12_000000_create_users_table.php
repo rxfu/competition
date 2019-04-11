@@ -40,7 +40,8 @@ class CreateUsersTable extends Migration
             $table->string('portrait', 128)->nullable()->comment('照片');
             $table->boolean('is_enable')->default(true)->comment('是否启用，0-禁用，1-启用');
             $table->boolean('is_super')->default(false)->comment('是否超级管理员，0-否，1-是');
-            $table->unsignedBigInteger('creator_id')->comment('创建者ID');
+            $table->unsignedBigInteger('creator_id')->nullable()->comment('创建者ID');
+            $table->unsignedBigInteger('role_id')->nullable()->comment('角色ID');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -21,6 +21,13 @@ return [
         App\Entities\Role::class,
         App\Entities\Permission::class,
         App\Entities\Department::class,
+        App\Entities\Gender::class,
+        App\Entities\Subject::class,
+        App\Entities\Education::class,
+        App\Entities\Degree::class,
+        App\Entities\Document::class,
+        App\Entities\Review::class,
+        App\Entities\Group::class,
         App\Entities\Setting::class,
     ],
 ];
