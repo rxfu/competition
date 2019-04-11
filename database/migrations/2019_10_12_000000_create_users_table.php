@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
             $table->string('phone', 20)->nullable()->comment('联系电话');
             $table->string('address')->nullable()->comment('通讯地址');
             $table->string('leader', 20)->nullable()->comment('学校联系人');
-            $table->string('leader_phone', 20)->nullable()->comment('学校联系人联系电话');
+            $table->string('leader_phone', 20)->nullable()->comment('学校联系人电话');
             $table->string('email')->unique()->nullable()->comment('电子邮箱');
             $table->unsignedBigInteger('group_id')->nullable()->comment('组ID');
             $table->string('course', 100)->nullable()->comment('参赛课程名称');

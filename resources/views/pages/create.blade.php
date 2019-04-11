@@ -12,7 +12,7 @@
 				<h3 class="card-title">创建{{ __($model . '.module') }}</h3>
 			</div>
 
-		    <form role="form" id="create-form" name="create-form" method="post" action="{{ route($model . '.store') }}">
+		    <form role="form" id="create-form" name="create-form" method="post" action="{{ route($model . '.store') }}" enctype="multipart/form-data">
 		        @csrf
 				<div class="card-body">
 					@foreach ($components as $component)
@@ -21,7 +21,7 @@
 			                    <label for="{{ $component['field'] }}" class="col-sm-3 col-form-label">{{ __($model . '.' . $component['field']) }}</label>
 			                    <div class="col-md-9">
 									@if ('text' === $component['type'])
-				                    	<input type="text" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="{{ empty($component['readonly']) ? 'form-control' : 'form-control-plaintext' }}{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" placeholder="{{ __($model . '.' . $component['field']) }}" value="{{ old($component['field'], $component['default'] ?? false) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>
+				                    	<input type="text" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="{{ empty($component['readonly']) ? 'form-control' : 'form-control-plaintext' }}{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" placeholder="{{ __($model . '.' . $component['field']) }}" value="{{ old($component['field'], $component['default'] ?? null) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>
 						            @elseif ('password' === $component['type'])
 				                    	<input type="password" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="form-control{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" placeholder="{{ __($model . '.' . $component['field']) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>
 						            @elseif ('textarea' === $component['type'])
@@ -52,6 +52,8 @@
 						            			<option value="{{ $collection->id }}">{{ $collection->name }}</option>
 						            		@endforeach
 						            	</select>
+						            @elseif ('file' === $component['type'])
+				                    	<input type="file" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="form-control-file{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" value="{{ old($component['field'], $component['default'] ?? null) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>
 						            @elseif ('datetime' === $component['type'])
 						            	<div class="form-group">
 						            		<div class="input-group date datetimepicker" id="{{ $component['field'] }}" data-target-input="nearest">

@@ -12,7 +12,7 @@
 				<h3 class="card-title">编辑{{ __($model . '.module') }}{{ $item->id }}</h3>
 			</div>
 			
-		    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route($model . '.update', $item->id) }}">
+		    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route($model . '.update', $item->id) }}" enctype="multipart/form-data">
 		        @csrf
 		        @method('put')
 				<div class="card-body">
@@ -53,6 +53,13 @@
 						            			<option value="{{ $collection->id }}"{{ old($component['field'], $item->{$component['field']}) == $collection->id ? ' selected' : '' }}>{{ $collection->name }}</option>
 						            		@endforeach
 						            	</select>
+						            @elseif ('file' === $component['type'])
+				                    	<input type="file" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="form-control-file{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" value="{{ old($component['field'], $component['default'] ?? null) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>
+				                    	@if (!empty($item->{$component['field']}))
+				                    		<small class="form-text text-muted">
+				                    			<a href="{{ asset($item->{$component['field']}) }}" title="{{ __($model . '.' . $component['field']) }}">{{ __($model . '.' . $component['field']) }}</a>
+				                    		</small>
+				                    	@endif
 						            @elseif ('datetime' === $component['type'])
 						            	<div class="form-group">
 						            		<div class="input-group date datetimepicker" id="{{ $component['field'] }}" data-target-input="nearest">

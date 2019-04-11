@@ -40,9 +40,7 @@
 										@if (!empty($component['presenter']))
 											{{ $item->present()->{Illuminate\Support\Str::camel($component['field'])} }}
 										@elseif (!empty($component['relation']))
-											@if (!is_null($item->{$component['relation']}))
-												{{ $item->{$component['relation']}->implode('name', ', ') }}
-											@endif
+											{{ optional($item->{$component['relation']})->name }}
 										@else
 											{{ $item->{$component['field']} }}
 										@endif
