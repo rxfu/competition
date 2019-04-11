@@ -9,10 +9,10 @@
 	<div class="col-sm-8">
 		<div class="card card-info">
 			<div class="card-header">
-				<h3 class="card-title">编辑{{ __($model . '.module') }}{{ $item->id }}</h3>
+				<h3 class="card-title">编辑{{ __($model . '.module') }}{{ $item->getKey() }}</h3>
 			</div>
 			
-		    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route($model . '.update', $item->id) }}" enctype="multipart/form-data">
+		    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route($model . '.update', $item->getKey()) }}" enctype="multipart/form-data">
 		        @csrf
 		        @method('put')
 				<div class="card-body">

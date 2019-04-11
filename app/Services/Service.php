@@ -20,9 +20,9 @@ class Service
         return $this->repository->get($id);
     }
 
-    public function getAll($order = 'id', $direction = 'asc')
+    public function getAll()
     {
-        return $this->repository->getAll($order, $direction);
+        return $this->repository->getAll();
     }
 
     public function store($data)

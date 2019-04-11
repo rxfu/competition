@@ -15,6 +15,10 @@ class Document extends Model
         'year', 'user_id', 'syllabus', 'design', 'section', 'catalog',
     ];
 
+    protected $primaryKey = 'user_id';
+
+    public $incrementing = false;
+
     public function user()
     {
         return $this->belongsTo('App\Entities\User');

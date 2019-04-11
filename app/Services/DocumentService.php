@@ -20,6 +20,11 @@ class DocumentService extends Service
         $this->path = 'teaching/' . date('Y') . '/';
     }
 
+    public function getAll()
+    {
+        return $this->repository->getAll('user_id');
+    }
+
     public function upload($file, $userId, $type, $filename)
     {
         try {
@@ -28,7 +33,7 @@ class DocumentService extends Service
     
                 $ext = $file->clientExtension();
                 $filename = $filename . '.' . $ext;
-                $path = $this->path . $user->phone;
+                $path = $this->path . $user->group_id . '-' . $user->phone;
     
                 $success = $file->storeAs($path, $filename);
                 $data = [

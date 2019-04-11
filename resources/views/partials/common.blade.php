@@ -48,12 +48,12 @@
 								@endif
 							@endforeach
 	                        <td>
-	                            <a href="{{ route($model . '.edit', $item->id) }}" class="btn btn-info btn-flat btn-sm" title="编辑">
+	                            <a href="{{ route($model . '.edit', $item->getKey()) }}" class="btn btn-info btn-flat btn-sm" title="编辑">
 	                                <i class="icon fa fa-edit"></i> 编辑
 	                            </a>
 
 	                            @if (config('components.' . $model . '.reset'))
-							    	<a href="{{ route('password.reset', $item->id) }}" class="btn btn-warning btn-flat btn-sm" title="重置密码">
+							    	<a href="{{ route('password.reset', $item->getKey()) }}" class="btn btn-warning btn-flat btn-sm" title="重置密码">
 								        <i class="icon fa fa-key"></i> 重置密码
 								    </a>
 								@endif
