@@ -322,7 +322,6 @@ return [
             'relation' => 'user',
             'type' => 'text',
             'readonly' => true,
-            'default' => 1,
         ],
         [
             'field' => 'syllabus',
@@ -351,6 +350,29 @@ return [
             'create' => true,
             'edit' => true,
             'type' => 'file',
+        ],
+    ],
+    'review' => [
+        'list' => true,
+        [
+            'field' => 'year',
+            'list' => true,
+        ],
+        [
+            'field' => 'marker_id',
+            'list' => true,
+        ],
+        [
+            'field' => 'player_id',
+            'list' => true,
+        ],
+        [
+            'field' => 'design_score',
+            'list' => true,
+        ],
+        [
+            'field' => 'live_score',
+            'list' => true,
         ],
     ],
 ];

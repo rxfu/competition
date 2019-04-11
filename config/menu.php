@@ -29,6 +29,7 @@ return [
             ],
         ],
         'review' => [
+            'title' => '评审管理',
             [
                 'title' => '评审管理',
                 'icon' => 'users',

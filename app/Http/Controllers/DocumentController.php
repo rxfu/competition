@@ -50,10 +50,10 @@ class DocumentController extends BaseController
         if ($request->isMethod('put')) {
             $this->validate($request, $this->updateRules);
 
-            $this->service->upload($request->file('syllabus'), $request->input('user_id'), 'syllabus', 'dagang');
-            $this->service->upload($request->file('design'), $request->input('user_id'), 'design', 'sheji');
-            $this->service->upload($request->file('section'), $request->input('user_id'), 'section', 'jieduan');
-            $this->service->upload($request->file('catalog'), $request->input('user_id'), 'catalog', 'mulu');
+            $this->service->upload($request->file('syllabus'), $id, 'syllabus', 'dagang');
+            $this->service->upload($request->file('design'), $id, 'design', 'sheji');
+            $this->service->upload($request->file('section'), $id, 'section', 'jieduan');
+            $this->service->upload($request->file('catalog'), $id, 'catalog', 'mulu');
 
             return redirect()->route($this->module . '.index')->withSuccess('上传' . trans($this->module . '.module') . '成功');
         }
