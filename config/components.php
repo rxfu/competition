@@ -140,6 +140,13 @@ return [
             'edit' => true,
             'type' => 'textarea',
         ],
+        [
+            'field' => 'permissions',
+            'list' => true,
+            'create' => false,
+            'edit' => false,
+            'relations' => 'permissions',
+        ],
     ],
     'permission' => [
         [
@@ -164,6 +171,13 @@ return [
             'create' => true,
             'edit' => true,
             'type' => 'textarea',
+        ],
+        [
+            'field' => 'roles',
+            'list' => true,
+            'create' => false,
+            'edit' => false,
+            'relations' => 'roles',
         ],
     ],
     'department' => [
@@ -351,6 +365,12 @@ return [
             'create' => true,
             'edit' => true,
             'type' => 'file',
+        ],
+        [
+            'field' => 'seq',
+            'list' => true,
+            'create' => false,
+            'edit' => false,
         ],
     ],
     'review' => [

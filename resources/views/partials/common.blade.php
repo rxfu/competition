@@ -41,6 +41,8 @@
 											{{ $item->present()->{Illuminate\Support\Str::camel($component['field'])} }}
 										@elseif (!empty($component['relation']))
 											{{ optional($item->{$component['relation']})->name }}
+										@elseif (!empty($component['relations']))
+											{{ optional($item->{$component['relations']})->implode('name', ', ') }}
 										@else
 											{{ $item->{$component['field']} }}
 										@endif
