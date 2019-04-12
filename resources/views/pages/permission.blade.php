@@ -16,7 +16,7 @@
 	                    <div class="col-md-9">
 				            	@foreach ($items as $item)
 			                    	<div class="form-check">
-			                    		<input type="checkbox" name="permissions[]" id="permission{{ $loop->index }}" class="form-check-input{{ $errors->has('permissions[]') ? ' is_invalid' : '' }}" value="{{ $item->id }}">
+			                    		<input type="checkbox" name="permissions[]" id="permission{{ $loop->index }}" class="form-check-input{{ $errors->has('permissions[]') ? ' is_invalid' : '' }}" value="{{ $item->id }}"{{ in_array($item->id, $permissions) ? ' checked' : '' }}>
 			                    		<label class="form-check-label" for="permission{{ $loop->index }}">{{ $item->name }}</label>
 			                    	</div>
 				            	@endforeach

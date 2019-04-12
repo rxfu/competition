@@ -10,4 +10,31 @@ class RoleService extends Service
     {
         $this->repository = $roles;
     }
+
+    public function getPermissions()
+    {
+        return $this->repository->getPermissions();
+    }
+
+    public function getAssignedPermissions($id)
+    {
+        try {
+            $object = $this->repository->get($id);
+
+            return $object->permissions()->pluck('permission_id');
+        } catch (QueryException $e) {
+            throw new InternalException('获取分配权限失败', $this->getObject(), 'get', $e);
+        }
+    }
+
+    public function assignPermissions($id, $permissions)
+    {
+        try {
+            $object = $this->repository->get($id);
+
+            $object->permissions()->sync($permissions);
+        } catch (QueryException $e) {
+            throw new InternalException('角色分配权限失败', $this->getObject(), 'insert', $e);
+        }
+    }
 }

@@ -25,6 +25,7 @@ class CreateReviewsTable extends Migration
             $table->foreign('marker_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('player_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
+            $table->index(['year', 'marker_id', 'player_id']);
             $table->unique(['year', 'marker_id', 'player_id']);
         });
     }

@@ -17,6 +17,6 @@ class Permission extends Model
     
     public function roles()
     {
-        return $this->belongsToMany('App\Entities\Role');
+        return $this->belongsToMany('App\Entities\Role', 'role_permission')->withTimestamps();
     }
 }
