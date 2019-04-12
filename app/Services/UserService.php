@@ -45,4 +45,9 @@ class UserService extends Service
             throw new InvalidRequestException('重置密码失败', $this->repository->getObject(), 'update');
         }
     }
+
+    public function hasPermission($id, $permission)
+    {
+        return $this->repository->hasPermission($id, $permission);
+    }
 }

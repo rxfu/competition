@@ -10,4 +10,17 @@ class UserRepository extends Repository
     {
         $this->object = $user;
     }
+
+    public function hasPermission($id, $slug)
+    {
+        $user = $this->get($id);
+
+        foreach ($user->role()->permissions() as $permission) {
+            if ($slug === $permission->slug) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
