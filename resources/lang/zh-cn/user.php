@@ -27,4 +27,5 @@ return [
     'is_enable' => '是否启用',
     'is_super' => '是否超级管理员',
     'created_at' => '创建时间',
+    'role_id' => '所属角色',
 ];
