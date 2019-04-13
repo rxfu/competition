@@ -55,4 +55,9 @@ class UserService extends Service
     {
         return is_null($id) ? $this->repository->getAllPlayers() : $this->repository->getAllPlayersByDepartment($id);
     }
+
+    public function getAllMarkers($id = null)
+    {
+        return is_null($id) ? $this->repository->getAllMarkers() : $this->repository->getAllMarkersByDepartment($id);
+    }
 }

@@ -35,6 +35,10 @@ return [
             'title' => '评委管理',
             'icon' => 'marker',
             'children' => [
+                'marker' => [
+                    'title' => '专家列表',
+                    'route' => 'marker.index',
+                ],
                 'review' => [
                     'title' => '评审管理',
                     'icon' => 'users',

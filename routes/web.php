@@ -23,7 +23,7 @@ Route::post('login', 'LoginController@login');
 Route::middleware(['auth', 'permission'])->group(function () {
     Route::post('logout', 'LoginController@logout')->name('logout');
 
-    foreach (['user', 'role', 'permission', 'group', 'gender', 'department', 'subject', 'education', 'degree', 'document', 'review', 'setting', 'player'] as $endpoint) {
+    foreach (['user', 'role', 'permission', 'group', 'gender', 'department', 'subject', 'education', 'degree', 'document', 'review', 'setting', 'player', 'marker'] as $endpoint) {
         $controller = Str::ucfirst($endpoint) . 'Controller';
 
         Route::name($endpoint . '.')->prefix($endpoint)->group(function () use ($endpoint, $controller) {
