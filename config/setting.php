@@ -9,4 +9,7 @@ return [
     'author' => 'Fu Rongxin',
     'copyright' => '广西师范大学教务处',
     'password' => '123456',
+    'manager' => 1,
+    'marker' => 2,
+    'player' => 3,
 ];

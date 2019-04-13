@@ -23,4 +23,14 @@ class UserRepository extends Repository
 
         return false;
     }
+
+    public function getAllPlayers()
+    {
+        return $this->object->whereRoleId(config('setting.player'))->get();
+    }
+
+    public function getAllPlayersByDepartment($id)
+    {
+        return $this->object->whereRoleId(config('setting.player'))->whereDepartmentId($id)->get();
+    }
 }

@@ -50,4 +50,9 @@ class UserService extends Service
     {
         return $this->repository->hasPermission($id, $permission);
     }
+
+    public function getAllPlayers($id = null)
+    {
+        return is_null($id) ? $this->repository->getAllPlayers() : $this->repository->getAllPlayersByDepartment($id);
+    }
 }

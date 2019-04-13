@@ -21,6 +21,10 @@ return [
             'title' => '选手管理',
             'icon' => 'user',
             'children' => [
+                'player' => [
+                    'title' => '选手列表',
+                    'route' => 'player.index',
+                ],
                 'document' => [
                     'title' => '比赛材料管理',
                     'route' => 'document.index',

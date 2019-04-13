@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 255)->comment('密码');
             $table->string('name', 20)->comment('姓名');
             $table->unsignedBigInteger('gender_id')->nullable()->comment('性别ID');
-            $table->date('birthday')->nullable()->comment('出生日期');
+            $table->string('birthday')->nullable()->comment('出生日期');
             $table->string('idnumber', 18)->nullable()->comment('身份证号');
             $table->unsignedBigInteger('education_id')->nullable()->comment('学历ID');
             $table->unsignedBigInteger('degree_id')->nullable()->comment('学位ID');

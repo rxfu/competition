@@ -23,7 +23,7 @@ Route::post('login', 'LoginController@login');
 Route::middleware(['auth', 'permission'])->group(function () {
     Route::post('logout', 'LoginController@logout')->name('logout');
 
-    foreach (['user', 'role', 'permission', 'group', 'gender', 'department', 'subject', 'education', 'degree', 'document', 'review', 'setting'] as $endpoint) {
+    foreach (['user', 'role', 'permission', 'group', 'gender', 'department', 'subject', 'education', 'degree', 'document', 'review', 'setting', 'player'] as $endpoint) {
         $controller = Str::ucfirst($endpoint) . 'Controller';
 
         Route::name($endpoint . '.')->prefix($endpoint)->group(function () use ($endpoint, $controller) {
@@ -42,7 +42,7 @@ Route::middleware(['auth', 'permission'])->group(function () {
     Route::name('password.')->prefix('password')->group(function () {
         Route::get('change', 'PasswordController@edit')->name('edit');
         Route::put('change', 'PasswordController@change')->name('change');
-        Route::put('reset/{id}', 'PasswordController@reset')->name('reset');
+        Route::get('reset/{id}', 'PasswordController@reset')->name('reset');
     });
 
     Route::name('role.')->prefix('role')->group(function () {

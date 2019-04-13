@@ -24,6 +24,9 @@ class CreateDocumentsTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
+            $table->index(['year', 'user_id']);
+            $table->unique(['year, user_id']);
         });
     }
 
