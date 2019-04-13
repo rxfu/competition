@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\InvalidRequestException;
 use App\Services\UserService;
 use Auth;
 use Closure;
@@ -24,12 +25,12 @@ class CheckPermission
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->is_super) {
-            $route = $request->route()->getName();
-            $permission = implode('-', explode('.', $route));
+        if (!Auth::user()->is_super) {
+            $permission = $request->route()->getName();
 
-            if ($this->service->hasPermission(Auth::id(), $permission)) {
-                throw new InvalidRequestExcepton('权限不足，此操作需要' . $permission . '权限，请联系管理员', Auth::user(), 'check');
+            if (!$this->service->hasPermission(Auth::id(), $permission)) {
+                abort(403);
+                // throw new InvalidRequestException('权限不足，此操作需要' . $permission . '权限，请联系管理员', Auth::user(), 'check');
             }
         }
 

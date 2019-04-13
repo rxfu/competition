@@ -15,7 +15,7 @@ class UserRepository extends Repository
     {
         $user = $this->get($id);
 
-        foreach ($user->permissions as $permission) {
+        foreach ($user->role->permissions as $permission) {
             if ($slug === $permission->slug) {
                 return true;
             }

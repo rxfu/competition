@@ -108,9 +108,4 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Entities\Review', 'player_id');
     }
-
-    public function permissions()
-    {
-        return $this->hasManyThrough('App\Entities\Permission', 'App\Entities\Role');
-    }
 }
