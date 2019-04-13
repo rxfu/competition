@@ -37,7 +37,7 @@
 							@foreach ($components as $component)
 								@if (!empty($component['list']))
 									<td>
-										@if (!empty($component['presenter']))
+										@if (!empty($component['presentear']))
 											{{ $item->present()->{Illuminate\Support\Str::camel($component['field'])} }}
 										@elseif (!empty($component['relation']))
 											{{ optional($item->{$component['relation']})->name }}

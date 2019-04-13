@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Entities\Permission;
+use App\Repositories\UserRepository;
+use Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,7 +30,13 @@ class AppServiceProvider extends ServiceProvider
 
         foreach ($permissions as $permission) {
             Gate::define($permission->slug, function ($user) use ($permission) {
-                return $user->hasPermission($permission);
+                if ($user->is_super) {
+                    return true;
+                } else {
+                    $userRepository = new UserRepository($user);
+    
+                    return $userRepository->hasPermission($user->id, $permission->slug);
+                }
             });
         }
     }
