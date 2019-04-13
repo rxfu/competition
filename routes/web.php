@@ -49,6 +49,11 @@ Route::middleware(['auth', 'permission'])->group(function () {
         Route::get('{id}/permission', 'RoleController@permission')->name('permission');
         Route::post('{id}/assign', 'RoleController@assign')->name('assign');
     });
+
+    Route::name('summary.')->prefix('summary')->group(function () {
+        Route::get('player', 'SummaryController@player')->name('player');
+        Route::get('marker', 'SummaryController@marker')->name('marker');
+    });
     /*
     foreach (config('routes') as $group => $routes) {
         foreach ($routes as $route) {
