@@ -28,4 +28,5 @@ return [
     'is_super' => '是否超级管理员',
     'created_at' => '创建时间',
     'role_id' => '所属角色',
+    'is_passed' => '审核状态',
 ];

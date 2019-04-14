@@ -65,6 +65,12 @@
 								        <i class="icon fa fa-key"></i> 分配权限
 								    </a>
 								@endif
+
+								@if (config('components.' . $model . '.audit'))
+							    	<a href="{{ route('marker.audit', $item->getKey()) }}" class="btn btn-success btn-flat btn-sm" title="审核通过">
+								        <i class="icon fa fa-unlock"></i> 审核通过
+								    </a>
+								@endif
 	                        </td>
 						</tr>
 					@endforeach

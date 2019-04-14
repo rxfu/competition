@@ -42,6 +42,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_super')->default(false)->comment('是否超级管理员，0-否，1-是');
             $table->unsignedBigInteger('creator_id')->nullable()->comment('创建者ID');
             $table->unsignedBigInteger('role_id')->nullable()->comment('角色ID');
+            $table->boolean('is_passed')->default(false)->comment('是否审核通过，0-未审核或审核未通过，1-审核已通过');
             $table->rememberToken();
             $table->timestamps();
         });

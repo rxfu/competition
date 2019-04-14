@@ -98,4 +98,11 @@ class MarkerController extends BaseController
 
         return parent::update($request, $id);
     }
+
+    public function audit($id)
+    {
+        $this->service->audit($id);
+
+        return back()->withSuccess('专家 ' . $id . ' 审核通过');
+    }
 }

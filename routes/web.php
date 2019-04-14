@@ -50,6 +50,10 @@ Route::middleware(['auth', 'permission'])->group(function () {
         Route::post('{id}/assign', 'RoleController@assign')->name('assign');
     });
 
+    Route::name('marker.')->prefix('marker')->group(function () {
+        Route::get('{id}/audit', 'MarkerController@audit')->name('audit');
+    });
+
     Route::name('summary.')->prefix('summary')->group(function () {
         Route::get('player', 'SummaryController@player')->name('player');
         Route::get('marker', 'SummaryController@marker')->name('marker');

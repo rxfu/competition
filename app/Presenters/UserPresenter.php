@@ -15,4 +15,9 @@ class UserPresenter extends Presenter
     {
         return $this->is_super ? '是' : '否';
     }
+
+    public function isPassed()
+    {
+        return $this->is_passed ? '审核通过' : '';
+    }
 }

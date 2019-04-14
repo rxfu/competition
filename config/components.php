@@ -514,6 +514,7 @@ return [
     ],
     'marker' => [
         'reset' => true,
+        'audit' => true,
         [
             'field' => 'name',
             'list' => true,
@@ -636,6 +637,14 @@ return [
             'edit' => true,
             'type' => 'text',
             'required' => true,
+        ],
+        [
+            'field' => 'is_passed',
+            'list' => true,
+            'create' => false,
+            'edit' => false,
+            'presenter' => true,
+            'responsive' => 'none',
         ],
     ],
 ];

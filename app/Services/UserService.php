@@ -60,4 +60,9 @@ class UserService extends Service
     {
         return is_null($id) ? $this->repository->getAllMarkers() : $this->repository->getAllMarkersByDepartment($id);
     }
+
+    public function audit($id)
+    {
+        return $this->repository->update($id, ['is_passed' => true]);
+    }
 }
