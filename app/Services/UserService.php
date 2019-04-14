@@ -65,4 +65,9 @@ class UserService extends Service
     {
         return $this->repository->update($id, ['is_passed' => true]);
     }
+
+    public function getAllPlayersByGroup($id)
+    {
+        return $this->repository->getAllPlayersByGroup($id);
+    }
 }

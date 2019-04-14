@@ -105,4 +105,18 @@ class MarkerController extends BaseController
 
         return back()->withSuccess('专家 ' . $id . ' 审核通过');
     }
+
+    public function listDesign()
+    {
+        $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
+
+        return view('pages.design-list', compact('items'));
+    }
+
+    public function listTeaching()
+    {
+        $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
+
+        return view('pages.teaching-list', compact('items'));
+    }
 }

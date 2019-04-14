@@ -43,4 +43,9 @@ class UserRepository extends Repository
     {
         return $this->object->whereRoleId(config('setting.marker'))->whereDepartmentId($id)->get();
     }
+
+    public function getAllPlayersByGroup($id)
+    {
+        return $this->object->whereRoleId(config('setting.player'))->whereGroupId($id)->get();
+    }
 }

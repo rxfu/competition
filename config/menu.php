@@ -39,6 +39,14 @@ return [
                     'title' => '专家列表',
                     'route' => 'marker.index',
                 ],
+                'design' => [
+                    'title' => '教学设计评分',
+                    'route' => 'marker.list-design',
+                ],
+                'teaching' => [
+                    'title' => '课堂教学评分',
+                    'route' => 'marker.list-teaching',
+                ],
                 'review' => [
                     'title' => '评审管理',
                     'icon' => 'users',

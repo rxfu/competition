@@ -23,6 +23,15 @@ Route::post('login', 'LoginController@login');
 Route::middleware(['auth', 'permission'])->group(function () {
     Route::post('logout', 'LoginController@logout')->name('logout');
 
+    Route::name('marker.')->prefix('marker')->group(function () {
+        Route::get('{id}/audit', 'MarkerController@audit')->name('audit');
+        Route::get('design', 'MarkerController@listDesign')->name('list-design');
+        Route::get('teaching', 'MarkerController@listTeaching')->name('list-teaching');
+        Route::get('{id}/design', 'MarkerController@design')->name('design');
+        Route::get('{id}/teaching', 'MarkerController@teaching')->name('teaching');
+        Route::post('{id}/{type}/mark', 'MarkerController@mark')->name('mark');
+    });
+
     foreach (['user', 'role', 'permission', 'group', 'gender', 'department', 'subject', 'education', 'degree', 'document', 'review', 'setting', 'player', 'marker'] as $endpoint) {
         $controller = Str::ucfirst($endpoint) . 'Controller';
 
@@ -48,10 +57,6 @@ Route::middleware(['auth', 'permission'])->group(function () {
     Route::name('role.')->prefix('role')->group(function () {
         Route::get('{id}/permission', 'RoleController@permission')->name('permission');
         Route::post('{id}/assign', 'RoleController@assign')->name('assign');
-    });
-
-    Route::name('marker.')->prefix('marker')->group(function () {
-        Route::get('{id}/audit', 'MarkerController@audit')->name('audit');
     });
 
     Route::name('summary.')->prefix('summary')->group(function () {
