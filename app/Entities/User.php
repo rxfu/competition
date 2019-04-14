@@ -43,6 +43,8 @@ class User extends Authenticatable
         'is_passed' => 'boolean',
     ];
 
+    protected $appends = ['total'];
+
     protected $presenter = 'App\Presenters\UserPresenter';
 
     public function setPasswordAttribute($value)
@@ -108,5 +110,32 @@ class User extends Authenticatable
     public function playerReviews()
     {
         return $this->hasMany('App\Entities\Review', 'player_id');
+    }
+
+    public function getTotalAttribute()
+    {
+        $items = Review::wherePlayerId($this->id)->get();
+
+        if ($items->count() === 0) {
+            $total = 0;
+        } elseif ($items->count() <= 2) {
+            $scores = [];
+            foreach ($items as $item) {
+                $scores[] = ($item->design_score + $item->live_score) / 2;
+            }
+
+            $total = array_sum($scores) / count($scores);
+        } else {
+            $scores = [];
+            foreach ($items as $item) {
+                $scores[] = ($item->design_score + $item->live_score) / 2;
+            }
+    
+            $results = array_diff($scores, [max($scores), min($scores)]);
+    
+            $total = count($results) ? array_sum($results) / count($results) : 0;
+        }
+
+        return $total;
     }
 }

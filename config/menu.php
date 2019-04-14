@@ -122,6 +122,10 @@ return [
                     'title' => '专家汇总',
                     'route' => 'summary.marker',
                 ],
+                [
+                    'title' => '排行榜',
+                    'route' => 'summary.rank',
+                ],
             ],
         ],
         '个人设置',

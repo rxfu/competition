@@ -66,6 +66,7 @@ Route::middleware(['auth', 'permission'])->group(function () {
     Route::name('summary.')->prefix('summary')->group(function () {
         Route::get('player', 'SummaryController@player')->name('player');
         Route::get('marker', 'SummaryController@marker')->name('marker');
+        Route::get('rank', 'SummaryController@rank')->name('rank');
     });
     /*
     foreach (config('routes') as $group => $routes) {
