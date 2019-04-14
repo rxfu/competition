@@ -32,6 +32,10 @@ Route::middleware(['auth', 'permission'])->group(function () {
         Route::post('{id}/{type}/mark', 'MarkerController@mark')->name('mark');
     });
 
+    Route::name('document.')->prefix('document')->group(function () {
+        Route::get('registration/{id?}', 'DocumentController@upload')->name('upload');
+    });
+
     foreach (['user', 'role', 'permission', 'group', 'gender', 'department', 'subject', 'education', 'degree', 'document', 'review', 'setting', 'player', 'marker'] as $endpoint) {
         $controller = Str::ucfirst($endpoint) . 'Controller';
 

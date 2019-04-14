@@ -28,4 +28,8 @@ return [
     'is_super' => '是否超级管理员',
     'created_at' => '创建时间',
     'role_id' => '所属角色',
+    'syllabus' => '教学大纲',
+    'design' => '教学设计',
+    'section' => '教学节段',
+    'catalog' => '教学目录',
 ];

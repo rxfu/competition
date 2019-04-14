@@ -19,7 +19,6 @@
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>
-                            <input type="text" name="mark" id="mark" class="form-control{{ $errors->has('mark') ? ' is_invalid' : '' }}" placeholder="d额分" value="{{ old($component['field']) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>
                             <a href="{{ route('marker.teaching', $item->getKey()) }}" class="btn btn-success btn-flat btn-sm" title="评分">
                                 <i class="icon fa fa-marker"></i> 评分
                             </a>

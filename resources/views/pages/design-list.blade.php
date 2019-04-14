@@ -11,6 +11,8 @@
             <thead>
                 <tr>
                     <th scope="col">选手编号</th>
+                    <th scope="col">教学大纲</th>
+                    <th scope="col">教学设计</th>
                     <th scope="col">操作</th>
                 </tr>
             </thead>
@@ -18,6 +20,8 @@
                 @foreach ($items as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
+                        <td>{{ $item->document->syllabus }}</td>
+                        <td>{{ $item->document->design }}</td>
                         <td>
                             <a href="{{ route('marker.design', $item->getKey()) }}" class="btn btn-success btn-flat btn-sm" title="评分">
                                 <i class="icon fa fa-marker"></i> 评分

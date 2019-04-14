@@ -26,8 +26,8 @@ return [
                     'route' => 'player.index',
                 ],
                 'document' => [
-                    'title' => '比赛材料管理',
-                    'route' => 'document.index',
+                    'title' => '上传材料',
+                    'route' => 'document.upload',
                 ],
             ],
         ],

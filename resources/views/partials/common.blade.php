@@ -40,7 +40,11 @@
 										@if (!empty($component['presenter']))
 											{{ $item->present()->{Illuminate\Support\Str::camel($component['field'])} }}
 										@elseif (!empty($component['relation']))
-											{{ optional($item->{$component['relation']})->name }}
+											@if (isset($component['prop']))
+												<a href="{{ asset(optional($item->{$component['relation']})->{$component['prop']}) }}">{{ __($model . '.' . $component['prop']) }}</a>
+											@else
+												{{ optional($item->{$component['relation']})->name }}
+											@endif
 										@elseif (!empty($component['relations']))
 											{{ optional($item->{$component['relations']})->implode('name', ', ') }}
 										@else
@@ -69,6 +73,12 @@
 								@if (config('components.' . $model . '.audit'))
 							    	<a href="{{ route('marker.audit', $item->getKey()) }}" class="btn btn-success btn-flat btn-sm" title="审核通过">
 								        <i class="icon fa fa-unlock"></i> 审核通过
+								    </a>
+								@endif
+
+								@if (config('components.' . $model . '.upload'))
+							    	<a href="{{ route('document.upload', $item->getKey()) }}" class="btn btn-primary btn-flat btn-sm" title="上传材料">
+								        <i class="icon fa fa-upload"></i> 上传材料
 								    </a>
 								@endif
 	                        </td>

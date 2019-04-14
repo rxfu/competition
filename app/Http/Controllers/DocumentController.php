@@ -31,6 +31,13 @@ class DocumentController extends BaseController
         $this->upload_path = 'teaching/' . date('Y') . '/';
     }
 
+    public function upload($id)
+    {
+        $item = $this->userService->get($id);
+
+        return view('pages.document', compact('item'));
+    }
+
     public function store(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -41,7 +48,7 @@ class DocumentController extends BaseController
             $this->service->upload($request->file('section'), $request->input('user_id'), 'section', 'jieduan');
             $this->service->upload($request->file('catalog'), $request->input('user_id'), 'catalog', 'mulu');
 
-            return redirect()->route($this->module . '.index')->withSuccess('上传' . trans($this->module . '.module') . '成功');
+            return redirect()->route('player.index')->withSuccess('上传' . trans($this->module . '.module') . '成功');
         }
     }
 

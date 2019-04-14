@@ -39,7 +39,7 @@ class DocumentService extends Service
                 $data = [
                     'year' => date('Y'),
                     'user_id' => $user->id,
-                    $type => $filename,
+                    $type => 'storage/' . $path . '/' . $filename,
                 ];
     
                 if ($success) {
