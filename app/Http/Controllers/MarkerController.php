@@ -119,4 +119,18 @@ class MarkerController extends BaseController
 
         return view('pages.teaching-list', compact('items'));
     }
+
+    public function design($id)
+    {
+        $item = $this->service->get($id);
+
+        return view('pages.design-mark', compact('item'));
+    }
+
+    public function teaching($id)
+    {
+        $item = $this->service->get($id);
+
+        return view('pages.teaching-mark', compact('item'));
+    }
 }

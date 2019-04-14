@@ -10,4 +10,15 @@ class ReviewService extends Service
     {
         $this->repository = $reviews;
     }
+
+    public function store($data)
+    {
+        $attributes = [
+            'year' => $data['year'],
+            'marker_id' => $data['marker_id'],
+            'player_id' => $data['player_id'],
+        ];
+
+        $this->repository->getObject()->updateOrCreate($attributes, $data);
+    }
 }

@@ -20,8 +20,12 @@
                 @foreach ($items as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->document->syllabus }}</td>
-                        <td>{{ $item->document->design }}</td>
+                        <td>
+                            <a href="{{ asset($item->document->syllabus) }}">教学大纲</a>
+                        </td>
+                        <td>
+                            <a href="{{ asset($item->document->design) }}">教学设计</a>
+                        </td>
                         <td>
                             <a href="{{ route('marker.design', $item->getKey()) }}" class="btn btn-success btn-flat btn-sm" title="评分">
                                 <i class="icon fa fa-marker"></i> 评分
@@ -33,5 +37,4 @@
         </table>
     </div>
 </div>
-
 @stop
