@@ -11,10 +11,10 @@
       	<!-- Sidebar user panel (optional) -->
       	<div class="user-panel mt-3 pb-3 mb-3 d-flex">
           	<div class="image">
-            	<img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="{{ Auth::user()->name }}">
+            	  <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="{{ Auth::user()->name }}">
           	</div>
           	<div class="info">
-            	<a href="#" class="d-block">{{ Auth::user()->name }}</a>
+            	  <a href="#" class="d-block">{{ Auth::user()->name }}</a>
           	</div>
         </div>
 
@@ -37,28 +37,32 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     @foreach ($item['children'] as $subitem)
-                                        <li class="nav-item">
-                                            <a href="{{ isset($subitem['route']) ? route($subitem['route']) : '#' }}" class="nav-link{{ isset($subitem['route']) && ($subitem['route'] === request()->route()->getName() || $subitem['route'] === request()->segment(1) . '.index') ? ' active' : '' }}">
-                                                @isset ($subitem['icon'])               
-                                                    <i class="nav-icon fas fa-{{ $subitem['icon'] }}"></i>
-                                                @else
-                                                    <i class="nav-icon far fa-circle"></i>
-                                                @endisset
-                                                <p>{{ $subitem['title'] ?? '无标题' }}</p>
-                                            </a>
-                                        </li>
+                                        @can($subitem['route'])
+                                            <li class="nav-item">
+                                                <a href="{{ isset($subitem['route']) ? route($subitem['route']) : '#' }}" class="nav-link{{ isset($subitem['route']) && ($subitem['route'] === request()->route()->getName() || $subitem['route'] === request()->segment(1) . '.index') ? ' active' : '' }}">
+                                                    @isset ($subitem['icon'])               
+                                                        <i class="nav-icon fas fa-{{ $subitem['icon'] }}"></i>
+                                                    @else
+                                                        <i class="nav-icon far fa-circle"></i>
+                                                    @endisset
+                                                    <p>{{ $subitem['title'] ?? '无标题' }}</p>
+                                                </a>
+                                            </li>
+                                        @endcan
                                     @endforeach
                                 </ul>
                             </li>
                         @else
-                            <li class="nav-item">
-                                <a href="{{ isset($item['route']) ? route($item['route']) : '#' }}" class="nav-link{{ isset($item['route']) && ($item['route'] === request()->route()->getName() || $item['route'] === request()->segment(1) . '.index') ? ' active' : '' }}">
-                                    @isset ($item['icon'])
-                                        <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
-                                    @endisset
-                                    <p>{{ $item['title'] ?? '无标题' }}</p>
-                                </a>
-                            </li>
+                            @can($item['route'])
+                                <li class="nav-item">
+                                    <a href="{{ isset($item['route']) ? route($item['route']) : '#' }}" class="nav-link{{ isset($item['route']) && ($item['route'] === request()->route()->getName() || $item['route'] === request()->segment(1) . '.index') ? ' active' : '' }}">
+                                        @isset ($item['icon'])
+                                            <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
+                                        @endisset
+                                        <p>{{ $item['title'] ?? '无标题' }}</p>
+                                    </a>
+                                </li>
+                            @endcan
                         @endisset
                     @else
                         <li class="nav-header">{{ $item }}</li>

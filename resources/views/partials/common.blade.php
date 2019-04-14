@@ -6,7 +6,7 @@
     <form id="delete-form" action="{{ route($model . '.delete') }}" method="post">
     	@csrf
         @method('delete')
-    @section('list')
+
 		<div class="card-body">
 			<table id="itemsTable" class="table table-bordered table-striped datatable">
 				<thead>
@@ -87,7 +87,6 @@
 				</tbody>
 			</table>
 		</div>
-	@show
 		
 		<div class="card-footer">
 			<div class="row">
