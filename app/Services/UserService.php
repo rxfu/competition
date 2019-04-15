@@ -70,4 +70,9 @@ class UserService extends Service
     {
         return $this->repository->getAllPlayersByGroup($id);
     }
+
+    public function getUser($username)
+    {
+        return $this->repository->getObject()->whereUsername($username)->first();
+    }
 }

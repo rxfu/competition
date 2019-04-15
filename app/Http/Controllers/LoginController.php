@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\InvalidRequestException;
 use App\Http\Controllers\Controller;
+use App\Services\UserService;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -30,13 +31,16 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/';
 
+    private $service;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserService $userService)
     {
+        $this->service = $userService;
         $this->middleware('guest')->except('logout');
     }
 
@@ -46,26 +50,42 @@ class LoginController extends Controller
     }
 
     /**
-     * Attempt to log the user into the application.
+     * Handle a login request to the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return bool
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
-    protected function attemptLogin(Request $request)
+    public function login(Request $request)
     {
-        $success = false;
-        if ($this->guard()->attempt($this->credentials($request), $request->filled('remember'))) {
-            if ((Auth::user()->role_id === config('setting.marker')) && (!Auth::user()->is_passed)) {
-                throw new InvalidRequestException('登录失败，你的身份审核未通过', Auth::user(), 'login');
+        $this->validateLogin($request);
 
-                $this->logout($request);
-                
-                $success = false;
-            }
+        // If the class is using the ThrottlesLogins trait, we can automatically throttle
+        // the login attempts for this application. We'll key this by the username and
+        // the IP address of the client making these requests into this application.
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
 
-            $success = true;
+            return $this->sendLockoutResponse($request);
         }
 
-        return $success;
+        $user = $this->service->getUser($request->input('username'));
+        if ($user) {
+            if (($user->role_id === config('setting.marker')) && (!$user->is_passed)) {
+                return back()->withDanger('登录失败，您的身份未审核')->withInput();
+            }
+        }
+
+        if ($this->attemptLogin($request)) {
+            return $this->sendLoginResponse($request);
+        }
+
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
     }
 }
