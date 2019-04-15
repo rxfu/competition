@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DepartmentService;
 use App\Services\RoleService;
 use App\Services\UserService;
 
@@ -19,10 +20,13 @@ class UserController extends BaseController
 
     private $roleService;
 
-    public function __construct(UserService $userService, RoleService $roleService)
+    private $departmentService;
+
+    public function __construct(UserService $userService, RoleService $roleService, DepartmentService $departmentService)
     {
         $this->service = $userService;
         $this->roleService = $roleService;
+        $this->departmentService = $departmentService;
 
         $this->updateRules = [
             'username' => 'required|unique:users,username,' . request('id'),
@@ -35,14 +39,16 @@ class UserController extends BaseController
     public function create()
     {
         $roles = $this->roleService->getAll();
+        $departments = $this->departmentService->getEnabled();
 
-        return parent::create()->with('roles', $roles);
+        return parent::create()->with('roles', $roles)->with('departments', $departments);
     }
 
     public function edit($id)
     {
         $roles = $this->roleService->getAll();
+        $departments = $this->departmentService->getEnabled();
         
-        return parent::edit($id)->with('roles', $roles);
+        return parent::edit($id)->with('roles', $roles)->with('departments', $departments);
     }
 }

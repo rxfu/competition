@@ -48,7 +48,8 @@ class PlayerController extends BaseController
 
     public function index()
     {
-        $items = $this->service->getAllPlayers();
+        $department = Auth::user()->is_super ? null : Auth::user()->department_id;
+        $items = $this->service->getAllPlayers($department);
 
         return view('pages.list', compact('items'));
     }
@@ -74,6 +75,7 @@ class PlayerController extends BaseController
         $request->offsetSet('is_super', false);
         $request->offsetSet('creator_id', Auth::id());
         $request->offsetSet('role_id', config('setting.player'));
+        $request->offsetSet('department_id', Auth::user()->department_id);
 
         return parent::store($request);
     }

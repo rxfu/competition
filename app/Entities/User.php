@@ -118,22 +118,17 @@ class User extends Authenticatable
 
         if ($items->count() === 0) {
             $total = 0;
-        } elseif ($items->count() <= 2) {
-            $scores = [];
-            foreach ($items as $item) {
-                $scores[] = ($item->design_score + $item->live_score) / 2;
-            }
-
-            $total = array_sum($scores) / count($scores);
         } else {
             $scores = [];
             foreach ($items as $item) {
-                $scores[] = ($item->design_score + $item->live_score) / 2;
+                $scores[] = $item->design_score * 0.2 + $item->live_score * 0.8;
             }
-    
-            $results = array_diff($scores, [max($scores), min($scores)]);
-    
-            $total = count($results) ? array_sum($results) / count($results) : 0;
+
+            if ($items->count() > 2) {
+                $scores = array_diff($scores, [max($scores), min($scores)]);
+            }
+
+            $total = array_sum($scores) / count($scores);
         }
 
         return $total;

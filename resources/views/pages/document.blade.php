@@ -30,7 +30,7 @@
 	                    	<input type="file" name="syllabus" id="syllabus" class="form-control-file{{ $errors->has('syllabus') ? ' is_invalid' : '' }}">
 	                    	@if (!empty($item->document->syllabus))
 	                    		<small class="form-text text-muted">
-	                    			<a href="{{ asset($item->document->syllabus) }}" title="教学大纲">教学大纲</a>
+	                    			<a class="pdf" href="{{ asset('js/vendor/pdfjs/web/viewer.html?file=/' . $item->document->syllabus) }}" title="教学大纲">教学大纲</a>
 	                    		</small>
 	                    	@endif
 	                    </div>

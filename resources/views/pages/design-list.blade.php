@@ -21,10 +21,10 @@
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>
-                            <a href="{{ asset($item->document->syllabus) }}">教学大纲</a>
+                            <a href="{{ asset('vendor/pdfjs/web/viewer.html?file=' . asset($item->document->syllabus)) }}">教学大纲</a>
                         </td>
                         <td>
-                            <a href="{{ asset($item->document->design) }}">教学设计</a>
+                            <a href="{{ asset('vendor/pdfjs/web/viewer.html?file=' . asset($item->document->design)) }}">教学设计</a>
                         </td>
                         <td>
                             <a href="{{ route('marker.design', $item->getKey()) }}" class="btn btn-success btn-flat btn-sm" title="评分">

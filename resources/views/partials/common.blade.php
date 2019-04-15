@@ -44,13 +44,13 @@
 									<td>
 										@if (!empty($component['presenter']))
 											{{ $item->present()->{Illuminate\Support\Str::camel($component['field'])} }}
-										@elseif (!empty($component['relation']))
+										@elseif (!empty($component['relation']) && (!is_null($item->{$component['relation']})))
 											@if (isset($component['prop']))
 												<a href="{{ asset(optional($item->{$component['relation']})->{$component['prop']}) }}">{{ __($model . '.' . $component['prop']) }}</a>
 											@else
 												{{ optional($item->{$component['relation']})->name }}
 											@endif
-										@elseif (!empty($component['relations']))
+										@elseif (!empty($component['relations']) && (!is_null($item->{$component['relations']})))
 											{{ optional($item->{$component['relations']})->implode('name', ', ') }}
 										@else
 											{{ $item->{$component['field']} }}
@@ -65,7 +65,7 @@
 		                            </a>
 		                        @endcan
 								
-	                        	@can($model . '.reset')
+	                        	@can('password.reset')
 		                            @if (config('components.' . $model . '.reset'))
 								    	<a href="{{ route('password.reset', $item->getKey()) }}" class="btn btn-secondary btn-flat btn-sm" title="重置密码">
 									        <i class="icon fa fa-key"></i> 重置密码
@@ -89,7 +89,7 @@
 									@endif
 								@endcan
 
-	                        	@can($model . '.upload')
+	                        	@can('document.upload')
 									@if (config('components.' . $model . '.upload'))
 								    	<a href="{{ route('document.upload', $item->getKey()) }}" class="btn btn-primary btn-flat btn-sm" title="上传材料">
 									        <i class="icon fa fa-upload"></i> 上传材料
