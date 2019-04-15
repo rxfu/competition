@@ -3,20 +3,23 @@
 		<h3 class="card-title">{{ __($model . '.module') }}列表</h3>
 	</div>
 
-    <form id="delete-form" action="{{ route($model . '.delete') }}" method="post">
-    	@csrf
-        @method('delete')
-
+	@can($model . '.delete')
+	    <form id="delete-form" action="{{ route($model . '.delete') }}" method="post">
+	    	@csrf
+	        @method('delete')
+	@endcan
 		<div class="card-body">
 			<table id="itemsTable" class="table table-bordered table-striped datatable">
 				<thead>
 					<tr>
 						<th scope="col"></th>
-						<th scope="col" class="all">
-                            <div class="form-check">
-                                <input type="checkbox" id="allItems" name="allItems" value="all">
-                            </div>
-                        </th>
+						@can($model . '.delete')
+							<th scope="col" class="all">
+	                            <div class="form-check">
+	                                <input type="checkbox" id="allItems" name="allItems" value="all">
+	                            </div>
+	                        </th>
+	                    @endcan
 						@foreach ($components as $component)
 							@if (!empty($component['list']))
 								<th scope="col" class="{{ isset($component['responsive']) ? $component['responsive'] : 'desktop' }}">{{ __($model . '.' . $component['field']) }}</th>
@@ -29,11 +32,13 @@
 					@foreach ($items as $item)
 						<tr>
 							<td></td>
-							<td>
-                                <div class="form-check">
-                                    <input type="checkbox" name="items[]" value="{{ $item->id }}">
-                                </div>
-                            </td>
+							@can($model . '.delete')
+								<td>
+	                                <div class="form-check">
+	                                    <input type="checkbox" name="items[]" value="{{ $item->id }}">
+	                                </div>
+	                            </td>
+	                        @endcan
 							@foreach ($components as $component)
 								@if (!empty($component['list']))
 									<td>
@@ -54,33 +59,43 @@
 								@endif
 							@endforeach
 	                        <td>
-	                            <a href="{{ route($model . '.edit', $item->getKey()) }}" class="btn btn-info btn-flat btn-sm" title="编辑">
-	                                <i class="icon fa fa-edit"></i> 编辑
-	                            </a>
+	                        	@can($model . '.edit')
+		                            <a href="{{ route($model . '.edit', $item->getKey()) }}" class="btn btn-info btn-flat btn-sm" title="编辑">
+		                                <i class="icon fa fa-edit"></i> 编辑
+		                            </a>
+		                        @endcan
+								
+	                        	@can($model . '.reset')
+		                            @if (config('components.' . $model . '.reset'))
+								    	<a href="{{ route('password.reset', $item->getKey()) }}" class="btn btn-secondary btn-flat btn-sm" title="重置密码">
+									        <i class="icon fa fa-key"></i> 重置密码
+									    </a>
+									@endif
+								@endcan
 
-	                            @if (config('components.' . $model . '.reset'))
-							    	<a href="{{ route('password.reset', $item->getKey()) }}" class="btn btn-secondary btn-flat btn-sm" title="重置密码">
-								        <i class="icon fa fa-key"></i> 重置密码
-								    </a>
-								@endif
+	                        	@can($model . '.assign')
+									@if (config('components.' . $model . '.assign'))
+								    	<a href="{{ route('role.permission', $item->getKey()) }}" class="btn btn-warning btn-flat btn-sm" title="分配权限">
+									        <i class="icon fa fa-key"></i> 分配权限
+									    </a>
+									@endif
+								@endcan
 
-								@if (config('components.' . $model . '.assign'))
-							    	<a href="{{ route('role.permission', $item->getKey()) }}" class="btn btn-warning btn-flat btn-sm" title="分配权限">
-								        <i class="icon fa fa-key"></i> 分配权限
-								    </a>
-								@endif
+	                        	@can($model . '.audit')
+									@if (config('components.' . $model . '.audit'))
+								    	<a href="{{ route('marker.audit', $item->getKey()) }}" class="btn btn-success btn-flat btn-sm" title="审核通过">
+									        <i class="icon fa fa-unlock"></i> 审核通过
+									    </a>
+									@endif
+								@endcan
 
-								@if (config('components.' . $model . '.audit'))
-							    	<a href="{{ route('marker.audit', $item->getKey()) }}" class="btn btn-success btn-flat btn-sm" title="审核通过">
-								        <i class="icon fa fa-unlock"></i> 审核通过
-								    </a>
-								@endif
-
-								@if (config('components.' . $model . '.upload'))
-							    	<a href="{{ route('document.upload', $item->getKey()) }}" class="btn btn-primary btn-flat btn-sm" title="上传材料">
-								        <i class="icon fa fa-upload"></i> 上传材料
-								    </a>
-								@endif
+	                        	@can($model . '.upload')
+									@if (config('components.' . $model . '.upload'))
+								    	<a href="{{ route('document.upload', $item->getKey()) }}" class="btn btn-primary btn-flat btn-sm" title="上传材料">
+									        <i class="icon fa fa-upload"></i> 上传材料
+									    </a>
+									@endif
+								@endcan
 	                        </td>
 						</tr>
 					@endforeach
@@ -90,16 +105,20 @@
 		
 		<div class="card-footer">
 			<div class="row">
-				<div class="col">
-			        <button type="submit" class="btn btn-danger" onclick="return window.confirm('请问确定要删除这些{{ __($model . '.module') }}吗？')">
-			            <i class="icon fa fa-trash"></i> 删除所选
-			        </button>
-			    </div>
-			    <div class="col text-right">
-			    	<a href="{{ route($model . '.create') }}" class="btn btn-success">
-			    		<i class="icon fa fa-plus"></i> 创建{{ __($model . '.module') ?: '' }}
-			    	</a>
-			    </div>
+				@can($model . '.delete')
+					<div class="col">
+				        <button type="submit" class="btn btn-danger" onclick="return window.confirm('请问确定要删除这些{{ __($model . '.module') }}吗？')">
+				            <i class="icon fa fa-trash"></i> 删除所选
+				        </button>
+				    </div>
+				@endcan
+				@can($model . '.create')
+				    <div class="col text-right">
+				    	<a href="{{ route($model . '.create') }}" class="btn btn-success">
+				    		<i class="icon fa fa-plus"></i> 创建{{ __($model . '.module') ?: '' }}
+				    	</a>
+				    </div>
+				@endcan
 			</div>
 		</div>
 	</form>
