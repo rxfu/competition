@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Entities\User;
+use Cache;
 
 class UserRepository extends Repository
 {
@@ -11,11 +12,27 @@ class UserRepository extends Repository
         $this->object = $user;
     }
 
+    public function get($id, $trashed = false)
+    {
+        try {
+            if ($trashed) {
+                return $this->object->with('role.permissions')->withTrashed()->findOrFail($id);
+            }
+        
+            return $this->object->findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            throw new InternalException($this->getModel() . ': ' . $id . ' 对象不存在', $this->getObject(), 'get', $e);
+        }
+    }
+
     public function hasPermission($id, $slug)
     {
-        $user = $this->get($id);
+        $permissions = Cache::rememberForever('user.permissions', function () use ($id) {
+            $user = $this->get($id);
+            return $user->role->permissions;
+        });
 
-        foreach ($user->role->permissions as $permission) {
+        foreach ($permissions as $permission) {
             if ($slug === $permission->slug) {
                 return true;
             }

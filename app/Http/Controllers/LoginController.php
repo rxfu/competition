@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Setting;
 use App\Exceptions\InvalidRequestException;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
@@ -73,7 +74,15 @@ class LoginController extends Controller
         $user = $this->service->getUser($request->input('username'));
         if ($user) {
             if (($user->role_id === config('setting.marker')) && (!$user->is_passed)) {
-                return back()->withDanger('登录失败，您的身份未审核')->withInput();
+                return back()->withWarning('登录失败，您的身份未审核')->withInput();
+            }
+
+            if ($user->role_id === config('setting.manager')) {
+                $exists = Setting::where('begin_at', '<=', now())->where('end_at', '>=', now())->exists();
+
+                if (!$exists) {
+                    return back()->withWarning('登录失败，现在系统已关闭')->withInput();
+                }
             }
         }
 

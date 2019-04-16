@@ -8,7 +8,7 @@
 				@elseif ('danger' == $status)
 					<i class="icon fa fa-ban"></i> 错误!
 				@elseif ('warning' == $status)
-					<i class="icon fa fa-warning"></i> 警告!
+					<i class="icon fa fa-exclamation"></i> 警告!
 				@elseif ('info' == $status)
 					<i class="icon fa fa-info"></i> 消息!
 				@endif

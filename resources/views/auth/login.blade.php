@@ -22,7 +22,7 @@
             <form action="{{ route('login') }}" method="post">
                 @csrf
                 <div class="input-group mb-3">
-                    <input type="text" id="username" name="username" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" placeholder="用户名" required>
+                    <input type="text" id="username" name="username" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" placeholder="用户名" required autofocus>
                     <div class="input-group-append">
                         <span class="input-group-text">
                             <i class="fas fa-user"></i>
