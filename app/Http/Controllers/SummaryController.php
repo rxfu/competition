@@ -19,14 +19,14 @@ class SummaryController extends Controller
     {
         $items = $this->service->getAllPlayers();
 
-        return view('pages.summary-player', compact('items'));
+        return view('pages.list', compact('items'));
     }
 
     public function marker()
     {
         $items = $this->service->getAllMarkers();
 
-        return view('pages.summary-marker', compact('items'));
+        return view('pages.list', compact('items'));
     }
 
     public function rank()

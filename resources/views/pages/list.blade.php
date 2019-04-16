@@ -2,8 +2,9 @@
 
 @section('content')
 @php
-    $model = request()->segment(1);
-    $components = config('components.' . $model)
+    $action = request()->segment(2);
+    $model = is_null($action) ? request()->segment(1) : request()->segment(1) . '.' . $action;
+    $components = config('components.' . $model);
 @endphp
 <div class="row">
 	<div class="col-sm-12">
@@ -35,9 +36,9 @@
 <script src="{{ asset('vendor/datatables/buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/buttons/js/buttons.colVis.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="{{ asset('vendor/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('vendor/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('vendor/pdfmake/vfs_fonts.js') }}"></script>
 <script>
 $(function() {
 	$('.datatable').DataTable({
