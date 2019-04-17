@@ -25,10 +25,6 @@ return [
                     'title' => '选手列表',
                     'route' => 'player.index',
                 ],
-                'document' => [
-                    'title' => '上传材料',
-                    'route' => 'document.upload',
-                ],
             ],
         ],
         'marker' => [
