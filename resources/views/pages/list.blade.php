@@ -73,7 +73,7 @@ $(function() {
         }],
         'order': [],
         'dom': 'Bfrtip',
-        'buttons': ['excel', 'pdf', 'print', 'colvis'],
+        'buttons': ['excel', 'print', 'colvis'],
     });
 
     $('#allItems').change(function () {
