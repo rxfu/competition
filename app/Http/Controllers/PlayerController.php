@@ -99,4 +99,11 @@ class PlayerController extends BaseController
 
         return parent::update($request, $id);
     }
+
+    public function upload($id)
+    {
+        $item = $this->service->get($id);
+
+        return view('pages.document', compact('item'));
+    }
 }

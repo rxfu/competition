@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\RoleRepository;
+use Cache;
 
 class RoleService extends Service
 {
@@ -33,6 +34,9 @@ class RoleService extends Service
             $object = $this->repository->get($id);
 
             $object->permissions()->sync($permissions);
+
+            Cache::forget('permissions');
+            Cache::forget('user.permissions');
         } catch (QueryException $e) {
             throw new InternalException('角色分配权限失败', $this->getObject(), 'insert', $e);
         }

@@ -28,6 +28,7 @@
 	                    <label for="syllabus" class="col-sm-3 col-form-label">教学大纲</label>
 	                    <div class="col-md-9">
 	                    	<input type="file" name="syllabus" id="syllabus" class="form-control-file{{ $errors->has('syllabus') ? ' is_invalid' : '' }}">
+	                    	<small class="form-text text-muted">要求文件类型为pdf</small>
 	                    	@if (!empty($item->document->syllabus))
 	                    		<small class="form-text text-muted">
 	                    			<a class="pdf" href="{{ asset('js/vendor/pdfjs/web/viewer.html?file=/' . $item->document->syllabus) }}" title="教学大纲">教学大纲</a>
@@ -39,6 +40,7 @@
 	                    <label for="design" class="col-sm-3 col-form-label">教学设计</label>
 	                    <div class="col-md-9">
 	                    	<input type="file" name="design" id="design" class="form-control-file{{ $errors->has('design') ? ' is_invalid' : '' }}">
+	                    	<small class="form-text text-muted">要求文件类型为pdf</small>
 	                    	@if (!empty($item->document->design))
 	                    		<small class="form-text text-muted">
 	                    			<a href="{{ asset($item->document->design) }}" title="教学设计">教学设计</a>
@@ -47,23 +49,25 @@
 	                    </div>
 	                </div>
 	                <div class="form-group row">
-	                    <label for="section" class="col-sm-3 col-form-label">教学节段</label>
+	                    <label for="section" class="col-sm-3 col-form-label">教学节段PPT</label>
 	                    <div class="col-md-9">
 	                    	<input type="file" name="section" id="section" class="form-control-file{{ $errors->has('section') ? ' is_invalid' : '' }}">
+	                    	<small class="form-text text-muted">要求文件类型为zip或rar</small>
 	                    	@if (!empty($item->document->section))
 	                    		<small class="form-text text-muted">
-	                    			<a href="{{ asset($item->document->section) }}" title="教学节段">教学节段</a>
+	                    			<a href="{{ asset($item->document->section) }}" title="教学节段PPT">教学节段PPT</a>
 	                    		</small>
 	                    	@endif
 	                    </div>
 	                </div>
 	                <div class="form-group row">
-	                    <label for="catalog" class="col-sm-3 col-form-label">教学目录</label>
+	                    <label for="catalog" class="col-sm-3 col-form-label">教学节段目录</label>
 	                    <div class="col-md-9">
 	                    	<input type="file" name="catalog" id="catalog" class="form-control-file{{ $errors->has('catalog') ? ' is_invalid' : '' }}">
+	                    	<small class="form-text text-muted">要求文件类型为pdf</small>
 	                    	@if (!empty($item->document->catalog))
 	                    		<small class="form-text text-muted">
-	                    			<a href="{{ asset($item->document->catalog) }}" title="教学目录">教学目录</a>
+	                    			<a href="{{ asset($item->document->catalog) }}" title="教学节段目录">教学节段目录</a>
 	                    		</small>
 	                    	@endif
 	                    </div>

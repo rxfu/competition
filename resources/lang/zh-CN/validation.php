@@ -148,7 +148,11 @@ return [
         'username' => '用户名',
         'password' => '密码',
         'captcha' => '验证码',
-        'email' => 'Email',
+        'email' => '电子邮箱',
+        'syllabus' => '教学大纲',
+        'design' => '教学设计',
+        'section' => '教学节段PPT',
+        'catalog' => '教学节段目录',
     ],
 
 ];

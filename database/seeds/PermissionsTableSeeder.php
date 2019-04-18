@@ -294,6 +294,15 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'player.delete',
             'name' => '删除选手',
         ]);
+        Permission::create([
+            'slug' => 'player.upload',
+            'name' => '上传材料',
+        ]);
+
+        Permission::create([
+            'slug' => 'document.store',
+            'name' => '保存上传材料',
+        ]);
 
         Permission::create([
             'slug' => 'marker.index',
@@ -338,15 +347,6 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
             'slug' => 'marker.teaching',
             'name' => '课堂教学评分',
-        ]);
-
-        Permission::create([
-            'slug' => 'document.upload',
-            'name' => '上传材料',
-        ]);
-        Permission::create([
-            'slug' => 'document.store',
-            'name' => '保存上传材料',
         ]);
 
         Permission::create([

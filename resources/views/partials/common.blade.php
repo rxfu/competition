@@ -89,9 +89,9 @@
 									@endif
 								@endcan
 
-	                        	@can('document.upload')
+	                        	@can('player.upload')
 									@if (config('components.' . $model . '.upload'))
-								    	<a href="{{ route('document.upload', $item->getKey()) }}" class="btn btn-primary btn-flat btn-sm" title="上传材料">
+								    	<a href="{{ route('player.upload', $item->getKey()) }}" class="btn btn-primary btn-flat btn-sm" title="上传材料">
 									        <i class="icon fa fa-upload"></i> 上传材料
 									    </a>
 									@endif

@@ -29,7 +29,7 @@
 		<li class="nav-item d-done d-sm-inline-block">
 			<a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
 				<i class="nav-icon fas fa-sign-out-alt"></i>
-				登出系统
+				退出系统
 			</a>
 
 			<form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none">

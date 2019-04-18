@@ -31,11 +31,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('teaching', 'MarkerController@listTeaching')->name('list-teaching');
             Route::get('{id}/design', 'MarkerController@design')->name('design');
             Route::get('{id}/teaching', 'MarkerController@teaching')->name('teaching');
-            Route::post('{id}/{type}/mark', 'MarkerController@mark')->name('mark');
         });
 
-        Route::name('document.')->prefix('document')->group(function () {
-            Route::get('registration/{id?}', 'DocumentController@upload')->name('upload');
+        Route::name('player.')->prefix('player')->group(function () {
+            Route::get('upload/{id}', 'PlayerController@upload')->name('upload');
         });
 
         foreach (['user', 'role', 'permission', 'group', 'gender', 'department', 'subject', 'education', 'degree', 'document', 'review', 'setting', 'player', 'marker'] as $endpoint) {
