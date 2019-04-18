@@ -27,8 +27,9 @@ class UserRepository extends Repository
 
     public function hasPermission($id, $slug)
     {
-        $permissions = Cache::rememberForever('user.permissions', function () use ($id) {
-            $user = $this->get($id);
+        $user = $this->get($id);
+
+        $permissions = Cache::rememberForever($user->role->slug . '.permissions', function () use ($user) {
             return $user->role->permissions;
         });
 

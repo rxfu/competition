@@ -36,7 +36,7 @@ class RoleService extends Service
             $object->permissions()->sync($permissions);
 
             Cache::forget('permissions');
-            Cache::forget('user.permissions');
+            Cache::forget($object->slug . '.permissions');
         } catch (QueryException $e) {
             throw new InternalException('角色分配权限失败', $this->getObject(), 'insert', $e);
         }

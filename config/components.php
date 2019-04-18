@@ -147,6 +147,14 @@ return [
     'role' => [
         'assign' => true,
         [
+            'field' => 'slug',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'type' => 'text',
+            'required' => true,
+        ],
+        [
             'field' => 'name',
             'list' => true,
             'create' => true,
