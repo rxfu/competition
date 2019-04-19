@@ -112,20 +112,18 @@
 				        </button>
 				    </div>
 				@endcan
-				@can($model . '.import')
-				    <div class="col text-right">
+			    <div class="col text-right">
+			    	@can($model . '.upload')
 				    	<a href="{{ route($model . '.upload') }}" class="btn btn-info">
-				    		<i class="icon fa fa-import"></i> 导入{{ __($model . '.module') ?: '' }}
+				    		<i class="icon fa fa-upload"></i> 导入{{ __($model . '.module') ?: '' }}
 				    	</a>
-				    </div>
-				@endcan
-				@can($model . '.create')
-				    <div class="col text-right">
+				    @endcan
+					@can($model . '.create')
 				    	<a href="{{ route($model . '.create') }}" class="btn btn-success">
 				    		<i class="icon fa fa-plus"></i> 创建{{ __($model . '.module') ?: '' }}
 				    	</a>
-				    </div>
-				@endcan
+					@endcan
+			    </div>
 			</div>
 		</div>
 	</form>

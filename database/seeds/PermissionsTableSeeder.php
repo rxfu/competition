@@ -36,6 +36,10 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'user.delete',
             'name' => '删除用户',
         ]);
+        Permission::create([
+            'slug' => 'user.upload',
+            'name' => '导入用户',
+        ]);
 
         Permission::create([
             'slug' => 'role.index',

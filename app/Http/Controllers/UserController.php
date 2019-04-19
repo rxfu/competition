@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\DepartmentService;
 use App\Services\RoleService;
 use App\Services\UserService;
+use Illuminate\Http\Request;
 
 class UserController extends BaseController
 {
@@ -59,7 +60,7 @@ class UserController extends BaseController
 
     public function import(Request $request)
     {
-        $this->service->import($request->file('upload'));
+        $this->service->import($request->file('upfile'));
 
         return redirect()->route('user.index')->withSuccess('导入用户成功');
     }

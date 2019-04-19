@@ -90,11 +90,13 @@ class UserService extends Service
         return $reviews;
     }
 
-    public function upload($file)
+    public function import($file)
     {
         try {
             if (!is_null($file)) {
                 Excel::import(new UserImport, $file);
+            } else {
+                throw new InvalidRequestException('上传文件出错', $this->repository->getObject(), 'upload');
             }
         } catch (FileNotFoundException $e) {
             throw new InternalException('上传文件不存在', $this->repository->getObject(), 'upload', $e);

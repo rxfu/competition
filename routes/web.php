@@ -44,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::name('user.')->prefix('user')->group(function () {
             Route::get('upload', 'UserController@showUploadForm')->name('upload');
-            Route::post('upload', 'UserController@upload')->name('import');
+            Route::post('import', 'UserController@import')->name('import');
         });
 
         foreach (['user', 'role', 'permission', 'group', 'gender', 'department', 'subject', 'education', 'degree', 'document', 'review', 'setting', 'player', 'marker'] as $endpoint) {
