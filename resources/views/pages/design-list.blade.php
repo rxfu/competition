@@ -30,7 +30,7 @@
                                 <a href="{{ asset('vendor/pdfjs/web/viewer.html?file=' . asset($item->document->design)) }}">教学设计</a>
                             </td>
                             <td>
-                                <input type="text" name="scores[]" placeholder="{{ $item->name }}教学设计得分" class="form-control" required>
+                                <input type="text" name="scores[]" value="{{ optional($item->review)->design_score }}" placeholder="教学设计得分" class="form-control" required>
                             </td>
                         </tr>
                     @endforeach
