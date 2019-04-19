@@ -16,7 +16,7 @@
                     <table id="itemsTable" class="table table-bordered table-striped datatable">
                         <thead>
                             <tr>
-                                <th scope="col">编号</th>
+                                <th scope="col">抽签号</th>
                                 <th scope="col">姓名</th>
                                 <th scope="col">得分</th>
                             </tr>
@@ -24,9 +24,9 @@
                         <tbody>
                             @foreach ($rank['items'] as $item)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->seq }}</td>
                                     <td>
-                                        <a href="{{ route('summary.detail', $item->id) }}"" title="{{ $item->name }}">{{ $item->name }}</a>
+                                        <a href="{{ route('summary.detail', $item->id) }}" title="{{ $item->name }}">{{ $item->name }}</a>
                                     </td>
                                     <td>{{ $item->total }}</td>
                                 </tr>

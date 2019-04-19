@@ -64,6 +64,6 @@ class UserRepository extends Repository
 
     public function getAllPlayersByGroup($id)
     {
-        return $this->object->whereRoleId(config('setting.player'))->whereGroupId($id)->get();
+        return $this->object->with('group', 'document')->whereRoleId(config('setting.player'))->whereGroupId($id)->get();
     }
 }

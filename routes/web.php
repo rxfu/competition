@@ -37,6 +37,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('upload/{id}', 'PlayerController@upload')->name('upload');
         });
 
+        Route::name('review.')->prefix('review')->group(function () {
+            Route::post('design', 'ReviewController@design')->name('design');
+            Route::post('teaching', 'ReviewController@teaching')->name('teaching');
+        });
+
         foreach (['user', 'role', 'permission', 'group', 'gender', 'department', 'subject', 'education', 'degree', 'document', 'review', 'setting', 'player', 'marker'] as $endpoint) {
             $controller = Str::ucfirst($endpoint) . 'Controller';
 

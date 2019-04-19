@@ -11,8 +11,7 @@ class ReviewController extends BaseController
     protected $module = 'review';
 
     protected $storeRules = [
-        'design_score' => 'numeric',
-        'live_score' => 'numeric',
+        'scores[]' => 'required|numeric',
     ];
 
     public function __construct(ReviewService $reviewService)
@@ -22,15 +21,22 @@ class ReviewController extends BaseController
         $this->updateRules = $this->storeRules;
     }
 
-    public function store(Request $request)
+    public function design(Request $request)
     {
-        $request->offsetSet('year', date('Y'));
-        $request->offsetSet('marker_id', Auth::id());
-
         $this->validate($request, $this->storeRules);
 
-        $this->service->store($request->all());
+        $data = [
+            'year' => date('Y'),
+            'marker_id' => Auth::id(),
+        ];
 
-        return redirect()->route('marker.list-design')->withSuccess('评分成功');
+        foreach ($request->input('scores') as $id => $score) {
+            $data['player_id'] = $id;
+            $data['design_score'] = $score;
+            
+            $this->service->store($data);
+        }
+
+        return redirect()->route('marker.list-design')->withSuccess(Auth::user()->name . '评分成功');
     }
 }
