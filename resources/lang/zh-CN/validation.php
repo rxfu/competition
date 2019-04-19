@@ -149,6 +149,7 @@ return [
         'password' => '密码',
         'captcha' => '验证码',
         'email' => '电子邮箱',
+        'idnumber' => '身份证号',
         'syllabus' => '教学大纲',
         'design' => '教学设计',
         'section' => '教学节段PPT',

@@ -11,10 +11,10 @@ class DocumentController extends BaseController
     protected $module = 'document';
 
     protected $storeRules = [
-        'syllabus' => 'file|mimes:pdf',
-        'design' => 'file|mimes:pdf',
-        'section' => 'file|mimes:zip,rar',
-        'catalog' => 'file|mimes:pdf',
+        'syllabus' => 'required|file|mimes:pdf',
+        'design' => 'required|file|mimes:pdf',
+        'section' => 'required|file|mimes:zip,rar',
+        'catalog' => 'required|file|mimes:pdf',
     ];
 
     private $userService;
