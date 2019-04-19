@@ -112,6 +112,13 @@
 				        </button>
 				    </div>
 				@endcan
+				@can($model . '.import')
+				    <div class="col text-right">
+				    	<a href="{{ route($model . '.upload') }}" class="btn btn-info">
+				    		<i class="icon fa fa-import"></i> 导入{{ __($model . '.module') ?: '' }}
+				    	</a>
+				    </div>
+				@endcan
 				@can($model . '.create')
 				    <div class="col text-right">
 				    	<a href="{{ route($model . '.create') }}" class="btn btn-success">

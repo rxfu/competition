@@ -42,10 +42,15 @@ Route::middleware(['auth'])->group(function () {
             Route::post('teaching', 'ReviewController@teaching')->name('teaching');
         });
 
+        Route::name('user.')->prefix('user')->group(function () {
+            Route::get('upload', 'UserController@showUploadForm')->name('upload');
+            Route::post('upload', 'UserController@upload')->name('import');
+        });
+
         foreach (['user', 'role', 'permission', 'group', 'gender', 'department', 'subject', 'education', 'degree', 'document', 'review', 'setting', 'player', 'marker'] as $endpoint) {
             $controller = Str::ucfirst($endpoint) . 'Controller';
 
-            Route::name($endpoint . '.')->prefix($endpoint)->group(function () use ($endpoint, $controller) {
+            Route::name($endpoint . '.')->prefix($endpoint)->group(function () use ($controller) {
                 Route::get('/', $controller . '@index')->name('index');
                 Route::get('registration', $controller . '@create')->name('create');
                 Route::post('/', $controller . '@store')->name('store');

@@ -51,4 +51,16 @@ class UserController extends BaseController
         
         return parent::edit($id)->with('roles', $roles)->with('departments', $departments);
     }
+
+    public function showUploadForm()
+    {
+        return view('pages.upload');
+    }
+
+    public function import(Request $request)
+    {
+        $this->service->import($request->file('upload'));
+
+        return redirect()->route('user.index')->withSuccess('导入用户成功');
+    }
 }

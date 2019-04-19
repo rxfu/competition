@@ -5,9 +5,12 @@ namespace App\Services;
 use App\Entities\Review;
 use App\Exceptions\InternalException;
 use App\Exceptions\InvalidRequestException;
+use App\Imports\UserImport;
 use App\Repositories\UserRepository;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserService extends Service
 {
@@ -85,5 +88,16 @@ class UserService extends Service
         ->get();
 
         return $reviews;
+    }
+
+    public function upload($file)
+    {
+        try {
+            if (!is_null($file)) {
+                Excel::import(new UserImport, $file);
+            }
+        } catch (FileNotFoundException $e) {
+            throw new InternalException('上传文件不存在', $this->repository->getObject(), 'upload', $e);
+        }
     }
 }
