@@ -3,9 +3,12 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Laracasts\Presenter\PresentableTrait;
 
 class Review extends Model
 {
+    use PresentableTrait;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -14,6 +17,8 @@ class Review extends Model
     protected $fillable = [
         'year', 'marker_id', 'player_id', 'design_score', 'live_score',
     ];
+
+    protected $presenter = 'App\Presenters\ReviewPresenter';
 
     public function marker()
     {

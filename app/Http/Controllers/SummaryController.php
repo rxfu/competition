@@ -44,4 +44,11 @@ class SummaryController extends Controller
 
         return view('pages.summary-rank', compact('ranks'));
     }
+
+    public function detail($id)
+    {
+        $items = $this->service->getAllByPlayers($id);
+
+        return view('pages.summary-detail', compact('items'));
+    }
 }

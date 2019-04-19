@@ -25,7 +25,9 @@
                             @foreach ($rank['items'] as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->name }}</td>
+                                    <td>
+                                        <a href="{{ route('summary.detail', $item->id) }}"" title="{{ $item->name }}">{{ $item->name }}</a>
+                                    </td>
                                     <td>{{ $item->total }}</td>
                                 </tr>
                             @endforeach

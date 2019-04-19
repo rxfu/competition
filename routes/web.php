@@ -67,6 +67,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('player', 'SummaryController@player')->name('player');
             Route::get('marker', 'SummaryController@marker')->name('marker');
             Route::get('rank', 'SummaryController@rank')->name('rank');
+            Route::get('detail/{id}', 'SummaryController@detail')->name('detail');
         });
     });
 });

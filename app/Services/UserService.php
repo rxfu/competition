@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Entities\Review;
 use App\Exceptions\InternalException;
 use App\Exceptions\InvalidRequestException;
 use App\Repositories\UserRepository;
@@ -74,5 +75,15 @@ class UserService extends Service
     public function getUser($username)
     {
         return $this->repository->getObject()->whereUsername($username)->first();
+    }
+
+    public function getAllByPlayers($id)
+    {
+        $reviews = Review::with('marker', 'player')
+        ->wherePlayerId($id)
+        ->where('year', '=', date('Y'))
+        ->get();
+
+        return $reviews;
     }
 }
