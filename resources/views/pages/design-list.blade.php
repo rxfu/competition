@@ -8,7 +8,6 @@
 
     <form role="form" id="mark-form" name="mark-form" method="post" action="{{ route('review.design') }}">
         @csrf
-        @method('put')
         <div class="card-body">
             <table id="itemsTable" class="table table-bordered table-striped">
                 <thead>
@@ -24,13 +23,17 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>
-                                <a href="{{ asset('vendor/pdfjs/web/viewer.html?file=' . asset($item->document->syllabus)) }}">教学大纲</a>
+                                @if (!is_null($item->document))
+                                    <a href="{{ asset('vendor/pdfjs/web/viewer.html?file=' . asset($item->document->syllabus)) }}">教学大纲</a>
+                                @endif
                             </td>
                             <td>
-                                <a href="{{ asset('vendor/pdfjs/web/viewer.html?file=' . asset($item->document->design)) }}">教学设计</a>
+                                @if (!is_null($item->document))
+                                    <a href="{{ asset('vendor/pdfjs/web/viewer.html?file=' . asset($item->document->design)) }}">教学设计</a>
+                                @endif
                             </td>
                             <td>
-                                <input type="text" name="scores[]" value="{{ optional($item->review)->design_score }}" placeholder="教学设计得分" class="form-control" required>
+                                <input type="text" name="scores[{{ $item->id }}]" value="{{ optional($item->review)->design_score }}" placeholder="教学设计得分" class="form-control" required>
                             </td>
                         </tr>
                     @endforeach

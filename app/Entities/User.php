@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use Auth;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -110,6 +111,11 @@ class User extends Authenticatable
     public function playerReviews()
     {
         return $this->hasMany('App\Entities\Review', 'player_id');
+    }
+
+    public function review()
+    {
+        return $this->hasOne('App\Entities\Review', 'player_id')->whereMarkerId(Auth::id());
     }
 
     public function getTotalAttribute()

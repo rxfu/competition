@@ -354,8 +354,12 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
-            'slug' => 'review.store',
-            'name' => '比赛评分',
+            'slug' => 'review.design',
+            'name' => '保存教学设计评分',
+        ]);
+        Permission::create([
+            'slug' => 'review.teaching',
+            'name' => '保存课堂教学评分',
         ]);
 
         Permission::create([

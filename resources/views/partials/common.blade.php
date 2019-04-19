@@ -113,9 +113,9 @@
 				    </div>
 				@endcan
 			    <div class="col text-right">
-			    	@can($model . '.upload')
-				    	<a href="{{ route($model . '.upload') }}" class="btn btn-info">
-				    		<i class="icon fa fa-upload"></i> 导入{{ __($model . '.module') ?: '' }}
+			    	@can('user.upload')
+				    	<a href="{{ route('user.upload') }}" class="btn btn-info">
+				    		<i class="icon fa fa-upload"></i> 导入{{ __('user.module') ?: '' }}
 				    	</a>
 				    @endcan
 					@can($model . '.create')

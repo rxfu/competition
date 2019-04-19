@@ -6,28 +6,37 @@
         <h3 class="card-title">选手列表</h3>
     </div>
 
-    <div class="card-body">
-        <table id="itemsTable" class="table table-bordered table-striped datatable">
-            <thead>
-                <tr>
-                    <th scope="col">选手编号</th>
-                    <th scope="col">操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($items as $item)
+    <form role="form" id="mark-form" name="mark-form" method="post" action="{{ route('review.teaching') }}">
+        @csrf
+        <div class="card-body">
+            <table id="itemsTable" class="table table-bordered table-striped datatable">
+                <thead>
                     <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>
-                            <a href="{{ route('marker.teaching', $item->getKey()) }}" class="btn btn-success btn-flat btn-sm" title="评分">
-                                <i class="icon fa fa-marker"></i> 评分
-                            </a>
-                        </td>
+                        <th scope="col">选手编号</th>
+                        <th scope="col">得分</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach ($items as $item)
+                        <tr>
+                            <td>{{ $item->seq }}</td>
+                            <td>
+                                <input type="text" name="scores[{{ $item->id }}]" value="{{ optional($item->review)->live_score }}" placeholder="课堂教学得分" class="form-control" required>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-footer">
+            <div class="row justify-content-sm-center">
+                <button type="submit" class="btn btn-success">
+                    <i class="icon fa fa-marker"></i> 提交评分
+                </button>
+            </div>
+        </div>
+    </form>
 </div>
 
 @stop
