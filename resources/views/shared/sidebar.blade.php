@@ -25,35 +25,37 @@
                 @foreach (config('menu.sidebar') as $item)
                     @if (is_array($item))
                         @isset($item['children'])
-                            <li class="nav-item has-treeview{{ in_array(request()->route()->getName(), array_column($item['children'], 'route')) || in_array(request()->segment(1) . '.index', array_column($item['children'], 'route')) ? ' menu-open' : '' }}">
-                                <a href="{{ isset($item['route']) ? route($item['route']) : '#' }}" class="nav-link{{ isset($item['route']) && ($item['route'] === request()->route()->getName() || $item['route'] === request()->segment(1) . '.index') || in_array(request()->route()->getName(), array_column($item['children'], 'route')) || in_array(request()->segment(1) . '.index', array_column($item['children'], 'route')) ? ' active' : '' }}">
-                                    @isset ($item['icon'])
-                                        <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
-                                    @endisset
-                                    <p>
-                                        {{ $item['title'] ?? '无标题' }}
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    @foreach ($item['children'] as $subitem)
-                                        @can($subitem['route'])
-                                            <li class="nav-item">
-                                                <a href="{{ isset($subitem['route']) ? route($subitem['route']) : '#' }}" class="nav-link{{ isset($subitem['route']) && ($subitem['route'] === request()->route()->getName() || $subitem['route'] === request()->segment(1) . '.index') ? ' active' : '' }}">
-                                                    @isset ($subitem['icon'])               
-                                                        <i class="nav-icon fas fa-{{ $subitem['icon'] }}"></i>
-                                                    @else
-                                                        <i class="nav-icon far fa-circle"></i>
-                                                    @endisset
-                                                    <p>{{ $subitem['title'] ?? '无标题' }}</p>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                    @endforeach
-                                </ul>
-                            </li>
+                            @canany($item['can'])
+                                <li class="nav-item has-treeview{{ in_array(request()->route()->getName(), array_column($item['children'], 'route')) || in_array(request()->segment(1) . '.index', array_column($item['children'], 'route')) ? ' menu-open' : '' }}">
+                                    <a href="{{ isset($item['route']) ? route($item['route']) : '#' }}" class="nav-link{{ isset($item['route']) && ($item['route'] === request()->route()->getName() || $item['route'] === request()->segment(1) . '.index') || in_array(request()->route()->getName(), array_column($item['children'], 'route')) || in_array(request()->segment(1) . '.index', array_column($item['children'], 'route')) ? ' active' : '' }}">
+                                        @isset ($item['icon'])
+                                            <i class="nav-icon fas fa-{{ $item['icon'] }}"></i>
+                                        @endisset
+                                        <p>
+                                            {{ $item['title'] ?? '无标题' }}
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        @foreach ($item['children'] as $subitem)
+                                            @canany($subitem['can'])
+                                                <li class="nav-item">
+                                                    <a href="{{ isset($subitem['route']) ? route($subitem['route']) : '#' }}" class="nav-link{{ isset($subitem['route']) && ($subitem['route'] === request()->route()->getName() || $subitem['route'] === request()->segment(1) . '.index') ? ' active' : '' }}">
+                                                        @isset ($subitem['icon'])               
+                                                            <i class="nav-icon fas fa-{{ $subitem['icon'] }}"></i>
+                                                        @else
+                                                            <i class="nav-icon far fa-circle"></i>
+                                                        @endisset
+                                                        <p>{{ $subitem['title'] ?? '无标题' }}</p>
+                                                    </a>
+                                                </li>
+                                            @endcanany
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endcanany
                         @else
-                            @can($item['route'])
+                            @canany($item['can'])
                                 <li class="nav-item">
                                     <a href="{{ isset($item['route']) ? route($item['route']) : '#' }}" class="nav-link{{ isset($item['route']) && ($item['route'] === request()->route()->getName() || $item['route'] === request()->segment(1) . '.index') ? ' active' : '' }}">
                                         @isset ($item['icon'])
@@ -62,7 +64,7 @@
                                         <p>{{ $item['title'] ?? '无标题' }}</p>
                                     </a>
                                 </li>
-                            @endcan
+                            @endcanany
                         @endisset
                     @else
                         <li class="nav-header">{{ $item }}</li>

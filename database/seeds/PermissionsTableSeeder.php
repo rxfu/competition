@@ -337,29 +337,21 @@ class PermissionsTableSeeder extends Seeder
             'name' => '审核评委',
         ]);
         Permission::create([
-            'slug' => 'marker.list-design',
+            'slug' => 'marker.design',
             'name' => '浏览教学设计',
         ]);
         Permission::create([
-            'slug' => 'marker.list-teaching',
-            'name' => '浏览课堂教学',
-        ]);
-        Permission::create([
-            'slug' => 'marker.design',
-            'name' => '教学设计评分',
-        ]);
-        Permission::create([
             'slug' => 'marker.teaching',
-            'name' => '课堂教学评分',
+            'name' => '浏览课堂教学',
         ]);
 
         Permission::create([
             'slug' => 'review.design',
-            'name' => '保存教学设计评分',
+            'name' => '教学设计评分',
         ]);
         Permission::create([
             'slug' => 'review.teaching',
-            'name' => '保存课堂教学评分',
+            'name' => '课堂教学评分',
         ]);
 
         Permission::create([

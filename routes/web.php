@@ -27,10 +27,8 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['permission'])->group(function () {
         Route::name('marker.')->prefix('marker')->group(function () {
             Route::get('{id}/audit', 'MarkerController@audit')->name('audit');
-            Route::get('design', 'MarkerController@listDesign')->name('list-design');
-            Route::get('teaching', 'MarkerController@listTeaching')->name('list-teaching');
-            Route::get('{id}/design', 'MarkerController@design')->name('design');
-            Route::get('{id}/teaching', 'MarkerController@teaching')->name('teaching');
+            Route::get('design', 'MarkerController@design')->name('design');
+            Route::get('teaching', 'MarkerController@teaching')->name('teaching');
         });
 
         Route::name('player.')->prefix('player')->group(function () {
