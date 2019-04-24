@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\DepartmentService;
 use App\Services\RoleService;
 use App\Services\UserService;
+use Auth;
 use Illuminate\Http\Request;
 
 class UserController extends BaseController
@@ -60,8 +61,31 @@ class UserController extends BaseController
 
     public function import(Request $request)
     {
-        $this->service->import($request->file('upfile'));
+        $this->service->import($request->file('upfile'), config('setting.manager'));
 
         return redirect()->route('user.index')->withSuccess('导入用户成功');
+    }
+
+    public function showConfirmForm($id)
+    {
+        $item = $this->service->get($id);
+
+        return view('pages.confirm', compact('item'));
+    }
+
+    public function confirm(Request $request, $id)
+    {
+        if ($request->isMethod('put')) {
+            $this->validate($request, [
+                'leader' => 'required',
+                'leader_phone' => 'required',
+            ]);
+    
+            $request->offsetSet('is_confirmed', true);
+    
+            $this->service->confirm($id, $request->all());
+    
+            return redirect()->route('home.dashboard')->withSuccess('用户' . Auth::user()->name . '信息已确认');
+        }
     }
 }

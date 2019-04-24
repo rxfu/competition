@@ -9,6 +9,14 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class UserImport implements ToModel, WithHeadingRow
 {
+    private $department;
+    private $role;
+
+    public function __construct($role, $department = null)
+    {
+        $this->role = $role;
+        $this->department = $department;
+    }
     /**
     * @param array $row
     *
@@ -18,10 +26,11 @@ class UserImport implements ToModel, WithHeadingRow
     {
         return new User([
             'username' => $row['username'],
-            'password' => Hash::make(config('setting.password')),
+            'password' => config('setting.password'),
             'name' => $row['name'],
-            'department_id' => $row['department'],
-            'role_id' => 1,
+            'department_id' => is_null($this->department) ? $row['department'] : $this->department,
+            'role_id' => $this->role,
+            'phone' => $row['username'],
         ]);
     }
 }

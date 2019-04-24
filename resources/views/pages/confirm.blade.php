@@ -7,17 +7,17 @@
 @endphp
 <div class="row justify-content-sm-center">
 	<div class="col-sm-8">
-		<div class="card card-info">
+		<div class="card card-warning">
 			<div class="card-header">
-				<h3 class="card-title">编辑{{ __($model . '.module') }}{{ $item->getKey() }}</h3>
+				<h3 class="card-title">确认{{ __($model . '.module') }}{{ $item->getKey() }}</h3>
 			</div>
 			
-		    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route($model . '.update', $item->getKey()) }}" enctype="multipart/form-data">
+		    <form role="form" id="confirm-form" name="confirm-form" method="post" action="{{ route($model . '.confirm', $item->getKey()) }}" enctype="multipart/form-data">
 		        @csrf
 		        @method('put')
 				<div class="card-body">
 					@foreach ($components as $component)
-						@if (!empty($component['edit']))
+						@if (!empty($component['confirm']))
 			                <div class="form-group row">
 			                    <label for="{{ $component['field'] }}" class="col-sm-3 col-form-label">{{ __($model . '.' . $component['field']) }}</label>
 			                    <div class="col-md-9">
@@ -48,11 +48,15 @@
 					                    	</div>
 						            	@endforeach
 						            @elseif ('select' === $component['type'])
-						            	<select name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="form-control{{ $errors->has($component['field']) ? ' is_invalid' : '' }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }}>
-						            		@foreach (${$component['collection']} as $collection)
-						            			<option value="{{ $collection->id }}"{{ old($component['field'], $item->{$component['field']}) == $collection->id ? ' selected' : '' }}>{{ $collection->name }}</option>
-						            		@endforeach
-						            	</select>
+						            	@if (!empty($component['readonly']) || !empty($component['disabled']))
+						            		<div class="form-control-plaintext">{{ optional($item->{$component['relation']})->name }}</div>
+						            	@else
+							            	<select name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="form-control{{ $errors->has($component['field']) ? ' is_invalid' : '' }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }}>
+							            		@foreach (${$component['collection']} as $collection)
+							            			<option value="{{ $collection->id }}"{{ old($component['field'], $item->{$component['field']}) == $collection->id ? ' selected' : '' }}>{{ $collection->name }}</option>
+							            		@endforeach
+							            	</select>
+							            @endif
 						            @elseif ('file' === $component['type'])
 				                    	<input type="file" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="form-control-file{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" value="{{ old($component['field'], $component['default'] ?? null) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }}>
 				                    	@if (!empty($item->{$component['field']}))
@@ -91,8 +95,8 @@
 
 				<div class="card-footer">
 					<div class="row justify-content-sm-center">
-				        <button type="submit" class="btn btn-info">
-				            <i class="icon fa fa-save"></i> 保存
+				        <button type="submit" class="btn btn-warning">
+				            <i class="icon fa fa-save"></i> 确认信息
 				        </button>
 				    </div>
 				</div>

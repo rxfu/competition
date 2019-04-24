@@ -43,6 +43,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('creator_id')->nullable()->comment('创建者ID');
             $table->unsignedBigInteger('role_id')->nullable()->comment('角色ID');
             $table->boolean('is_passed')->default(false)->comment('是否审核通过，0-未审核或审核未通过，1-审核已通过');
+            $table->boolean('is_confirmed')->default(false)->comment('是否已确认，0-未确认，1-已确认');
             $table->rememberToken();
             $table->timestamps();
         });

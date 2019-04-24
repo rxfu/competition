@@ -38,6 +38,10 @@ class PermissionsTableSeeder extends Seeder
         ]);
         Permission::create([
             'slug' => 'user.upload',
+            'name' => '上传用户文件',
+        ]);
+        Permission::create([
+            'slug' => 'user.import',
             'name' => '导入用户',
         ]);
 
@@ -300,6 +304,14 @@ class PermissionsTableSeeder extends Seeder
         ]);
         Permission::create([
             'slug' => 'player.upload',
+            'name' => '上传选手文件',
+        ]);
+        Permission::create([
+            'slug' => 'player.import',
+            'name' => '导入选手',
+        ]);
+        Permission::create([
+            'slug' => 'player.document',
             'name' => '上传材料',
         ]);
 
@@ -331,6 +343,14 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
             'slug' => 'marker.delete',
             'name' => '删除评委',
+        ]);
+        Permission::create([
+            'slug' => 'marker.upload',
+            'name' => '上传评委文件',
+        ]);
+        Permission::create([
+            'slug' => 'marker.import',
+            'name' => '导入评委',
         ]);
         Permission::create([
             'slug' => 'marker.audit',

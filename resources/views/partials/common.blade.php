@@ -89,9 +89,9 @@
 									@endif
 								@endcan
 
-	                        	@can('player.upload')
-									@if (config('components.' . $model . '.upload'))
-								    	<a href="{{ route('player.upload', $item->getKey()) }}" class="btn btn-primary btn-flat btn-sm" title="上传材料">
+	                        	@can('player.document')
+									@if (config('components.' . $model . '.document'))
+								    	<a href="{{ route('player.document', $item->getKey()) }}" class="btn btn-primary btn-flat btn-sm" title="上传材料">
 									        <i class="icon fa fa-upload"></i> 上传材料
 									    </a>
 									@endif
@@ -113,9 +113,9 @@
 				    </div>
 				@endcan
 			    <div class="col text-right">
-			    	@can('user.upload')
-				    	<a href="{{ route('user.upload') }}" class="btn btn-info">
-				    		<i class="icon fa fa-upload"></i> 导入{{ __('user.module') ?: '' }}
+			    	@can($model . '.upload')
+				    	<a href="{{ route($model . '.upload') }}" class="btn btn-secondary">
+				    		<i class="icon fa fa-user-plus"></i> 导入{{ __($model . '.module') ?: '' }}
 				    	</a>
 				    @endcan
 					@can($model . '.create')

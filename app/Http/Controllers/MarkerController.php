@@ -42,8 +42,8 @@ class MarkerController extends BaseController
         $this->groupService = $groupService;
 
         $this->updateRules = $this->storeRules = [
-            'idnumber' => ['required', 'string', new Idnumber],
-            'email' => 'required|email',
+            // 'idnumber' => ['required', 'string', new Idnumber],
+            // 'email' => 'required|email',
         ];
     }
 
@@ -70,8 +70,9 @@ class MarkerController extends BaseController
     public function store(Request $request)
     {
         $request->offsetSet('username', $request->phone);
-        $request->offsetSet('password', substr($request->idnumber, -6));
-        $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
+        $request->offsetSet('password', config('setting.password'));
+        // $request->offsetSet('password', substr($request->idnumber, -6));
+        // $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
         $request->offsetSet('is_enable', true);
         $request->offsetSet('is_super', false);
         $request->offsetSet('creator_id', Auth::id());
@@ -96,7 +97,7 @@ class MarkerController extends BaseController
 
     public function update(Request $request, $id)
     {
-        $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
+        // $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
 
         return parent::update($request, $id);
     }
@@ -120,5 +121,41 @@ class MarkerController extends BaseController
         $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
 
         return view('pages.teaching', compact('items'));
+    }
+
+    public function showUploadForm()
+    {
+        return view('pages.upload');
+    }
+
+    public function import(Request $request)
+    {
+        $this->service->import($request->file('upfile'), config('setting.marker'), Auth::user()->department_id);
+
+        return redirect()->route('marker.index')->withSuccess('导入专家成功');
+    }
+
+    public function showConfirmForm($id)
+    {
+        $genders = $this->genderService->getAll();
+        $educations = $this->educationService->getAll();
+        $degrees = $this->degreeService->getAll();
+        $departments = $this->departmentService->getAll();
+        $subjects = $this->subjectService->getAll();
+        $groups = $this->groupService->getAll();
+        $item = $this->service->get($id);
+
+        return view('pages.confirm', compact('item', 'genders', 'educations', 'degrees', 'departments', 'subjects', 'groups'));
+    }
+
+    public function confirm(Request $request, $id)
+    {
+        if ($request->isMethod('put')) {
+            $request->offsetSet('is_confirmed', true);
+    
+            $this->service->confirm($id, $request->all());
+    
+            return redirect()->route('home.dashboard')->withSuccess('专家' . Auth::user()->name . '信息已确认');
+        }
     }
 }

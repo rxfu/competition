@@ -21,18 +21,18 @@
 			                    <label for="{{ $component['field'] }}" class="col-sm-3 col-form-label">{{ __($model . '.' . $component['field']) }}</label>
 			                    <div class="col-md-9">
 									@if ('text' === $component['type'])
-				                    	<input type="text" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="{{ empty($component['readonly']) ? 'form-control' : 'form-control-plaintext' }}{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" placeholder="{{ __($model . '.' . $component['field']) }}" value="{{ old($component['field'], $component['default'] ?? null) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>
+				                    	<input type="text" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="{{ empty($component['readonly']) ? 'form-control' : 'form-control-plaintext' }}{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" placeholder="{{ __($model . '.' . $component['field']) }}" value="{{ old($component['field'], $component['default'] ?? null) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }}>
 						            @elseif ('password' === $component['type'])
-				                    	<input type="password" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="form-control{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" placeholder="{{ __($model . '.' . $component['field']) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>
+				                    	<input type="password" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="form-control{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" placeholder="{{ __($model . '.' . $component['field']) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }}>
 						            @elseif ('textarea' === $component['type'])
-						            	<textarea name="{{ $component['field'] }}" id="{{ $component['field'] }}" rows="5" class="form-control{{ $errors->has($component['field']) ? ' is_invalid' : '' }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>{{ old($component['field']) }}</textarea>
+						            	<textarea name="{{ $component['field'] }}" id="{{ $component['field'] }}" rows="5" class="form-control{{ $errors->has($component['field']) ? ' is_invalid' : '' }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }}>{{ old($component['field']) }}</textarea>
 						            @elseif ('radio' === $component['type'])
 						            	@foreach (explode('|', $component['values']) as $pair)
 						            		@php
 						            			$value = explode(':', $pair)
 						            		@endphp
 					                    	<div class="form-check form-check-inline">
-					                    		<input type="radio" name="{{ $component['field'] }}" id="{{ $component['field']. $loop->index }}" class="form-check-input{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" value="{{ $value[0] }}"{{ !empty($component['required']) ? ' required' : '' }}{{ isset($component['default']) && ($value[0] == $component['default']) ? ' checked' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>
+					                    		<input type="radio" name="{{ $component['field'] }}" id="{{ $component['field']. $loop->index }}" class="form-check-input{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" value="{{ $value[0] }}"{{ !empty($component['required']) ? ' required' : '' }}{{ isset($component['default']) && ($value[0] == $component['default']) ? ' checked' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }}>
 					                    		<label class="form-check-label" for="{{ $component['field'] . $loop->index }}">{{ $value[1] }}</label>
 					                    	</div>
 						            	@endforeach
@@ -42,22 +42,22 @@
 						            			$value = explode(':', $pair)
 						            		@endphp
 					                    	<div class="form-check form-check-inline">
-					                    		<input type="checkbox" name="{{ $component['field'] }}" id="{{ $component['field']. $loop->index }}" class="form-check-input{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" value="{{ $value[0] }}"{{ !empty($component['required']) ? ' required' : '' }}{{ isset($component['default']) && ($value[0] == $component['default']) ? ' checked' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>
+					                    		<input type="checkbox" name="{{ $component['field'] }}" id="{{ $component['field']. $loop->index }}" class="form-check-input{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" value="{{ $value[0] }}"{{ !empty($component['required']) ? ' required' : '' }}{{ isset($component['default']) && ($value[0] == $component['default']) ? ' checked' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }}>
 					                    		<label class="form-check-label" for="{{ $component['field'] . $loop->index }}">{{ $value[1] }}</label>
 					                    	</div>
 						            	@endforeach
 						            @elseif ('select' === $component['type'])
-						            	<select name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="form-control{{ $errors->has($component['field']) ? ' is_invalid' : '' }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>
+						            	<select name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="form-control{{ $errors->has($component['field']) ? ' is_invalid' : '' }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }}>
 						            		@foreach (${$component['collection']} as $collection)
 						            			<option value="{{ $collection->id }}">{{ $collection->name }}</option>
 						            		@endforeach
 						            	</select>
 						            @elseif ('file' === $component['type'])
-				                    	<input type="file" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="form-control-file{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" value="{{ old($component['field'], $component['default'] ?? null) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>
+				                    	<input type="file" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="form-control-file{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" value="{{ old($component['field'], $component['default'] ?? null) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' disabled' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }}>
 						            @elseif ('datetime' === $component['type'])
 						            	<div class="form-group">
 						            		<div class="input-group date datetimepicker" id="{{ $component['field'] }}" data-target-input="nearest">
-						            			<input type="text" name="{{ $component['field'] }}" class="{{ empty($component['readonly']) ? 'form-control datetimepicker-input' : 'form-control-plaintext' }}{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" placeholder="{{ __($model . '.' . $component['field']) }}" value="{{ old($component['field']) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' readonly' : '' }} data-target="#{{ $component['field'] }}">
+						            			<input type="text" name="{{ $component['field'] }}" class="{{ empty($component['readonly']) ? 'form-control datetimepicker-input' : 'form-control-plaintext' }}{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" placeholder="{{ __($model . '.' . $component['field']) }}" value="{{ old($component['field']) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }} data-target="#{{ $component['field'] }}">
 						            			<div class="input-group-append" data-target="#{{ $component['field'] }}" data-toggle="datetimepicker">
 		                        					<div class="input-group-text">
 		                        						<i class="fa fa-calendar"></i>

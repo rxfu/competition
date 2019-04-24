@@ -37,7 +37,7 @@ class ReviewController extends BaseController
             $this->service->store($data);
         }
 
-        return redirect()->route('marker.list-design')->withSuccess(Auth::user()->name . '评分成功');
+        return redirect()->route('marker.design')->withSuccess(Auth::user()->name . '评分成功');
     }
 
     public function teaching(Request $request)
@@ -56,6 +56,6 @@ class ReviewController extends BaseController
             $this->service->store($data);
         }
 
-        return redirect()->route('marker.list-teaching')->withSuccess(Auth::user()->name . '评分成功');
+        return redirect()->route('marker.teaching')->withSuccess(Auth::user()->name . '评分成功');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\User;
 use App\Rules\Idnumber;
 use App\Services\DegreeService;
 use App\Services\DepartmentService;
@@ -49,8 +50,13 @@ class PlayerController extends BaseController
     public function index()
     {
         $department = Auth::user()->is_super ? null : Auth::user()->department_id;
-        $items = $this->service->getAllPlayers($department);
 
+        if (config('setting.player') === Auth::user()->role_id) {
+            $items = User::whereId(Auth::id())->get();
+        } else {
+            $items = $this->service->getAllPlayers($department);
+        }
+        
         return view('pages.list', compact('items'));
     }
 
@@ -100,10 +106,46 @@ class PlayerController extends BaseController
         return parent::update($request, $id);
     }
 
-    public function upload($id)
+    public function document($id)
     {
         $item = $this->service->get($id);
 
         return view('pages.document', compact('item'));
+    }
+
+    public function showUploadForm()
+    {
+        return view('pages.upload');
+    }
+
+    public function import(Request $request)
+    {
+        $this->service->import($request->file('upfile'), config('setting.player'), Auth::user()->department_id);
+
+        return redirect()->route('player.index')->withSuccess('导入选手成功');
+    }
+
+    public function showConfirmForm($id)
+    {
+        $genders = $this->genderService->getAll();
+        $educations = $this->educationService->getAll();
+        $degrees = $this->degreeService->getAll();
+        $departments = $this->departmentService->getAll();
+        $subjects = $this->subjectService->getAll();
+        $groups = $this->groupService->getAll();
+        $item = $this->service->get($id);
+
+        return view('pages.confirm', compact('item', 'genders', 'educations', 'degrees', 'departments', 'subjects', 'groups'));
+    }
+
+    public function confirm(Request $request, $id)
+    {
+        if ($request->isMethod('put')) {
+            $request->offsetSet('is_confirmed', true);
+    
+            $this->service->confirm($id, $request->all());
+    
+            return redirect()->route('home.dashboard')->withSuccess('选手' . Auth::user()->name . '信息已确认');
+        }
     }
 }
