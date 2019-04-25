@@ -32,4 +32,5 @@ return [
     'design' => '教学设计',
     'section' => '教学节段',
     'catalog' => '教学目录',
+    'memo' => '备注',
 ];

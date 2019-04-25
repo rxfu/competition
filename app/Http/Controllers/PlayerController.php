@@ -43,7 +43,7 @@ class PlayerController extends BaseController
         $this->groupService = $groupService;
 
         $this->updateRules = $this->storeRules = [
-            'idnumber' => ['required', 'string', new Idnumber],
+            // 'idnumber' => ['required', 'string', new Idnumber],
         ];
     }
 

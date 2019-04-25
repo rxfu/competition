@@ -57,7 +57,6 @@ return [
             'responsive' => 'all',
             'type' => 'text',
             'required' => true,
-            'readonly' => true,
         ],
         [
             'field' => 'password',
@@ -150,6 +149,15 @@ return [
             'type' => 'text',
             'responsive' => 'none',
             'required' => true,
+        ],
+        [
+            'field' => 'memo',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'confirm' => true,
+            'type' => 'textarea',
+            'responsive' => 'none',
         ],
     ],
     'role' => [

@@ -29,4 +29,5 @@ return [
     'created_at' => '创建时间',
     'role_id' => '所属角色',
     'is_passed' => '审核状态',
+    'memo' => '备注',
 ];
