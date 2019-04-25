@@ -73,14 +73,20 @@ class LoginController extends Controller
 
         $user = $this->service->getUser($request->input('username'));
         if ($user) {
-            if (($user->role_id === config('setting.marker')) && (!$user->is_passed)) {
-                return back()->withWarning('登录失败，您的身份未审核')->withInput();
-            }
-
-            if ($user->role_id === config('setting.manager') || $user->role_id === config('setting.player')) {
-                $exists = Setting::where('begin_at', '<=', now())->where('end_at', '>=', now())->exists();
-
-                if (!$exists) {
+            if (!$user->is_super) {
+                if (Setting::whereIsEnable(true)->exists()) {
+                    if (($user->role_id === config('setting.marker')) && (!$user->is_passed)) {
+                        return back()->withWarning('登录失败，您的身份未审核')->withInput();
+                    }
+                    
+                    if ($user->role_id === config('setting.manager') || $user->role_id === config('setting.player')) {
+                        $exists = Setting::where('begin_at', '<=', now())->where('end_at', '>=', now())->exists();
+                    
+                        if (!$exists) {
+                            return back()->withWarning('登录失败，现在系统已关闭')->withInput();
+                        }
+                    }
+                } else {
                     return back()->withWarning('登录失败，现在系统已关闭')->withInput();
                 }
             }

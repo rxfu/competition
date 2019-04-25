@@ -31,12 +31,12 @@ class UserImport implements ToModel, WithHeadingRow
             'department_id' => is_null($this->department) ? $row['department'] : $this->department,
             'role_id' => $this->role,
             'phone' => $row['username'],
-            'gender_id' => $row['gender'],
-            'course' => $row['course'],
-            'position' => $row['position'],
-            'email' => $row['email'],
-            'idnumber' => $row['idnumber'],
-            'group_id' => $row['group'],
+            'gender_id' => $row['gender'] ?? null,
+            'course' => $row['course'] ?? null,
+            'position' => $row['position'] ?? null,
+            'email' => $row['email'] ?? null,
+            'idnumber' => $row['idnumber'] ?? null,
+            'group_id' => $row['group'] ?? null,
         ]);
     }
 }
