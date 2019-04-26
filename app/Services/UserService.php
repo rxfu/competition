@@ -107,4 +107,9 @@ class UserService extends Service
     {
         return $this->repository->update($id, $data);
     }
+
+    public function getAllPlayersGroupByGroup()
+    {
+        return $this->repository->getObject()->with('group', 'document')->whereRoleId(config('setting.player'))->orderBy('group_id')->get();
+    }
 }

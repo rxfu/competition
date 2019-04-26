@@ -28,6 +28,11 @@ return [
                     'route' => 'player.index',
                     'can' => ['player.index'],
                 ],
+                'seq' => [
+                    'title' => '录入抽签号',
+                    'route' => 'player.seq',
+                    'can' => ['player.seq'],
+                ],
             ],
         ],
         'marker' => [

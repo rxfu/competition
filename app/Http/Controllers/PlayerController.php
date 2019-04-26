@@ -148,4 +148,11 @@ class PlayerController extends BaseController
             return redirect()->route('home.dashboard')->withSuccess('选手' . Auth::user()->name . '信息已确认');
         }
     }
+
+    public function showSeqForm()
+    {
+        $items = $this->service->getAllPlayersGroupByGroup();
+
+        return view('pages.seq', compact('items'));
+    }
 }

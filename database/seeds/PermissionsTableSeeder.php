@@ -303,6 +303,14 @@ class PermissionsTableSeeder extends Seeder
             'name' => '删除选手',
         ]);
         Permission::create([
+            'slug' => 'player.seq',
+            'name' => '录入抽签号',
+        ]);
+        Permission::create([
+            'slug' => 'document.seq',
+            'name' => '保存抽签号',
+        ]);
+        Permission::create([
             'slug' => 'player.upload',
             'name' => '上传选手文件',
         ]);

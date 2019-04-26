@@ -39,6 +39,11 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('document/{id}', 'PlayerController@document')->name('document');
                 Route::get('upload', 'PlayerController@showUploadForm')->name('upload');
                 Route::post('import', 'PlayerController@import')->name('import');
+                Route::get('seq', 'PlayerController@showSeqForm')->name('seq');
+            });
+
+            Route::name('document.')->prefix('document')->group(function () {
+                Route::put('seq', 'DocumentController@seq')->name('seq');
             });
 
             Route::name('review.')->prefix('review')->group(function () {

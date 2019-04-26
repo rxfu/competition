@@ -54,4 +54,15 @@ class DocumentService extends Service
             throw new InternalException('上传文件更新数据失败', $this->repository->getObject(), 'update', $e);
         }
     }
+
+    public function save($id, $data)
+    {
+        try {
+            $user = $this->users->get($id);
+    
+            $this->repository->getObject()->updateOrCreate(['user_id' => $user->id], $data);
+        } catch (QueryException $e) {
+            throw new InternalException('保存抽签号失败', $this->repository->getObject(), 'save', $e);
+        }
+    }
 }

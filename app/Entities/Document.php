@@ -12,7 +12,7 @@ class Document extends Model
      * @var array
      */
     protected $fillable = [
-        'year', 'user_id', 'syllabus', 'design', 'section', 'catalog',
+        'year', 'user_id', 'syllabus', 'design', 'section', 'catalog', 'seq',
     ];
 
     protected $primaryKey = 'user_id';

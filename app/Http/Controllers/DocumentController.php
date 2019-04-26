@@ -44,4 +44,20 @@ class DocumentController extends BaseController
             return redirect()->route('player.index')->withSuccess('上传' . trans($this->module . '.module') . '成功');
         }
     }
+
+    public function seq(Request $request)
+    {
+        if ($request->isMethod('put')) {
+            foreach ($request->input('seq') as $id => $seq) {
+                $data = [
+                    'year' => date('Y'),
+                    'seq' => $seq,
+                ];
+
+                $this->service->save($id, $data);
+            }
+            
+            return back()->withSuccess('选手抽签号已保存');
+        }
+    }
 }
