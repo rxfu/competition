@@ -83,7 +83,7 @@
 
 	                        	@can($model . '.audit')
 									@if (config('components.' . $model . '.audit'))
-										@if (\App\Entities\User::whereIsPassed(false)->exists())
+										@if (\App\Entities\User::whereId($item->getKey())->whereIsPassed(false)->exists())
 									    	<a href="{{ route('marker.audit', $item->getKey()) }}" class="btn btn-success btn-flat btn-sm" title="审核通过">
 										        <i class="icon fa fa-unlock"></i> 审核通过
 										    </a>
