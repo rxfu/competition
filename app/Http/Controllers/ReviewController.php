@@ -11,7 +11,7 @@ class ReviewController extends BaseController
     protected $module = 'review';
 
     protected $storeRules = [
-        'scores.*' => 'required|numeric',
+        'scores.*' => 'required|numeric|min:0|max:100',
     ];
 
     public function __construct(ReviewService $reviewService)

@@ -54,16 +54,16 @@ class UserRepository extends Repository
 
     public function getAllMarkers()
     {
-        return $this->object->whereRoleId(config('setting.marker'))->get();
+        return $this->object->with('role', 'group', 'department', 'gender', 'subject', 'education', 'degree')->whereRoleId(config('setting.marker'))->get();
     }
 
     public function getAllMarkersByDepartment($id)
     {
-        return $this->object->whereRoleId(config('setting.marker'))->whereDepartmentId($id)->get();
+        return $this->object->with('role', 'group', 'department', 'gender', 'subject', 'education', 'degree')->whereRoleId(config('setting.marker'))->whereDepartmentId($id)->get();
     }
 
     public function getAllPlayersByGroup($id)
     {
-        return $this->object->with('group', 'document')->whereRoleId(config('setting.player'))->whereGroupId($id)->get();
+        return $this->object->with('group', 'document', 'review')->whereRoleId(config('setting.player'))->whereGroupId($id)->get();
     }
 }

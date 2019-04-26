@@ -28,7 +28,7 @@
                                 <td>{{ $item->player->name }}</td>
                                 <td>{{ $item->design_score }}</td>
                                 <td>{{ $item->live_score }}</td>
-                                <td>{{ $item->present()->total }}</td>
+                                <td>{{ number_format($item->present()->total, 2) }}</td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -22,13 +22,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($rank['items'] as $item)
+                            @foreach ($rank['items']->sortByDesc('total') as $item)
                                 <tr>
-                                    <td>{{ $item->seq }}</td>
+                                    <td>{{ $item->document->seq }}</td>
                                     <td>
                                         <a href="{{ route('summary.detail', $item->id) }}" title="{{ $item->name }}">{{ $item->name }}</a>
                                     </td>
-                                    <td>{{ $item->total }}</td>
+                                    <td>{{ number_format($item->total, 2) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

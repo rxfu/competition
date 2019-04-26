@@ -12,16 +12,16 @@
             <table id="itemsTable" class="table table-bordered table-striped datatable">
                 <thead>
                     <tr>
-                        <th scope="col">选手编号</th>
+                        <th scope="col">选手抽签号</th>
                         <th scope="col">得分</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($items as $item)
+                    @foreach ($items->sortBy('document.seq') as $item)
                         <tr>
-                            <td>{{ $item->seq }}</td>
+                            <td>{{ optional($item->document)->seq }}</td>
                             <td>
-                                <input type="text" name="scores[{{ $item->id }}]" value="{{ optional($item->review)->live_score }}" placeholder="课堂教学得分" class="form-control" required>
+                                <input type="text" name="scores[{{ $item->id }}]" id="scores[{{ $item->id }}]" value="{{ old('scores[' . $item->id . ']', optional($item->review)->live_score) }}" placeholder="课堂教学得分" class="form-control" required>
                             </td>
                         </tr>
                     @endforeach

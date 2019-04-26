@@ -24,6 +24,14 @@
 								<td>
 									@if (!empty($component['presenter']))
 										{{ $item->present()->{Illuminate\Support\Str::camel($component['field'])} }}
+									@elseif (!empty($component['relation']) && (!is_null($item->{$component['relation']})))
+										@if (isset($component['prop']))
+											<a href="{{ asset(optional($item->{$component['relation']})->{$component['prop']}) }}">{{ __($model . '.' . $component['prop']) }}</a>
+										@else
+											{{ optional($item->{$component['relation']})->name }}
+										@endif
+									@elseif (!empty($component['relations']) && (!is_null($item->{$component['relations']})))
+										{{ optional($item->{$component['relations']})->implode('name', ', ') }}
 									@else
 										{{ $item->{$component['field']} }}
 									@endif
