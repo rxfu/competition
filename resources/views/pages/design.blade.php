@@ -33,7 +33,11 @@
                                 @endif
                             </td>
                             <td>
-                                <input type="text" name="scores[{{ $item->id }}]" id="scores[{{ $item->id }}]" value="{{ old('scores[' . $item->id . ']', optional($item->review)->design_score) }}" placeholder="教学设计得分" class="form-control" required>
+                                @if (optional($item->review)->design_score)
+                                    {{ optional($item->review)->design_score }}
+                                @else
+                                    <input type="text" name="scores[{{ $item->id }}]" id="scores[{{ $item->id }}]" value="{{ old('scores[' . $item->id . ']', optional($item->review)->design_score) }}" placeholder="教学设计得分" class="form-control" required>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -41,13 +45,15 @@
             </table>
         </div>
 
-        <div class="card-footer">
-            <div class="row justify-content-sm-center">
-                <button type="submit" class="btn btn-success">
-                    <i class="icon fa fa-marker"></i> 提交评分
-                </button>
+        @unless (optional($items[0]->review)->design_score)
+            <div class="card-footer">
+                <div class="row justify-content-sm-center">
+                    <button type="submit" class="btn btn-success" onclick="return window.confirm('教学设计评分提交后将不可以再修改，请仔细检查评分，无误请点击“确定”，否则请点击“取消”！');">
+                        <i class="icon fa fa-marker"></i> 提交评分
+                    </button>
+                </div>
             </div>
-        </div>
+        @endunless
     </form>
 </div>
 @stop
