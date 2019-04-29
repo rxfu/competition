@@ -699,7 +699,6 @@ return [
             'list' => true,
             'create' => true,
             'edit' => true,
-            'confirm' => true,
             'type' => 'select',
             'relation' => 'group',
             'collection' => 'groups',
