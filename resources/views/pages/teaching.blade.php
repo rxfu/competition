@@ -3,40 +3,26 @@
 @section('content')
 <div class="card card-primary">
     <div class="card-header">
-        <h3 class="card-title">选手列表</h3>
+        <h3 class="card-title">第{{ $item->document->seq }}号选手</h3>
     </div>
 
-    <form role="form" id="mark-form" name="mark-form" method="post" action="{{ route('review.teaching') }}">
+    <form role="form" id="mark-form" name="mark-form" method="post" action="{{ route('review.teaching', $item->id) }}">
         @csrf
         <div class="card-body">
-            <table id="itemsTable" class="table table-bordered table-striped datatable">
-                <thead>
-                    <tr>
-                        <th scope="col">选手抽签号</th>
-                        <th scope="col">得分</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($items->sortBy('document.seq') as $item)
-                        <tr>
-                            <td>{{ optional($item->document)->seq }}</td>
-                            <td>
-                                <input type="text" name="scores[{{ $item->id }}]" id="scores[{{ $item->id }}]" value="{{ old('scores[' . $item->id . ']', optional($item->review)->live_score) }}" placeholder="课堂教学得分" class="form-control" required>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            <h6>选手抽签号</h6>
+            <h1 class="text-center text-danger" style="font-size: 12em">
+                <strong>{{ $item->document->seq }}</strong>
+            </h1>
+            <input type="text" name="score" id="score" placeholder="课堂教学得分" class="form-control form-control-lg text-center" style="font-weight: bold" required autofocus>
         </div>
 
         <div class="card-footer">
             <div class="row justify-content-sm-center">
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success" onclick="return window.confirm('课堂教学评分提交后将不可以再修改，请仔细检查评分，无误请点击“确定”，否则请点击“取消”！');">
                     <i class="icon fa fa-marker"></i> 提交评分
                 </button>
             </div>
         </div>
     </form>
 </div>
-
 @stop

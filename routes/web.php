@@ -30,7 +30,8 @@ Route::middleware(['auth'])->group(function () {
             Route::name('marker.')->prefix('marker')->group(function () {
                 Route::get('{id}/audit', 'MarkerController@audit')->name('audit');
                 Route::get('design', 'MarkerController@design')->name('design');
-                Route::get('teaching', 'MarkerController@teaching')->name('teaching');
+                Route::get('teaching/confirm', 'MarkerController@confirm')->name('confirm');
+                Route::get('teaching/{id?}', 'MarkerController@teaching')->name('teaching');
                 Route::get('upload', 'MarkerController@showUploadForm')->name('upload');
                 Route::post('import', 'MarkerController@import')->name('import');
             });
@@ -48,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
 
             Route::name('review.')->prefix('review')->group(function () {
                 Route::post('design', 'ReviewController@design')->name('design');
-                Route::post('teaching', 'ReviewController@teaching')->name('teaching');
+                Route::post('teaching/{id}', 'ReviewController@teaching')->name('teaching');
             });
 
             Route::name('user.')->prefix('user')->group(function () {

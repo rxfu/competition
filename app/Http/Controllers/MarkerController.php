@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Document;
+use App\Entities\Setting;
+use App\Entities\User;
 use App\Rules\Idnumber;
 use App\Services\DegreeService;
 use App\Services\DepartmentService;
@@ -116,11 +119,40 @@ class MarkerController extends BaseController
         return view('pages.design', compact('items'));
     }
 
-    public function teaching()
+    public function teaching($id = null)
     {
-        $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
+        if (Setting::whereIsEnable(true)->exists()) {
+            $exists = User::whereHas('playerReviews', function ($query) {
+                $query->where('year', '=', date('Y'))->whereMarkerId(Auth::id())->whereNull('live_score');
+            })->exists();
 
-        return view('pages.teaching', compact('items'));
+            if ($exists) {
+                if (is_null($id)) {
+                    $item = Document::whereHas('user', function ($query) {
+                        $query->whereGroupId(Auth::user()->group_id)
+                            ->whereRoleId(config('setting.player'))
+                            ->whereHas('playerReviews', function ($q) {
+                                $q->where('year', '=', date('Y'))->whereMarkerId(Auth::id())->whereNull('live_score');
+                            });
+                    })
+                    ->where('year', '=', date('Y'))
+                    ->orderBy('seq')
+                    ->first(['user_id', 'seq']);
+
+                    return view('pages.teaching-confirm', compact('item'));
+                } else {
+                    $item = $this->service->get($id);
+                    
+                    return view('pages.teaching', compact('item'));
+                }
+            } else {
+                $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
+        
+                return view('pages.teaching-list', compact('items'));
+            }
+        }
+
+        return view('pages.error', ['message' => '评分系统已关闭！']);
     }
 
     public function showUploadForm()
