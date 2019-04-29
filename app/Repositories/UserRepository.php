@@ -44,22 +44,22 @@ class UserRepository extends Repository
 
     public function getAllPlayers()
     {
-        return $this->object->with('role', 'group', 'department', 'gender', 'subject', 'education', 'degree')->whereRoleId(config('setting.player'))->get();
+        return $this->object->with('role', 'group', 'department', 'gender', 'subject', 'education', 'degree')->whereRoleId(config('setting.player'))->orderBy('group_id')->get();
     }
 
     public function getAllPlayersByDepartment($id)
     {
-        return $this->object->with('role', 'group', 'department', 'gender', 'subject', 'education', 'degree')->whereRoleId(config('setting.player'))->whereDepartmentId($id)->get();
+        return $this->object->with('role', 'group', 'department', 'gender', 'subject', 'education', 'degree')->whereRoleId(config('setting.player'))->whereDepartmentId($id)->orderBy('group_id')->get();
     }
 
     public function getAllMarkers()
     {
-        return $this->object->with('role', 'group', 'department', 'gender', 'subject', 'education', 'degree')->whereRoleId(config('setting.marker'))->get();
+        return $this->object->with('role', 'group', 'department', 'gender', 'subject', 'education', 'degree')->whereRoleId(config('setting.marker'))->orderBy('group_id')->get();
     }
 
     public function getAllMarkersByDepartment($id)
     {
-        return $this->object->with('role', 'group', 'department', 'gender', 'subject', 'education', 'degree')->whereRoleId(config('setting.marker'))->whereDepartmentId($id)->get();
+        return $this->object->with('role', 'group', 'department', 'gender', 'subject', 'education', 'degree')->whereRoleId(config('setting.marker'))->whereDepartmentId($id)->orderBy('group_id')->get();
     }
 
     public function getAllPlayersByGroup($id)

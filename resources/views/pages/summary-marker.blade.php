@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($items as $item)
+                @foreach ($items->sortBy('group_id') as $item)
                     <tr>
                         <td>{{ $item->department->name }}</td>
                         <td>{{ $item->subject->name }}</td>
