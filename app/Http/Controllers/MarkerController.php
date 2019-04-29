@@ -122,7 +122,9 @@ class MarkerController extends BaseController
     public function teaching($id = null)
     {
         if (Setting::whereIsEnable(true)->exists()) {
-            $exists = User::whereHas('playerReviews', function ($query) {
+            $exists = User::whereHas('document', function ($query) {
+                $query->whereNotNull('seq');
+            })->whereHas('playerReviews', function ($query) {
                 $query->where('year', '=', date('Y'))->whereMarkerId(Auth::id())->whereNull('live_score');
             })->exists();
 
@@ -130,12 +132,13 @@ class MarkerController extends BaseController
                 if (is_null($id)) {
                     $item = Document::whereHas('user', function ($query) {
                         $query->whereGroupId(Auth::user()->group_id)
-                            ->whereRoleId(config('setting.player'))
-                            ->whereHas('playerReviews', function ($q) {
-                                $q->where('year', '=', date('Y'))->whereMarkerId(Auth::id())->whereNull('live_score');
-                            });
+                        ->whereRoleId(config('setting.player'))
+                        ->whereHas('playerReviews', function ($q) {
+                                    $q->where('year', '=', date('Y'))->whereMarkerId(Auth::id())->whereNull('live_score');
+                        });
                     })
                     ->where('year', '=', date('Y'))
+                    ->whereNotNull('seq')
                     ->orderBy('seq')
                     ->first(['user_id', 'seq']);
 

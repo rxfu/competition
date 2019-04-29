@@ -73,6 +73,7 @@ class ReviewController extends BaseController
                             });
             })
                     ->where('year', '=', date('Y'))
+                    ->whereNotNull('seq')
                     ->orderBy('seq')
                     ->first(['user_id', 'seq']);
 

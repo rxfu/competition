@@ -24,7 +24,7 @@
                         <tbody>
                             @foreach ($rank['items']->sortByDesc('total') as $item)
                                 <tr>
-                                    <td>{{ $item->document->seq }}</td>
+                                    <td>{{ optional($item->document)->seq }}</td>
                                     <td>
                                         <a href="{{ route('summary.detail', $item->id) }}" title="{{ $item->name }}">{{ $item->name }}</a>
                                     </td>

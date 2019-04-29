@@ -132,7 +132,9 @@ class User extends Authenticatable
             }
 
             if ($items->count() > 2) {
-                $scores = array_diff($scores, [max($scores), min($scores)]);
+                sort($scores);
+                array_pop($scores);
+                array_shift($scores);
             }
 
             $total = array_sum($scores) / count($scores);

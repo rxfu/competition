@@ -16,12 +16,14 @@
             </thead>
             <tbody>
                 @foreach ($items->sortBy('document.seq') as $item)
-                    <tr>
-                        <td>{{ $item->document->seq }}</td>
-                        <td>
-                            {{ optional($item->review)->live_score }}
-                        </td>
-                    </tr>
+                    @if ($item->document && $item->document->seq)
+                        <tr>
+                            <td>{{ optional($item->document)->seq }}</td>
+                            <td>
+                                {{ optional($item->review)->live_score }}
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
