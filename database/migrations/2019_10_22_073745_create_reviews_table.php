@@ -20,6 +20,7 @@ class CreateReviewsTable extends Migration
             $table->unsignedBigInteger('player_id')->comment('选手ID');
             $table->decimal('design_score', 5, 2)->nullable()->comment('教学设计得分');
             $table->decimal('live_score', 5, 2)->nullable()->comment('教学环节得分');
+            $table->decimal('reflection_score', 5, 2)->nullable()->comment('教学反思得分');
             $table->timestamps();
 
             $table->foreign('marker_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

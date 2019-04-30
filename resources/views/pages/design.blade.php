@@ -36,7 +36,7 @@
                                 @if (optional($item->review)->design_score)
                                     {{ optional($item->review)->design_score }}
                                 @else
-                                    <input type="text" name="scores[{{ $item->id }}]" id="scores[{{ $item->id }}]" value="{{ old('scores[' . $item->id . ']', optional($item->review)->design_score) }}" placeholder="教学设计得分" class="form-control" required>
+                                    <input type="text" name="scores[{{ $item->id }}]" id="scores[{{ $item->id }}]" value="{{ old('scores[' . $item->id . ']', optional($item->review)->design_score) }}" placeholder="教学设计得分" class="form-control">
                                 @endif
                             </td>
                         </tr>

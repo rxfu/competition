@@ -21,4 +21,9 @@ class Group extends Model
     {
         return $this->hasMany('App\Entities\User');
     }
+
+    public function markers()
+    {
+        return $this->hasMany('App\Entities\User')->whereRoleId(config('setting.marker'))->orderBy('id');
+    }
 }

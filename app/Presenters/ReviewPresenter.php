@@ -8,6 +8,6 @@ class ReviewPresenter extends Presenter
 {
     public function total()
     {
-        return $this->design_score + $this->live_score;
+        return $this->design_score + $this->live_score + $this->reflection_score;
     }
 }

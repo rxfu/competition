@@ -412,5 +412,9 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'summary.rank',
             'name' => '显示选手排行',
         ]);
+        Permission::create([
+            'slug' => 'summary.export',
+            'name' => '导出计分表',
+        ]);
     }
 }

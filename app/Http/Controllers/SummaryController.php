@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Entities\Group;
+use App\Exports\ReviewsExport;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SummaryController extends Controller
 {
@@ -50,5 +52,12 @@ class SummaryController extends Controller
         $items = $this->service->getAllByPlayers($id);
 
         return view('pages.summary-detail', compact('items'));
+    }
+
+    public function export($id)
+    {
+        $group = Group::findOrFail($id);
+
+        return Excel::download(new ReviewsExport($group), '全区高校青年教师教学竞赛计分表（' . $group->name . '）.xlsx');
     }
 }

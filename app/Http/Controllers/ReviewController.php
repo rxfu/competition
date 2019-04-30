@@ -13,7 +13,7 @@ class ReviewController extends BaseController
     protected $module = 'review';
 
     protected $storeRules = [
-        'scores.*' => 'required|numeric|min:0|max:20',
+        'scores.*' => 'numeric|min:0|max:20',
     ];
 
     public function __construct(ReviewService $reviewService)
@@ -45,7 +45,8 @@ class ReviewController extends BaseController
     public function teaching(Request $request, $id)
     {
         $this->validate($request, [
-            'score' => 'required|numeric|min:0|max:80',
+            'live_score' => 'required|numeric|min:0|max:75',
+            'reflection_score' => 'required|numeric|min:0|max:5',
         ]);
 
         $next = null;
@@ -61,7 +62,8 @@ class ReviewController extends BaseController
 
         if ($exists) {
             $data['player_id'] = $id;
-            $data['live_score'] = $request->input('score');
+            $data['live_score'] = $request->input('live_score');
+            $data['reflection_score'] = $request->input('reflection_score');
             
             $this->service->store($data);
 
