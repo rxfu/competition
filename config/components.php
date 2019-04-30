@@ -76,12 +76,22 @@ return [
             'required' => true,
         ],
         [
+            'field' => 'phone',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'confirm' => true,
+            'type' => 'text',
+            'required' => true,
+        ],
+        [
             'field' => 'email',
             'list' => true,
             'create' => true,
             'edit' => true,
             'confirm' => true,
             'type' => 'text',
+            'required' => true,
         ],
         [
             'field' => 'is_enable',
