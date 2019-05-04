@@ -112,6 +112,13 @@ class MarkerController extends BaseController
         return back()->withSuccess('专家 ' . $id . ' 审核通过');
     }
 
+    public function unaudit($id)
+    {
+        $this->service->unaudit($id);
+
+        return back()->withSuccess('专家 ' . $id . ' 取消审核');
+    }
+
     public function design()
     {
         $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);

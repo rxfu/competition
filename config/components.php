@@ -485,11 +485,10 @@ return [
         [
             'field' => 'birthday',
             'list' => true,
-            'create' => false,
-            'edit' => false,
-            'type' => 'text',
+            'create' => true,
+            'edit' => true,
+            'type' => 'datetime',
             'required' => true,
-            'readonly' => true,
         ],
         [
             'field' => 'position',
