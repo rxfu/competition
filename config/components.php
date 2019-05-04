@@ -53,7 +53,6 @@ return [
             'list' => true,
             'create' => true,
             'edit' => true,
-            'confirm' => true,
             'responsive' => 'all',
             'type' => 'text',
             'required' => true,

@@ -16,7 +16,7 @@ class UserController extends BaseController
         'username' => 'required|unique:users',
         'password' => 'required|min:6',
         'name' => 'required',
-        'email' => 'nullable|email',
+        'email' => 'nullable|email|unique:users',
         'is_enable' => 'required',
     ];
 
@@ -33,7 +33,7 @@ class UserController extends BaseController
         $this->updateRules = [
             'username' => 'required|unique:users,username,' . request('id'),
             'name' => 'required',
-            'email' => 'nullable|email',
+            'email' => 'nullable|email|unique:users,email,' . request('id'),
             'is_enable' => 'required',
         ];
     }
@@ -77,6 +77,9 @@ class UserController extends BaseController
     {
         if ($request->isMethod('put')) {
             $this->validate($request, [
+                'name' => 'required',
+                'phone' => 'required',
+                'email' => 'required|email|unique:users,email,' . request('id'),
                 'leader' => 'required',
                 'leader_phone' => 'required',
             ]);

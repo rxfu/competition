@@ -25,12 +25,12 @@ class UserImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new User([
-            'username' => $row['username'],
+            'username' => $row['username'] ?? $row['phone'],
             'password' => config('setting.password'),
-            'name' => $row['name'],
-            'department_id' => is_null($this->department) ? $row['department'] : $this->department,
+            'name' => $row['name'] ?? null,
+            'department_id' => is_null($this->department) ? ($row['department'] ?? null) : $this->department,
             'role_id' => $this->role,
-            'phone' => $row['username'],
+            'phone' => $row['phone'] ?? null,
             'gender_id' => $row['gender'] ?? null,
             'course' => $row['course'] ?? null,
             'position' => $row['position'] ?? null,

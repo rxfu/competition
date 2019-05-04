@@ -13,6 +13,10 @@ class PermissionsTableSeeder extends Seeder
     public function run()
     {
         Permission::create([
+            'slug' => 'home.dashboard',
+            'name' => '查看使用说明',
+        ]);
+        Permission::create([
             'slug' => 'user.index',
             'name' => '查看用户列表',
         ]);
