@@ -20,7 +20,9 @@ class UsersTableSeeder extends Seeder
             'creator_id' => 1,
         ]);
         
-        factory(App\Entities\User::class, 50)->create()->each(function ($user) {
+        factory(App\Entities\User::class, 50)->create()->filter(function ($user) {
+            return $user->role_id === config('setting.player');
+        })->each(function ($user) {
             $user->document()->save(factory(App\Entities\Document::class)->make());
         });
     }
