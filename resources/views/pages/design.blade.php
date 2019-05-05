@@ -57,3 +57,66 @@
     </form>
 </div>
 @stop
+
+@push('scripts')
+<script>
+$(function() {
+    $('td').on('click', function() {
+        $(this).children('input').select();
+    });
+    $('td').on({
+        'click': function() {
+            $(this).select();
+        },
+        'change': function() {
+
+            // Use ajax to submit form data
+            $.ajax({
+                'headers': '{{ csrf_token() }}',
+                'url': '{{ route('review.design') }}',
+                'type': 'post',
+                'data': {
+                    '_token': '{{ csrf_token() }}',
+                    'dataType': 'json',
+                    $(this).attr('name'): $(this).val()
+                },
+                'beforeSend': function() {
+                    $(this).after('<p>保存中......</p>');
+                },
+                'success': function(data) {
+                    if (data.message === 'success'){
+                        $(this).after('<p>保存成功</p>');
+                    } else {
+                        $(this).after('<p>保存失败</p>');
+                    }
+                }
+            })
+            .fail(function(jqXHR) {
+                if (422 == jqXHR.status) {
+                    $.each(jqXHR.responseJSON, function(key, value) {
+                        $(this).after('<p>' + value + '</p>');
+                    });
+                }
+            });
+        },
+        'keypress': function(e) {
+            // Enter pressed
+            if (e.keyCode == 13) {
+                var inputs = $(this).parents('table').find('input');
+                var idx = inputs.index(this);
+
+                if (idx == inputs.length - 1) {
+                    inputs[0].select();
+                } else {
+                    inputs[idx + 1].focus();
+                    inputs[idx + 1].select();
+                }
+
+                // $(this).closest('form').submit();
+                return false;
+            }
+        }
+    }, 'input');
+});
+</script>
+@endpush

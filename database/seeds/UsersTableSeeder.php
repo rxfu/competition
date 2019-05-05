@@ -19,5 +19,9 @@ class UsersTableSeeder extends Seeder
             'is_super' => true,
             'creator_id' => 1,
         ]);
+        
+        factory(App\Entities\User::class, 50)->create()->each(function ($user) {
+            $user->document()->save(factory(App\Entities\Document::class)->make());
+        });
     }
 }

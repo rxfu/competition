@@ -87,6 +87,10 @@
 									    	<a href="{{ route('marker.audit', $item->getKey()) }}" class="btn btn-success btn-flat btn-sm" title="审核通过">
 										        <i class="icon fa fa-unlock"></i> 审核通过
 										    </a>
+										@else
+									    	<a href="{{ route('marker.unaudit', $item->getKey()) }}" class="btn btn-warning btn-flat btn-sm" title="取消审核">
+										        <i class="icon fa fa-lock"></i> 取消审核
+										    </a>
 										@endif
 									@endif
 								@endcan

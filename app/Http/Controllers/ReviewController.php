@@ -39,7 +39,11 @@ class ReviewController extends BaseController
             $this->service->store($data);
         }
 
-        return redirect()->route('marker.design')->withSuccess(Auth::user()->name . '评分成功');
+        if ($request->ajax()) {
+            return json_encode(['message' => 'success']);
+        } else {
+            return redirect()->route('marker.design')->withSuccess(Auth::user()->name . '评分成功');
+        }
     }
 
     public function teaching(Request $request, $id)

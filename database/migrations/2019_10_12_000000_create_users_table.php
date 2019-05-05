@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('username', 50)->unique()->comment('用户名');
             $table->string('password', 255)->comment('密码');
-            $table->string('name', 20)->nullable()->comment('姓名');
+            $table->string('name', 50)->nullable()->comment('姓名');
             $table->unsignedBigInteger('gender_id')->nullable()->comment('性别ID');
             $table->string('birthday')->nullable()->comment('出生日期');
             $table->string('idnumber', 18)->nullable()->comment('身份证号');

@@ -24,5 +24,9 @@ class RolesTableSeeder extends Seeder
             'slug' => 'player',
             'name' => '选手',
         ]);
+        Role::create([
+            'slug' => 'drawer',
+            'name' => '抽签',
+        ]);
     }
 }

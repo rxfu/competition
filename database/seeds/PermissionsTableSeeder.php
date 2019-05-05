@@ -369,6 +369,10 @@ class PermissionsTableSeeder extends Seeder
             'name' => '审核评委',
         ]);
         Permission::create([
+            'slug' => 'marker.unaudit',
+            'name' => '取消审核评委',
+        ]);
+        Permission::create([
             'slug' => 'marker.design',
             'name' => '浏览教学设计',
         ]);
