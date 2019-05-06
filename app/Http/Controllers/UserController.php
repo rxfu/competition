@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\DepartmentService;
+use App\Services\GroupService;
 use App\Services\RoleService;
 use App\Services\UserService;
 use Auth;
@@ -24,11 +25,14 @@ class UserController extends BaseController
 
     private $departmentService;
 
-    public function __construct(UserService $userService, RoleService $roleService, DepartmentService $departmentService)
+    private $groupService;
+
+    public function __construct(UserService $userService, RoleService $roleService, DepartmentService $departmentService, GroupService $groupService)
     {
         $this->service = $userService;
         $this->roleService = $roleService;
         $this->departmentService = $departmentService;
+        $this->groupService = $groupService;
 
         $this->updateRules = [
             'username' => 'required|unique:users,username,' . request('id'),
@@ -42,16 +46,18 @@ class UserController extends BaseController
     {
         $roles = $this->roleService->getAll();
         $departments = $this->departmentService->getEnabled();
+        $groups = $this->groupService->getAll();
 
-        return parent::create()->with('roles', $roles)->with('departments', $departments);
+        return parent::create()->with('roles', $roles)->with('departments', $departments)->with('groups', $groups);
     }
 
     public function edit($id)
     {
         $roles = $this->roleService->getAll();
         $departments = $this->departmentService->getEnabled();
-        
-        return parent::edit($id)->with('roles', $roles)->with('departments', $departments);
+        $groups = $this->groupService->getAll();
+
+        return parent::edit($id)->with('roles', $roles)->with('departments', $departments)->with('groups', $groups);
     }
 
     public function showUploadForm()

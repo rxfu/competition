@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Document;
 use App\Entities\User;
 use App\Rules\Idnumber;
 use App\Services\DegreeService;
@@ -151,8 +152,36 @@ class PlayerController extends BaseController
 
     public function showSeqForm()
     {
-        $items = $this->service->getAllPlayersGroupByGroup();
+        if (Auth::user()->is_super) {
+            $items = $this->service->getAllPlayers();
+        } else {
+            $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
+        }
 
         return view('pages.seq', compact('items'));
+    }
+
+    public function draw()
+    {
+        $players = User::has('document')
+        ->whereRoleId(config('setting.player'))
+        ->whereGroupId(Auth::user()->group_id)
+        ->get();
+
+        if (empty($players[0]->document->seq)) {
+            $seqs = range(1, $players->count());
+            shuffle($seqs);
+
+            foreach ($players as $idx => $player) {
+                $document = Document::find($player->id);
+        
+                if ($document) {
+                    $document->seq = $seqs[$idx];
+                    $document->save();
+                }
+            }
+        }
+
+        return view('pages.draw');
     }
 }

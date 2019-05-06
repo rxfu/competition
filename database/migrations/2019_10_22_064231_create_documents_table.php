@@ -24,6 +24,8 @@ class CreateDocumentsTable extends Migration
             $table->boolean('is_drawed')->default(false)->comment('是否抽签，0-否，1-是');
             $table->timestamps();
 
+            $table->primarykey('user_id');
+            
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
             $table->index(['year', 'user_id']);

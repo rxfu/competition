@@ -130,6 +130,16 @@ return [
             'required' => true,
         ],
         [
+            'field' => 'group_id',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'type' => 'select',
+            'relation' => 'group',
+            'collection' => 'groups',
+            'required' => true,
+        ],
+        [
             'field' => 'department_id',
             'list' => true,
             'create' => true,

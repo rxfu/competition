@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('upload', 'PlayerController@showUploadForm')->name('upload');
                 Route::post('import', 'PlayerController@import')->name('import');
                 Route::get('seq', 'PlayerController@showSeqForm')->name('seq');
+                Route::get('draw', 'PlayerController@draw')->name('draw');
             });
 
             Route::name('document.')->prefix('document')->group(function () {

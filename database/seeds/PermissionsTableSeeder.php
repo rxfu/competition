@@ -308,7 +308,11 @@ class PermissionsTableSeeder extends Seeder
         ]);
         Permission::create([
             'slug' => 'player.seq',
-            'name' => '录入抽签号',
+            'name' => '显示抽签列表',
+        ]);
+        Permission::create([
+            'slug' => 'player.draw',
+            'name' => '选手抽签',
         ]);
         Permission::create([
             'slug' => 'document.seq',

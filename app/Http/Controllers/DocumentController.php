@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Document;
+use App\Entities\User;
 use App\Services\DocumentService;
 use App\Services\UserService;
+use Auth;
 use Illuminate\Http\Request;
 
 class DocumentController extends BaseController
@@ -48,16 +51,13 @@ class DocumentController extends BaseController
     public function seq(Request $request)
     {
         if ($request->isMethod('put')) {
-            foreach ($request->input('seq') as $id => $seq) {
-                $data = [
-                    'year' => date('Y'),
-                    'seq' => $seq,
-                ];
+            $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
+            $document = Document::findOrFail($player->id);
 
-                $this->service->save($id, $data);
-            }
+            $document->is_drawed = true;
+            $document->save();
             
-            return back()->withSuccess('选手抽签号已保存');
+            return back()->withSeq($document->seq)->withSuccess('选手' .  $player->name . '抽签号已保存');
         }
     }
 }
