@@ -29,7 +29,7 @@ return [
                     'can' => ['player.index'],
                 ],
                 'seq' => [
-                    'title' => '录入抽签号',
+                    'title' => '选手抽签',
                     'route' => 'player.seq',
                     'can' => ['player.seq'],
                 ],

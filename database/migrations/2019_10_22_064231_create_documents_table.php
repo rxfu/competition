@@ -21,6 +21,7 @@ class CreateDocumentsTable extends Migration
             $table->string('section', 128)->nullable()->comment('教学节段');
             $table->string('catalog', 128)->nullable()->comment('教学目录');
             $table->unsignedInteger('seq')->nullable()->comment('抽签号');
+            $table->boolean('is_drawed')->default(false)->comment('是否抽签，0-否，1-是');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

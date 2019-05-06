@@ -18,6 +18,6 @@ class UserPresenter extends Presenter
 
     public function isPassed()
     {
-        return $this->is_passed ? '审核通过' : '';
+        return $this->is_passed ? '已通过' : '未审核';
     }
 }

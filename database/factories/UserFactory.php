@@ -20,6 +20,7 @@ $factory->define(App\Entities\User::class, function (Faker $faker) {
         'name' => $faker->name,
         'password' => '123456',
         'remember_token' => Str::random(10),
+        'idnumber' => $faker->unique()->randomNumber(),
         'role_id' => $faker->numberBetween(2, 3),
         'department_id' => $faker->numberBetween(1, 36),
         'group_id' => $faker->numberBetween(1, 4),
