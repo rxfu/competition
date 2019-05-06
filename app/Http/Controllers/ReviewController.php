@@ -31,10 +31,14 @@ class ReviewController extends BaseController
             'year' => date('Y'),
             'marker_id' => Auth::id(),
         ];
-
+        
         foreach ($request->input('scores') as $id => $score) {
             $data['player_id'] = $id;
             $data['design_score'] = $score;
+
+            if (!$request->ajax()) {
+                $data['design_confirmed'] = true;
+            }
             
             $this->service->store($data);
         }

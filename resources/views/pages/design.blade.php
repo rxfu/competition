@@ -78,10 +78,10 @@ $(function() {
                 'data': {
                     '_token': '{{ csrf_token() }}',
                     'dataType': 'json',
-                    $(this).attr('name'): $(this).val()
+                    scores: $(this).serialize()
                 },
                 'beforeSend': function() {
-                    $(this).after('<p>保存中......</p>');
+                    $(this).html('<p>保存中......</p>');
                 },
                 'success': function(data) {
                     if (data.message === 'success'){
