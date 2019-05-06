@@ -13,7 +13,7 @@ class ReviewController extends BaseController
     protected $module = 'review';
 
     protected $storeRules = [
-        'scores.*' => 'numeric|min:0|max:20',
+        'scores.*' => 'required|numeric|min:0|max:20',
     ];
 
     public function __construct(ReviewService $reviewService)
@@ -25,13 +25,17 @@ class ReviewController extends BaseController
 
     public function design(Request $request)
     {
+        $scores = $request->input('scores');
+        $scores = array_diff($scores, [null]);
+        $request->replace(['scores' => $scores]);
+
         $this->validate($request, $this->storeRules);
 
         $data = [
             'year' => date('Y'),
             'marker_id' => Auth::id(),
         ];
-        
+
         foreach ($request->input('scores') as $id => $score) {
             $data['player_id'] = $id;
             $data['design_score'] = $score;

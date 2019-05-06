@@ -9,6 +9,7 @@
     <form role="form" id="mark-form" name="mark-form" method="post" action="{{ route('review.design') }}">
         @csrf
         <div class="card-body">
+            <div class="text-danger" id="status"></div>
             <table id="itemsTable" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -33,10 +34,11 @@
                                 @endif
                             </td>
                             <td>
-                                @if (optional($item->review)->design_score)
+                                @if (optional($item->review)->design_confirmed)
                                     {{ optional($item->review)->design_score }}
                                 @else
-                                    <input type="text" name="scores[{{ $item->id }}]" id="scores[{{ $item->id }}]" value="{{ old('scores[' . $item->id . ']', optional($item->review)->design_score) }}" placeholder="教学设计得分" class="form-control">
+                                    <input type="text" name="scores[{{ $item->id }}]" id="scores[{{ $item->id }}]" data-id="{{ $item->id }}" value="{{ old('scores[' . $item->id . ']', optional($item->review)->design_score) }}" placeholder="教学设计得分" class="form-control" required>
+                                    <div id="status{{ $item->id }}"></div>
                                 @endif
                             </td>
                         </tr>
@@ -45,7 +47,7 @@
             </table>
         </div>
 
-        @unless (optional($items[0]->review)->design_score)
+        @if (App\Entities\Review::whereMarkerId(Auth::id())->whereDesignConfirmed(false)->where('year', '=', date('Y'))->count())
             <div class="card-footer">
                 <div class="row justify-content-sm-center">
                     <button type="submit" class="btn btn-success" onclick="return window.confirm('教学设计评分提交后将不可以再修改，请仔细检查评分，无误请点击“确定”，否则请点击“取消”！');">
@@ -53,7 +55,7 @@
                     </button>
                 </div>
             </div>
-        @endunless
+        @endif
     </form>
 </div>
 @stop
@@ -69,32 +71,40 @@ $(function() {
             $(this).select();
         },
         'change': function() {
+            var id = $(this).attr('data-id');
+            var scores = [];
+            scores[id] = $(this).val();
 
             // Use ajax to submit form data
             $.ajax({
                 'headers': '{{ csrf_token() }}',
                 'url': '{{ route('review.design') }}',
                 'type': 'post',
+                'dataType': 'json',
                 'data': {
                     '_token': '{{ csrf_token() }}',
-                    'dataType': 'json',
-                    scores: $(this).serialize()
+                    'scores[]': scores
                 },
+                'traditional': true,
                 'beforeSend': function() {
-                    $(this).html('<p>保存中......</p>');
+                    $('#status' + id).removeClass();
+                    $('#status' + id).text('保存中......').addClass('text-info');
                 },
                 'success': function(data) {
                     if (data.message === 'success'){
-                        $(this).after('<p>保存成功</p>');
+                        $('#status' + id).removeClass();
+                        $('#status' + id).text('保存成功').addClass('text-success');
                     } else {
-                        $(this).after('<p>保存失败</p>');
+                        $('#status' + id).removeClass();
+                        $('#status' + id).text('保存失败').addClass('text-danger');
                     }
                 }
             })
             .fail(function(jqXHR) {
                 if (422 == jqXHR.status) {
-                    $.each(jqXHR.responseJSON, function(key, value) {
-                        $(this).after('<p>' + value + '</p>');
+                    $.each(jqXHR.responseJSON.errors, function(key, value) {
+                        $('#status' + id).removeClass();
+                        $('#status' + id).text(value).addClass('text-danger');
                     });
                 }
             });

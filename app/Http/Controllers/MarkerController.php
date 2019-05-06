@@ -121,9 +121,13 @@ class MarkerController extends BaseController
 
     public function design()
     {
-        $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
+        if (Setting::whereIsEnable(false)->exists()) {
+            $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
 
-        return view('pages.design', compact('items'));
+            return view('pages.design', compact('items'));
+        }
+
+        return view('pages.error', ['message' => '教学设计评分系统已关闭！']);
     }
 
     public function teaching($id = null)
@@ -162,7 +166,7 @@ class MarkerController extends BaseController
             }
         }
 
-        return view('pages.error', ['message' => '评分系统已关闭！']);
+        return view('pages.error', ['message' => '课堂教学评分系统已关闭！']);
     }
 
     public function showUploadForm()

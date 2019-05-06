@@ -24,6 +24,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $preitem = null
+                            @endphp
                             @foreach ($rank['items']->sortByDesc('total') as $item)
                                 <tr>
                                     <td>{{ optional($item->document)->seq }}</td>
@@ -32,8 +35,17 @@
                                     </td>
                                     <td>{{ $item->department->name }}</td>
                                     <td>{{ number_format($item->total, 2) }}</td>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        @if ($item->total == optional($preitem)->total)
+                                            {{ $loop->iteration - 1 }}
+                                        @else
+                                            {{ $loop->iteration }}
+                                        @endif
+                                    </td>
                                 </tr>
+                                @php
+                                    $preitem = $item
+                                @endphp
                             @endforeach
                         </tbody>
                     </table>

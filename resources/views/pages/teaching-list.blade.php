@@ -11,7 +11,8 @@
             <thead>
                 <tr>
                     <th scope="col">选手抽签号</th>
-                    <th scope="col">得分</th>
+                    <th scope="col">课堂教学得分</th>
+                    <th scope="col">课堂反思得分</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,9 +20,8 @@
                     @if ($item->document && $item->document->seq)
                         <tr>
                             <td>{{ optional($item->document)->seq }}</td>
-                            <td>
-                                {{ optional($item->review)->live_score }}
-                            </td>
+                            <td>{{ optional($item->review)->live_score }}</td>
+                            <td>{{ optional($item->review)->reflection_score }}</td>
                         </tr>
                     @endif
                 @endforeach

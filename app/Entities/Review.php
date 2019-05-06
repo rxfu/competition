@@ -15,7 +15,7 @@ class Review extends Model
      * @var array
      */
     protected $fillable = [
-        'year', 'marker_id', 'player_id', 'design_score', 'live_score', 'reflection_score',
+        'year', 'marker_id', 'player_id', 'design_score', 'live_score', 'reflection_score', 'design_confirmed',
     ];
 
     protected $presenter = 'App\Presenters\ReviewPresenter';

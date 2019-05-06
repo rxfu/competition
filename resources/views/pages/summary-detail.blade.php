@@ -17,6 +17,7 @@
                             <th scope="col">选手姓名</th>
                             <th scope="col">教学设计分数</th>
                             <th scope="col">课堂教学分数</th>
+                            <th scope="col">课堂反思分数</th>
                             <th scope="col">总分</th>
                         </tr>
                     </thead>
@@ -28,6 +29,7 @@
                                 <td>{{ $item->player->name }}</td>
                                 <td>{{ $item->design_score }}</td>
                                 <td>{{ $item->live_score }}</td>
+                                <td>{{ $item->reflection_score }}</td>
                                 <td>{{ number_format($item->present()->total, 2) }}</td>
                             </tr>
                         @endforeach

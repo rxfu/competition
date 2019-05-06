@@ -13,13 +13,13 @@
             <h1 class="text-center text-danger" style="font-size: 12em">
                 <strong>{{ $item->document->seq }}</strong>
             </h1>
-            <div class="form-inline">
-                <div class="form-group">
-                    <label for="live_score" class="col-form-label">课堂教学得分</label>
+            <div class="form-inline row">
+                <div class="form-group col-sm-6">
+                    <label for="live_score" class="col-form-label mr-4">课堂教学得分</label>
                     <input type="text" name="live_score" id="live_score" placeholder="课堂教学得分" class="form-control form-control-lg text-center" style="font-weight: bold" required autofocus>
                 </div>
-                <div class="form-group">
-                    <label for="reflection_score" class="col-form-label">课堂反思得分</label>
+                <div class="form-group col-sm-6">
+                    <label for="reflection_score" class="col-form-label mr-4">课堂反思得分</label>
                     <input type="text" name="reflection_score" id="reflection_score" placeholder="课堂反思得分" class="form-control form-control-lg text-center" style="font-weight: bold" required autofocus>
                 </div>
             </div>
