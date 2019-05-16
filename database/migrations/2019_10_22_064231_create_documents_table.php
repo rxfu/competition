@@ -20,6 +20,7 @@ class CreateDocumentsTable extends Migration
             $table->string('design', 128)->nullable()->comment('教学设计');
             $table->string('section', 128)->nullable()->comment('教学节段');
             $table->string('catalog', 128)->nullable()->comment('教学目录');
+            $table->text('application')->nullable()->comment('特殊软件安装申请');
             $table->unsignedInteger('seq')->nullable()->comment('抽签号');
             $table->boolean('is_drawed')->default(false)->comment('是否抽签，0-否，1-是');
             $table->timestamps();

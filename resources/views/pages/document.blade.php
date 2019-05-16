@@ -72,6 +72,12 @@
 	                    	@endif
 	                    </div>
 	                </div>
+	                <div class="form-group row">
+	                    <label for="application" class="col-sm-3 col-form-label">特殊软件安装申请</label>
+	                    <div class="col-md-9">
+	                    	<textarea name="application" id="application" rows="5" class="form-control{{ $errors->has('application') ? ' is_invalid' : '' }}" placeholder="因竞赛场地硬件升级，电脑系统版本更换为Win10旗舰版。除了《关于举办第四届全国高校青年教师教学竞赛的通知》（教科文卫体工发〔2018〕9号）中提及的应用软件，原则上不另行安装选手提供的其他软件，如确有需要的，在提交竞赛材料的同时向组委会提出申请并说明理由，经同意后由工作人员安装。">{{ old('application', $item->application) }}</textarea>
+	                    </div>
+	                </div>
 				</div>
 
 				<div class="card-footer">
