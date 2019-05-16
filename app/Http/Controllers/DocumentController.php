@@ -44,6 +44,11 @@ class DocumentController extends BaseController
             $this->service->upload($request->file('section'), $request->input('user_id'), 'section', 'jieduan');
             $this->service->upload($request->file('catalog'), $request->input('user_id'), 'catalog', 'mulu');
 
+            $data = [
+                'application' => $request->only('application'),
+            ];
+            $this->service->update($request->input('user_id'), $data);
+
             return redirect()->route('player.index')->withSuccess('上传' . trans($this->module . '.module') . '成功');
         }
     }
