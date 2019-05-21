@@ -47,6 +47,19 @@
                         </div>
                     @endif
                 </div>
+                <div class="form-group row mb-3">
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control{{ $errors->has('captcha') ? ' parsley-error' : '' }}" name="captcha" placeholder="验证码">
+                    </div>
+                    <div class="col-sm-5">
+                        <img src=" {{captcha_src()}} " style="cursor: pointer" onclick="this.src = '{{ captcha_src()}}' + Math.random()">
+                    </div>
+                    @if($errors->has('captcha'))
+                        <div class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('captcha') }}</strong>
+                        </div>
+                    @endif
+                </div>
                 <div class="row">
                     <div class="col-8">
                         <div class="checkbox icheck">

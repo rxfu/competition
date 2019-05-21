@@ -11,12 +11,12 @@
             "version": "dev-v3-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/almasaeed2010/AdminLTE.git",
+                "url": "https://github.com/ColorlibHQ/AdminLTE.git",
                 "reference": "7e09433c4d0ea5fd17671f218a250d4dc3e56444"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/7e09433c4d0ea5fd17671f218a250d4dc3e56444",
+                "url": "https://api.github.com/repos/ColorlibHQ/AdminLTE/zipball/7e09433c4d0ea5fd17671f218a250d4dc3e56444",
                 "reference": "7e09433c4d0ea5fd17671f218a250d4dc3e56444",
                 "shasum": ""
             },
@@ -1695,16 +1695,16 @@
         },
         {
             "name": "mews/captcha",
-            "version": "2.2.6",
+            "version": "2.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mewebstudio/captcha.git",
-                "reference": "44320039158d90c064f64ab577c37d54dc4d5424"
+                "reference": "77ee353db8d92c001b411a0afbb7b3ccb71500b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mewebstudio/captcha/zipball/44320039158d90c064f64ab577c37d54dc4d5424",
-                "reference": "44320039158d90c064f64ab577c37d54dc4d5424",
+                "url": "https://api.github.com/repos/mewebstudio/captcha/zipball/77ee353db8d92c001b411a0afbb7b3ccb71500b0",
+                "reference": "77ee353db8d92c001b411a0afbb7b3ccb71500b0",
                 "shasum": ""
             },
             "require": {
@@ -1758,7 +1758,7 @@
                 "laravel5 Captcha",
                 "laravel5 Security"
             ],
-            "time": "2019-03-07T07:53:33+00:00"
+            "time": "2019-04-19T12:35:00+00:00"
         },
         {
             "name": "moment/moment",

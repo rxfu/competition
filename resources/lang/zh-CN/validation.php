@@ -115,6 +115,7 @@ return [
     'uploaded' => ':attribute 上传失败',
     'url' => ':attribute 格式无效',
     'uuid' => ':attribute 必须是有效的 UUID.',
+    'captcha' => ':attribute 不正确',
 
     /*
     |--------------------------------------------------------------------------
@@ -149,11 +150,27 @@ return [
         'password' => '密码',
         'captcha' => '验证码',
         'email' => '电子邮箱',
+        'phone' => '联系电话',
+        'leader' => '学校联系人',
+        'leader_phone' => '学校联系人电话',
         'idnumber' => '身份证号',
         'syllabus' => '教学大纲',
         'design' => '教学设计',
         'section' => '教学节段PPT',
         'catalog' => '教学节段目录',
+        'memo' => '备注',
+        'description' => '描述',
+        'name' => '名称',
+        'year' => '年度',
+        'begin_at' => '开始时间',
+        'end_at' => '结束时间',
+        'user_id' => '用户ID',
+        'birthday' => '出生日期',
+        'position' => '职称',
+        'teaching_begin_time' => '开始本科教学时间',
+        'course' => '参赛课程',
+        'major' => '专业',
+        'direction' => '研究方向',
     ],
 
 ];
