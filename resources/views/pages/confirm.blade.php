@@ -16,11 +16,17 @@
 		        @csrf
 		        @method('put')
 				<div class="card-body">
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">组别</label>
+						<div class="col-sm-9">
+							<div class="form-control-plaintext">{{ $item->group->name }}</div>
+						</div>
+					</div>
 					@foreach ($components as $component)
 						@if (!empty($component['confirm']))
 			                <div class="form-group row">
 			                    <label for="{{ $component['field'] }}" class="col-sm-3 col-form-label">{{ __($model . '.' . $component['field']) }}</label>
-			                    <div class="col-md-9">
+			                    <div class="col-sm-9">
 									@if ('text' === $component['type'])
 				                    	<input type="text" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="{{ empty($component['readonly']) ? 'form-control' : 'form-control-plaintext' }}{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" placeholder="{{ __($model . '.' . $component['field']) }}" value="{{ old($component['field'], $item->{$component['field']}) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }}>
 						            @elseif ('password' === $component['type'])
