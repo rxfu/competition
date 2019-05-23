@@ -113,6 +113,16 @@
 <script src="{{ asset('vendor/datetimepicker/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 <script>
 $(function() {
+	$('#birthday').datetimepicker({
+		format: 'L',
+    	locale: 'zh-cn',
+    	icons: {
+    		time: 'far fa-clock',
+    		date: 'far fa-calendar-alt',
+    		up: 'fas fa-arrow-up',
+    		down: 'fas fa-arrow-down'
+    	}
+	});
     $('.datetimepicker').datetimepicker({
     	locale: 'zh-cn',
     	icons: {

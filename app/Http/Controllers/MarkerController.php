@@ -20,7 +20,15 @@ class MarkerController extends BaseController
 {
     protected $module = 'marker';
 
-    protected $storeRules;
+    protected $storeRules = [
+        'name' => 'required',
+        'idnumber' => 'required',
+        'birthday' => 'required',
+        'email' => 'required|email|unique:users',
+        'position' => 'required',
+        'major' => 'required',
+        'phone' => 'required',
+    ];
 
     private $genderService;
 
@@ -46,7 +54,12 @@ class MarkerController extends BaseController
 
         $this->updateRules = $this->storeRules = [
             // 'idnumber' => ['required', 'string', new Idnumber],
-            // 'email' => 'required|email',
+            'idnumber' => 'required',
+            'birthday' => 'required',
+            'email' => 'required|email|unique:users,email,' . request('id'),
+            'position' => 'required',
+            'major' => 'required',
+            'phone' => 'required',
         ];
     }
 
@@ -73,8 +86,7 @@ class MarkerController extends BaseController
     public function store(Request $request)
     {
         $request->offsetSet('username', $request->phone);
-        $request->offsetSet('password', config('setting.password'));
-        // $request->offsetSet('password', substr($request->idnumber, -6));
+        $request->offsetSet('password', substr($request->idnumber, -6));
         // $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
         $request->offsetSet('is_enable', true);
         $request->offsetSet('is_super', false);

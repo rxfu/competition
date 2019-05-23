@@ -26,7 +26,7 @@ class UserImport implements ToModel, WithHeadingRow
     {
         return new User([
             'username' => $row['username'] ?? $row['phone'],
-            'password' => config('setting.password'),
+            'password' => $row['password'] ?? config('setting.password'),
             'name' => $row['name'] ?? null,
             'department_id' => is_null($this->department) ? ($row['department'] ?? null) : $this->department,
             'role_id' => $this->role,

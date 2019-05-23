@@ -58,10 +58,10 @@ class DepartmentsTableSeeder extends Seeder
             'name' => '广西师范大学漓江学院',
         ]);
         Department::create([
-            'name' => '广西师范学院',
+            'name' => '南宁师范大学',
         ]);
         Department::create([
-            'name' => '广西师范学院师园学院',
+            'name' => '南宁师范大学师园学院',
         ]);
         Department::create([
             'name' => '广西外国语学院',
@@ -109,7 +109,7 @@ class DepartmentsTableSeeder extends Seeder
             'name' => '南宁学院',
         ]);
         Department::create([
-            'name' => '钦州学院',
+            'name' => '北部湾大学',
         ]);
         Department::create([
             'name' => '梧州学院',

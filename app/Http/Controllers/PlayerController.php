@@ -19,7 +19,15 @@ class PlayerController extends BaseController
 {
     protected $module = 'player';
 
-    protected $storeRules;
+    protected $storeRules = [
+        'name' => 'required',
+        'idnumber' => 'required',
+        'birthday' => 'required',
+        'position' => 'required',
+        'teaching_begin_at' => 'required',
+        'phone' => 'required',
+        'course' => 'required',
+    ];
 
     private $genderService;
 
@@ -43,9 +51,7 @@ class PlayerController extends BaseController
         $this->subjectService = $subjectService;
         $this->groupService = $groupService;
 
-        $this->updateRules = $this->storeRules = [
-            // 'idnumber' => ['required', 'string', new Idnumber],
-        ];
+        $this->updateRules = $this->storeRules;
     }
 
     public function index()
@@ -77,7 +83,7 @@ class PlayerController extends BaseController
     {
         $request->offsetSet('username', $request->phone);
         $request->offsetSet('password', substr($request->idnumber, -6));
-        $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
+        // $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
         $request->offsetSet('is_enable', true);
         $request->offsetSet('is_super', false);
         $request->offsetSet('creator_id', Auth::id());
@@ -102,7 +108,7 @@ class PlayerController extends BaseController
 
     public function update(Request $request, $id)
     {
-        $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
+        // $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
 
         return parent::update($request, $id);
     }
