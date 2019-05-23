@@ -9,7 +9,7 @@
 	<div class="col-sm-8">
 		<div class="card card-warning">
 			<div class="card-header">
-				<h3 class="card-title">确认{{ __($model . '.module') }}{{ $item->name }}</h3>
+				<h3 class="card-title">确认{{ $item->group->name }}{{ __($model . '.module') }}{{ $item->name }}</h3>
 			</div>
 			
 		    <form role="form" id="confirm-form" name="confirm-form" method="post" action="{{ route($model . '.confirm', $item->getKey()) }}" enctype="multipart/form-data">
