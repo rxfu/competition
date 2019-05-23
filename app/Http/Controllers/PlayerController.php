@@ -24,7 +24,7 @@ class PlayerController extends BaseController
         'idnumber' => 'required',
         'birthday' => 'required',
         'position' => 'required',
-        'teaching_begin_at' => 'required',
+        'teaching_begin_time' => 'required',
         'phone' => 'required',
         'course' => 'required',
     ];

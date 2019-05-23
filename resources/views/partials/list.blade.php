@@ -10,7 +10,7 @@
 					<th scope="col"></th>
 					@foreach ($components as $component)
 						@if (!empty($component['list']))
-							<th scope="col" class="{{ isset($component['responsive']) ? $component['responsive'] : 'desktop' }}">{{ trans($model . '.' . $component['field']) }}</th>
+							<th scope="col" class="{{ $component['responsive'] ?? 'desktop' }}">{{ trans($model . '.' . $component['field']) }}</th>
 						@endif
 					@endforeach
 				</tr>

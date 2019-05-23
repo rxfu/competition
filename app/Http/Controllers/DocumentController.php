@@ -45,7 +45,7 @@ class DocumentController extends BaseController
             $this->service->upload($request->file('catalog'), $request->input('user_id'), 'catalog', 'mulu');
 
             $data = [
-                'application' => $request->only('application'),
+                'application' => $request->input('application'),
             ];
             $this->service->update($request->input('user_id'), $data);
 

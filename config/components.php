@@ -617,6 +617,15 @@ return [
             'responsive' => 'none',
         ],
         [
+            'field' => 'application',
+            'list' => true,
+            'create' => false,
+            'edit' => false,
+            'relation' => 'document',
+            'prop' => 'application',
+            'responsive' => 'none',
+        ],
+        [
             'field' => 'memo',
             'list' => true,
             'create' => true,
