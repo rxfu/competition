@@ -77,6 +77,9 @@
         </div>
     </div>
 </div>
+
+@include('shared.footer')
+
 @endsection
 
 @push('styles')
@@ -85,6 +88,13 @@
 <style>
     .login-logo {
         font-size: 28px;
+    }
+    .main-footer {
+        margin-left: 0 !important;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 55px;
     }
 </style>
 @endpush
