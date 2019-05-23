@@ -56,6 +56,11 @@ class DocumentController extends BaseController
     public function seq(Request $request)
     {
         if ($request->isMethod('put')) {
+            $exists = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->exists();
+            if (!$exists) {
+                return back()->withDanger('选手身份证号不正确，请重新输入');
+            }
+            
             $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
             $document = Document::findOrFail($player->id);
 
