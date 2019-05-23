@@ -74,6 +74,10 @@ class LoginController extends Controller
         $user = $this->service->getUser($request->input('username'));
         if ($user) {
             if (!$user->is_super) {
+                if ($user->role_id === config('setting.player')) {
+                    return back()->withWarning('选手不允许登录系统')->withInput();
+                }
+
                 if (($user->role_id === config('setting.marker')) && (!$user->is_passed)) {
                     return back()->withWarning('登录失败，您的身份未审核')->withInput();
                 }
