@@ -26,7 +26,11 @@
 										{{ $item->present()->{Illuminate\Support\Str::camel($component['field'])} }}
 									@elseif (!empty($component['relation']) && (!is_null($item->{$component['relation']})))
 										@if (isset($component['prop']))
-											<a href="{{ asset(optional($item->{$component['relation']})->{$component['prop']}) }}">{{ __($model . '.' . $component['prop']) }}</a>
+											@if (false === stripos(optional($item->{$component['relation']})->{$component['prop']}, 'storage/'))
+												{{ optional($item->{$component['relation']})->{$component['prop']} }}
+											@else
+												<a href="{{ asset(optional($item->{$component['relation']})->{$component['prop']}) }}">下载</a>
+											@endif
 										@else
 											{{ optional($item->{$component['relation']})->name }}
 										@endif
