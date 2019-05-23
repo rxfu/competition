@@ -47,7 +47,7 @@
             </table>
         </div>
 
-        @if (App\Entities\Review::whereMarkerId(Auth::id())->whereDesignConfirmed(false)->where('year', '=', date('Y'))->count())
+        @unless (App\Entities\Review::whereMarkerId(Auth::id())->whereDesignConfirmed(true)->where('year', '=', date('Y'))->count())
             <div class="card-footer">
                 <div class="row justify-content-sm-center">
                     <button type="submit" class="btn btn-success" onclick="return window.confirm('教学设计评分提交后将不可以再修改，请仔细检查评分，无误请点击“确定”，否则请点击“取消”！');">
@@ -55,7 +55,7 @@
                     </button>
                 </div>
             </div>
-        @endif
+        @endunless
     </form>
 </div>
 @stop
