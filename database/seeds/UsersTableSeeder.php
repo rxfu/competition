@@ -18,12 +18,26 @@ class UsersTableSeeder extends Seeder
             'name' => '超级管理员',
             'is_super' => true,
             'creator_id' => 1,
+            'is_confirmed' => true,
         ]);
-        
+
+        foreach (['文科组', '理科组', '工科组', '思政组'] as $idx => $user) {
+            User::create([
+                'username' => $user,
+                'password' => 'cq2019%%%',
+                'name' => $user . '抽签',
+                'creator_id' => 1,
+                'group_id' => $idx + 1,
+                'role_id' => config('setting.drawer'),
+                'is_confirmed' => true,
+            ]);
+        }
+        /*
         factory(App\Entities\User::class, 50)->create()->filter(function ($user) {
             return $user->role_id === config('setting.player');
         })->each(function ($user) {
             $user->document()->save(factory(App\Entities\Document::class)->make());
         });
+        */
     }
 }

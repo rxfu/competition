@@ -12,4 +12,5 @@ return [
     'manager' => 1,
     'marker' => 2,
     'player' => 3,
+    'drawer' => 4,
 ];
