@@ -27,7 +27,7 @@ class MarkerController extends BaseController
         'email' => 'required|email|unique:users',
         'position' => 'required',
         'major' => 'required',
-        'phone' => 'required',
+        'phone' => 'required|unique:users',
     ];
 
     private $genderService;
@@ -59,7 +59,7 @@ class MarkerController extends BaseController
             'email' => 'required|email|unique:users,email,' . request('id'),
             'position' => 'required',
             'major' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|unique:users,phone,' . request('id'),
         ];
     }
 

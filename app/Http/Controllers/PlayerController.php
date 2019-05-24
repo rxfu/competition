@@ -25,7 +25,7 @@ class PlayerController extends BaseController
         'birthday' => 'required',
         'position' => 'required',
         'teaching_begin_time' => 'required',
-        'phone' => 'required',
+        'phone' => 'required|unique:users',
         'course' => 'required',
     ];
 
@@ -51,7 +51,15 @@ class PlayerController extends BaseController
         $this->subjectService = $subjectService;
         $this->groupService = $groupService;
 
-        $this->updateRules = $this->storeRules;
+        $this->updateRules = [
+            'name' => 'required',
+            'idnumber' => 'required',
+            'birthday' => 'required',
+            'position' => 'required',
+            'teaching_begin_time' => 'required',
+            'phone' => 'required|unique:users,phone,' . request('id'),
+            'course' => 'required',
+        ];
     }
 
     public function index()

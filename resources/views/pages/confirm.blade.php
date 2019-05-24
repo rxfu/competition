@@ -9,7 +9,7 @@
 	<div class="col-sm-8">
 		<div class="card card-warning">
 			<div class="card-header">
-				<h3 class="card-title">确认{{ $item->group->name }}{{ __($model . '.module') }}{{ $item->name }}</h3>
+				<h3 class="card-title">确认{{ optional($item->group)->name }}{{ __($model . '.module') }}{{ $item->name }}</h3>
 			</div>
 			
 		    <form role="form" id="confirm-form" name="confirm-form" method="post" action="{{ route($model . '.confirm', $item->getKey()) }}" enctype="multipart/form-data">
@@ -19,7 +19,7 @@
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label">组别</label>
 						<div class="col-sm-9">
-							<div class="form-control-plaintext">{{ $item->group->name }}</div>
+							<div class="form-control-plaintext">{{ optional($item->group)->name }}</div>
 						</div>
 					</div>
 					@foreach ($components as $component)

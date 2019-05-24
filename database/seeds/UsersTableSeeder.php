@@ -13,8 +13,8 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::create([
-            'username' => 'admin',
-            'password' => '123456',
+            'username' => 'gxnuad',
+            'password' => 'gxnu@5826059..',
             'name' => '超级管理员',
             'is_super' => true,
             'creator_id' => 1,
