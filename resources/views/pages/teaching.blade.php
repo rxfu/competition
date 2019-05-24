@@ -17,10 +17,20 @@
                 <div class="form-group col-sm-6">
                     <label for="live_score" class="col-form-label mr-4">课堂教学得分</label>
                     <input type="text" name="live_score" id="live_score" placeholder="课堂教学得分" class="form-control form-control-lg text-center" style="font-weight: bold" required autofocus>
+                    @if ($errors->has('live_score'))
+                        <div class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('live_score') }}</strong>
+                        </div>
+                    @endif
                 </div>
                 <div class="form-group col-sm-6">
                     <label for="reflection_score" class="col-form-label mr-4">课堂反思得分</label>
                     <input type="text" name="reflection_score" id="reflection_score" placeholder="课堂反思得分" class="form-control form-control-lg text-center" style="font-weight: bold" required autofocus>
+                    @if ($errors->has('reflection_score'))
+                        <div class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('reflection_score') }}</strong>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
