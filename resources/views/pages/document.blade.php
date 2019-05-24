@@ -29,6 +29,11 @@
 	                    <div class="col-md-9">
 	                    	<input type="file" name="syllabus" id="syllabus" class="form-control-file{{ $errors->has('syllabus') ? ' is_invalid' : '' }}" required>
 	                    	<small class="form-text text-muted">要求文件类型为pdf</small>
+	                        @if ($errors->has('syllabus'))
+		                        <div class="invalid-feedback" role="alert">
+		                            <strong>{{ $errors->first('syllabus') }}</strong>
+		                        </div>
+	                        @endif
 	                    	@if (!empty($item->document->syllabus))
 	                    		<small class="form-text text-muted">
 	                    			<a class="pdf" href="{{ asset('js/vendor/pdfjs/web/viewer.html?file=/' . $item->document->syllabus) }}" title="教学大纲">教学大纲</a>
@@ -41,6 +46,11 @@
 	                    <div class="col-md-9">
 	                    	<input type="file" name="design" id="design" class="form-control-file{{ $errors->has('design') ? ' is_invalid' : '' }}" required>
 	                    	<small class="form-text text-muted">要求文件类型为pdf</small>
+	                        @if ($errors->has('design'))
+		                        <div class="invalid-feedback" role="alert">
+		                            <strong>{{ $errors->first('design') }}</strong>
+		                        </div>
+	                        @endif
 	                    	@if (!empty($item->document->design))
 	                    		<small class="form-text text-muted">
 	                    			<a href="{{ asset($item->document->design) }}" title="教学设计">教学设计</a>
@@ -53,6 +63,11 @@
 	                    <div class="col-md-9">
 	                    	<input type="file" name="section" id="section" class="form-control-file{{ $errors->has('section') ? ' is_invalid' : '' }}" required>
 	                    	<small class="form-text text-muted">要求文件类型为zip或rar</small>
+	                        @if ($errors->has('section'))
+		                        <div class="invalid-feedback" role="alert">
+		                            <strong>{{ $errors->first('section') }}</strong>
+		                        </div>
+	                        @endif
 	                    	@if (!empty($item->document->section))
 	                    		<small class="form-text text-muted">
 	                    			<a href="{{ asset($item->document->section) }}" title="教学节段PPT">教学节段PPT</a>
@@ -65,6 +80,11 @@
 	                    <div class="col-md-9">
 	                    	<input type="file" name="catalog" id="catalog" class="form-control-file{{ $errors->has('catalog') ? ' is_invalid' : '' }}" required>
 	                    	<small class="form-text text-muted">要求文件类型为pdf</small>
+	                        @if ($errors->has('catalog'))
+		                        <div class="invalid-feedback" role="alert">
+		                            <strong>{{ $errors->first('catalog') }}</strong>
+		                        </div>
+	                        @endif
 	                    	@if (!empty($item->document->catalog))
 	                    		<small class="form-text text-muted">
 	                    			<a href="{{ asset($item->document->catalog) }}" title="教学节段目录">教学节段目录</a>
@@ -75,7 +95,12 @@
 	                <div class="form-group row">
 	                    <label for="application" class="col-sm-3 col-form-label">特殊软件安装申请</label>
 	                    <div class="col-md-9">
-	                    	<textarea name="application" id="application" rows="5" class="form-control{{ $errors->has('application') ? ' is_invalid' : '' }}" placeholder="因竞赛场地硬件升级，电脑系统版本为win10专业版。除第六届广西高校青年教师教学竞赛承办方在QQ群提及的应用软件，原则上不另行安装选手提供的其他软件，如确有需要，在提交竞赛材料时，填写申请说明，并备注电话，经技术人员同意后方可安装。">{{ old('application', $item->document->application) }}</textarea>
+	                    	<textarea name="application" id="application" rows="5" class="form-control{{ $errors->has('application') ? ' is_invalid' : '' }}" placeholder="因竞赛场地硬件升级，电脑系统版本为win10专业版。除第六届广西高校青年教师教学竞赛承办方在QQ群提及的应用软件，原则上不另行安装选手提供的其他软件，如确有需要，在提交竞赛材料时，填写申请说明，并备注电话，经技术人员同意后方可安装。">{{ old('application', optional($item->document)->application) }}</textarea>
+	                        @if ($errors->has('application'))
+		                        <div class="invalid-feedback" role="alert">
+		                            <strong>{{ $errors->first('application') }}</strong>
+		                        </div>
+	                        @endif
 	                    </div>
 	                </div>
 				</div>
