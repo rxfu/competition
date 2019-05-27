@@ -21,7 +21,7 @@ class SummaryController extends Controller
     {
         $items = $this->service->getAllPlayers();
 
-        return view('pages.list', compact('items'));
+        return view('pages.summary-player', compact('items'));
     }
 
     public function marker()
