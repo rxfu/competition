@@ -13,6 +13,9 @@ class EducationsTableSeeder extends Seeder
     public function run()
     {
         Education::create([
+            'name' => '无',
+        ]);
+        Education::create([
             'name' => '本科',
         ]);
         Education::create([

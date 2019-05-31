@@ -27,7 +27,7 @@
 	                <div class="form-group row">
 	                    <label for="syllabus" class="col-sm-3 col-form-label">教学大纲</label>
 	                    <div class="col-md-9">
-	                    	<input type="file" name="syllabus" id="syllabus" class="form-control-file{{ $errors->has('syllabus') ? ' is_invalid' : '' }}" required>
+	                    	<input type="file" name="syllabus" id="syllabus" class="form-control-file{{ $errors->has('syllabus') ? ' is_invalid' : '' }}"{{ empty($item->document->syllabus) ? ' required' : '' }}>
 	                    	<small class="form-text text-muted">要求文件类型为pdf</small>
 	                        @if ($errors->has('syllabus'))
 		                        <div class="invalid-feedback" role="alert">
@@ -44,7 +44,7 @@
 	                <div class="form-group row">
 	                    <label for="design" class="col-sm-3 col-form-label">教学设计</label>
 	                    <div class="col-md-9">
-	                    	<input type="file" name="design" id="design" class="form-control-file{{ $errors->has('design') ? ' is_invalid' : '' }}" required>
+	                    	<input type="file" name="design" id="design" class="form-control-file{{ $errors->has('design') ? ' is_invalid' : '' }}"{{ empty($item->document->design) ? ' required' : '' }}>
 	                    	<small class="form-text text-muted">要求文件类型为pdf</small>
 	                        @if ($errors->has('design'))
 		                        <div class="invalid-feedback" role="alert">
@@ -61,7 +61,7 @@
 	                <div class="form-group row">
 	                    <label for="section" class="col-sm-3 col-form-label">教学节段PPT</label>
 	                    <div class="col-md-9">
-	                    	<input type="file" name="section" id="section" class="form-control-file{{ $errors->has('section') ? ' is_invalid' : '' }}" required>
+	                    	<input type="file" name="section" id="section" class="form-control-file{{ $errors->has('section') ? ' is_invalid' : '' }}"{{ empty($item->document->section) ? ' required' : '' }}>
 	                    	<small class="form-text text-muted">要求文件类型为zip或rar</small>
 	                        @if ($errors->has('section'))
 		                        <div class="invalid-feedback" role="alert">
@@ -78,7 +78,7 @@
 	                <div class="form-group row">
 	                    <label for="catalog" class="col-sm-3 col-form-label">教学节段目录</label>
 	                    <div class="col-md-9">
-	                    	<input type="file" name="catalog" id="catalog" class="form-control-file{{ $errors->has('catalog') ? ' is_invalid' : '' }}" required>
+	                    	<input type="file" name="catalog" id="catalog" class="form-control-file{{ $errors->has('catalog') ? ' is_invalid' : '' }}"{{ empty($item->document->catalog) ? ' required' : '' }}>
 	                    	<small class="form-text text-muted">要求文件类型为pdf</small>
 	                        @if ($errors->has('catalog'))
 		                        <div class="invalid-feedback" role="alert">

@@ -13,6 +13,9 @@ class DegreesTableSeeder extends Seeder
     public function run()
     {
         Degree::create([
+            'name' => '无',
+        ]);
+        Degree::create([
             'name' => '学士',
         ]);
         Degree::create([

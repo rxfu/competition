@@ -14,10 +14,10 @@ class DocumentController extends BaseController
     protected $module = 'document';
 
     protected $storeRules = [
-        'syllabus' => 'required|file|mimes:pdf',
-        'design' => 'required|file|mimes:pdf',
-        'section' => 'required|file|mimes:zip,rar',
-        'catalog' => 'required|file|mimes:pdf',
+        'syllabus' => 'file|mimes:pdf',
+        'design' => 'file|mimes:pdf',
+        'section' => 'file|mimes:zip,rar',
+        'catalog' => 'file|mimes:pdf',
     ];
 
     private $userService;
@@ -39,10 +39,22 @@ class DocumentController extends BaseController
         if ($request->isMethod('post')) {
             $this->validate($request, $this->storeRules);
 
-            $this->service->upload($request->file('syllabus'), $request->input('user_id'), 'syllabus', 'dagang');
-            $this->service->upload($request->file('design'), $request->input('user_id'), 'design', 'sheji');
-            $this->service->upload($request->file('section'), $request->input('user_id'), 'section', 'jieduan');
-            $this->service->upload($request->file('catalog'), $request->input('user_id'), 'catalog', 'mulu');
+            $uploads = [
+                'syllabus' => 'dagang',
+                'design' => 'sheji',
+                'section' => 'jieduan',
+                'catalog' => 'mulu',
+            ];
+
+            foreach ($uploads as $upload => $file) {
+                if ($request->has($upload)) {
+                    $this->service->upload($request->file($upload), $request->input('user_id'), $upload, $file);
+                }
+            }
+            // $this->service->upload($request->file('syllabus'), $request->input('user_id'), 'syllabus', 'dagang');
+            // $this->service->upload($request->file('design'), $request->input('user_id'), 'design', 'sheji');
+            // $this->service->upload($request->file('section'), $request->input('user_id'), 'section', 'jieduan');
+            // $this->service->upload($request->file('catalog'), $request->input('user_id'), 'catalog', 'mulu');
 
             $data = [
                 'application' => $request->input('application'),
