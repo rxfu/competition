@@ -28,7 +28,7 @@ class SummaryController extends Controller
     {
         $items = $this->service->getAllMarkers();
 
-        return view('pages.list', compact('items'));
+        return view('pages.summary-marker', compact('items'));
     }
 
     public function rank()
