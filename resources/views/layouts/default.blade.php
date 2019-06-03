@@ -20,6 +20,8 @@
     <link href="{{ asset('vendor/font-awesome/css/brands.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/font-awesome/css/regular.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/font-awesome/css/solid.min.css') }}" rel="stylesheet">
+    <!---Bootstrap 4 -->
+    <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Theme style -->
     <link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet">
     <!-- Styles -->

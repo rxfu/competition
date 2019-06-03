@@ -8,7 +8,7 @@
 				<h3 class="card-title">上传材料</h3>
 			</div>
 
-		    <form role="form" id="upload-form" name="upload-form" method="post" action="{{ route('document.store') }}" enctype="multipart/form-data">
+		    <form role="form" id="upload-form" name="upload-form" method="post" action="{{ route('document.store') }}" enctype="multipart/form-data" onsubmit="return showProgress();">
 		        @csrf
 				<div class="card-body">
 	                <div class="form-group row">
@@ -116,6 +116,8 @@
 		</div>
 	</div>
 </div>
+
+@include('shared.dialog')
 @stop
 
 @push('styles')
@@ -139,5 +141,12 @@ $(function() {
     	}
 	});
 });
+
+function showProgress() {
+	$('#progressDialog').modal({
+		'backdrop': 'static',
+		'keyboard': false
+	});
+}
 </script>
 @endpush
