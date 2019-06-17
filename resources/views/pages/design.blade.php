@@ -20,7 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($items as $item)
+                    @foreach ($items->sortBy('id') as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>
