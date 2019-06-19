@@ -25,7 +25,8 @@
                         </thead>
                         <tbody>
                             @php
-                                $preitem = null
+                                $preplace = 1;
+                                $preitem = null;
                             @endphp
                             @foreach ($rank['items']->sortByDesc('total') as $item)
                                 <tr>
@@ -37,14 +38,15 @@
                                     <td>{{ number_format($item->total, 2) }}</td>
                                     <td>
                                         @if ($item->total == optional($preitem)->total)
-                                            {{ $loop->iteration - 1 }}
+                                            {{ $thisplace = $preplace }}
                                         @else
-                                            {{ $loop->iteration }}
+                                            {{ $thisplace = $loop->iteration }}
                                         @endif
                                     </td>
                                 </tr>
                                 @php
-                                    $preitem = $item
+                                    $preplace = $thisplace;
+                                    $preitem = $item;
                                 @endphp
                             @endforeach
                         </tbody>
