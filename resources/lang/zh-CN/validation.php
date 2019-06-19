@@ -171,6 +171,8 @@ return [
         'course' => '参赛课程',
         'major' => '专业',
         'direction' => '研究方向',
+        'live_score' => '课堂教学得分',
+        'reflection_score' => '课堂反思得分',
     ],
 
 ];
