@@ -22,6 +22,10 @@
 		</tr>
 	</thead>
 	<tbody>
+        @php
+            $preplace = 1;
+            $preitem = null;
+        @endphp
 		@foreach($players->sortByDesc('total') as $player)
 			<tr>
 				<td>{{ optional($player->document)->seq }}</td>
@@ -32,9 +36,19 @@
 					<td>{{ optional(App\Entities\Review::whereMarkerId($marker->id)->wherePlayerId($player->id)->first())->live_score }}</td>
 					<td>{{ optional(App\Entities\Review::whereMarkerId($marker->id)->wherePlayerId($player->id)->first())->reflection_score }}</td>
 				@endforeach
-				<td>{{ $player->total }}</td>
-				<td>{{ $loop->iteration }}</td>
+				<td>{{ number_format($player->total, 2) }}</td>
+				<td>
+                    @if ($player->total == optional($preitem)->total)
+                        {{ $thisplace = $preplace }}
+                    @else
+                        {{ $thisplace = $loop->iteration }}
+                    @endif
+				</td>
 			</tr>
+            @php
+                $preplace = $thisplace;
+                $preitem = $player;
+            @endphp
 		@endforeach
 	</tbody>
 </table>

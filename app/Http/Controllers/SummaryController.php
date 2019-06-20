@@ -56,7 +56,9 @@ class SummaryController extends Controller
 
     public function export($id)
     {
-        $group = Group::findOrFail($id);
+        $group = Group::with(['markers' => function ($query) {
+            $query->whereIsPassed(true);
+        }])->findOrFail($id);
 
         return Excel::download(new ReviewsExport($group), '全区高校青年教师教学竞赛计分表（' . $group->name . '）.xlsx');
     }
