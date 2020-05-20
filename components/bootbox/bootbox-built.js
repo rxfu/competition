@@ -1,6 +1,6 @@
 /*! @preserve
  * bootbox.js
- * version: 5.0.0
+ * version: 5.4.0
  * author: Nick Payne <nick@kurai.co.uk>
  * license: MIT
  * http://bootboxjs.com/
@@ -68,7 +68,13 @@
   var VERSION = '5.0.0';
   exports.VERSION = VERSION;
 
-  var locales = {};
+  var locales = {
+    en : {
+      OK      : 'OK',
+      CANCEL  : 'Cancel',
+      CONFIRM : 'OK'
+    }
+  };
 
   var templates = {
     dialog:
@@ -146,7 +152,9 @@
     // center modal vertically in page
     centerVertical: false,
     // Append "multiple" property to the select when using the "prompt" helper
-    multiple: false
+    multiple: false,
+    // Automatically scroll modal content when height exceeds viewport height
+    scrollable: false
   };
 
 
@@ -159,7 +167,7 @@
   };
 
 
-  // Register localized strings for the OK, Confirm, and Cancel buttons
+  // Register localized strings for the OK, CONFIRM, and CANCEL buttons
   exports.addLocale = function (name, values) {
     $.each(['OK', 'CANCEL', 'CONFIRM'], function (_, v) {
       if (!values[v]) {
@@ -236,7 +244,7 @@
     if ($.fn.modal === undefined) {
       throw new Error(
         '"$.fn.modal" is not defined; please double check you have included ' +
-        'the Bootstrap JavaScript library. See http://getbootstrap.com/javascript/ ' +
+        'the Bootstrap JavaScript library. See https://getbootstrap.com/docs/4.4/getting-started/javascript/ ' +
         'for more details.'
       );
     }
@@ -276,8 +284,7 @@
         button.data('bb-handler', key);
         button.addClass(b.className);
 
-        switch(key)
-        {
+        switch (key) {
           case 'ok':
           case 'confirm':
             button.addClass('bootbox-accept');
@@ -311,10 +318,35 @@
         console.warn('"size" requires Bootstrap 3.1.0 or higher. You appear to be using ' + options.fullBootstrapVersion + '. Please upgrade to use this option.');
       }
 
-      if (options.size === 'large') {
-        innerDialog.addClass('modal-lg');
-      } else if (options.size === 'small') {
-        innerDialog.addClass('modal-sm');
+      switch (options.size) {
+        case 'small':
+        case 'sm':
+          innerDialog.addClass('modal-sm');
+          break;
+
+        case 'large':
+        case 'lg':
+          innerDialog.addClass('modal-lg');
+          break;
+
+        case 'extra-large':
+        case 'xl':
+          innerDialog.addClass('modal-xl');
+
+          // Requires Bootstrap 4.2.0 or higher
+          if (options.fullBootstrapVersion.substring(0, 3) < '4.2') {
+            console.warn('Using size "xl"/"extra-large" requires Bootstrap 4.2.0 or higher. You appear to be using ' + options.fullBootstrapVersion + '. Please upgrade to use this option.');
+          }
+          break;
+      }
+    }
+
+    if (options.scrollable) {
+      innerDialog.addClass('modal-dialog-scrollable');
+
+      // Requires Bootstrap 4.3.0 or higher
+      if (options.fullBootstrapVersion.substring(0, 3) < '4.3') {
+        console.warn('Using "scrollable" requires Bootstrap 4.3.0 or higher. You appear to be using ' + options.fullBootstrapVersion + '. Please upgrade to use this option.');
       }
     }
 
@@ -338,13 +370,13 @@
       }
     }
 
-    if(options.centerVertical){
+    if (options.centerVertical) {
+      innerDialog.addClass('modal-dialog-centered');
+
       // Requires Bootstrap 4.0.0-beta.3 or higher
       if (options.fullBootstrapVersion < '4.0.0') {
         console.warn('"centerVertical" requires Bootstrap 4.0.0-beta.3 or higher. You appear to be using ' + options.fullBootstrapVersion + '. Please upgrade to use this option.');
       }
-
-      innerDialog.addClass('modal-dialog-centered');
     }
 
     // Bootstrap event listeners; these handle extra
@@ -352,25 +384,47 @@
     // modal has performed certain actions.
 
     // make sure we unbind any listeners once the dialog has definitively been dismissed
-      dialog.one('hide.bs.modal', function (e) {
-        if (e.target === this) {
-          dialog.off('escape.close.bb');
-          dialog.off('click');
-        }
-    });
+    dialog.one('hide.bs.modal', { dialog: dialog }, unbindModal);
 
-    dialog.one('hidden.bs.modal', function (e) {
-      // ensure we don't accidentally intercept hidden events triggered
-      // by children of the current dialog. We shouldn't need to handle this anymore, 
-      // now that Bootstrap namespaces its events, but still worth doing.
-      if (e.target === this) {
-        dialog.remove();
+    if (options.onHide) {
+      if ($.isFunction(options.onHide)) {
+        dialog.on('hide.bs.modal', options.onHide);
       }
-    });
+      else {
+        throw new Error('Argument supplied to "onHide" must be a function');
+      }
+    }
 
-    dialog.one('shown.bs.modal', function () {
-      dialog.find('.bootbox-accept:first').trigger('focus');
-    });
+    dialog.one('hidden.bs.modal', { dialog: dialog }, destroyModal);
+
+    if (options.onHidden) {
+      if ($.isFunction(options.onHidden)) {
+        dialog.on('hidden.bs.modal', options.onHidden);
+      }
+      else {
+        throw new Error('Argument supplied to "onHidden" must be a function');
+      }
+    }
+
+    if (options.onShow) {
+      if ($.isFunction(options.onShow)) {
+        dialog.on('show.bs.modal', options.onShow);
+      }
+      else {
+        throw new Error('Argument supplied to "onShow" must be a function');
+      }
+    }
+
+    dialog.one('shown.bs.modal', { dialog: dialog }, focusPrimaryButton);
+
+    if (options.onShown) {
+      if ($.isFunction(options.onShown)) {
+        dialog.on('shown.bs.modal', options.onShown);
+      }
+      else {
+        throw new Error('Argument supplied to "onShown" must be a function');
+      }
+    }
 
     // Bootbox event listeners; used to decouple some
     // behaviours from their respective triggers
@@ -382,7 +436,7 @@
       // We always only ever pass static/false to the actual
       // $.modal function because with "true" we can't trap
       // this event (the .modal-backdrop swallows it)
-      // However, we still want to sort of respect true
+      // However, we still want to sort-of respect true
       // and invoke the escape mechanism instead
       dialog.on('click.dismiss.bs.modal', function (e) {
         // @NOTE: the target varies in >= 3.3.x releases since the modal backdrop
@@ -412,7 +466,10 @@
     dialog.on('click', '.modal-footer button:not(.disabled)', function (e) {
       var callbackKey = $(this).data('bb-handler');
 
-      processCallback(e, dialog, callbacks[callbackKey]);
+      if (callbackKey !== undefined) {
+        // Only process callbacks for buttons we recognize:
+        processCallback(e, dialog, callbacks[callbackKey]);
+      }
     });
 
     dialog.on('click', '.bootbox-close-button', function (e) {
@@ -429,7 +486,7 @@
     });
 
     // the remainder of this method simply deals with adding our
-    // dialogent to the DOM, augmenting it with Bootstrap's modal
+    // dialog element to the DOM, augmenting it with Bootstrap's modal
     // functionality and then giving the resulting object back
     // to our caller
 
@@ -537,6 +594,7 @@
     // spawning the dialog to give us a chance to attach some handlers to
     // it, but we need to make sure we respect a preference not to show it
     shouldShow = (options.show === undefined) ? defaults.show : options.show;
+
     // This is required prior to calling the dialog builder below - we need to 
     // add an event handler just before the prompt is shown
     options.show = false;
@@ -568,7 +626,7 @@
               return $(this).val();
             }).get();
           }
-          else{
+          else {
             value = input.val();
           }
         }
@@ -599,21 +657,27 @@
       case 'email':
       case 'password':
         input.val(options.value);
-        
+
         if (options.placeholder) {
           input.attr('placeholder', options.placeholder);
         }
-    
+
         if (options.pattern) {
           input.attr('pattern', options.pattern);
         }
-    
+
         if (options.maxlength) {
           input.attr('maxlength', options.maxlength);
         }
 
         if (options.required) {
           input.prop({ 'required': true });
+        }
+
+        if (options.rows && !isNaN(parseInt(options.rows))) {
+          if (options.inputType === 'textarea') {
+            input.attr({ 'rows': options.rows });
+          }
         }
 
         break;
@@ -624,11 +688,11 @@
       case 'number':
       case 'range':
         input.val(options.value);
-        
+
         if (options.placeholder) {
           input.attr('placeholder', options.placeholder);
         }
-    
+
         if (options.pattern) {
           input.attr('pattern', options.pattern);
         }
@@ -636,14 +700,14 @@
         if (options.required) {
           input.prop({ 'required': true });
         }
-        
+
         // These input types have extra attributes which affect their input validation.
         // Warning: For most browsers, date inputs are buggy in their implementation of 'step', so 
         // this attribute will have no effect. Therefore, we don't set the attribute for date inputs.
         // @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date#Setting_maximum_and_minimum_dates
         if (options.inputType !== 'date') {
           if (options.step) {
-            if (options.step === 'any' || (!isNaN(options.step) && parseInt(options.step) > 0)) {
+            if (options.step === 'any' || (!isNaN(options.step) && parseFloat(options.step) > 0)) {
               input.attr('step', options.step);
             }
             else {
@@ -652,11 +716,11 @@
           }
         }
 
-        if(minAndMaxAreValid(options.inputType, options.min, options.max)){
-          if(options.min !== undefined){
+        if (minAndMaxAreValid(options.inputType, options.min, options.max)) {
+          if (options.min !== undefined) {
             input.attr('min', options.min);
           }
-          if(options.max !== undefined){
+          if (options.max !== undefined) {
             input.attr('max', options.max);
           }
         }
@@ -681,15 +745,15 @@
         if (options.placeholder) {
           input.attr('placeholder', options.placeholder);
         }
-        
+
         if (options.required) {
           input.prop({ 'required': true });
         }
-        
+
         if (options.multiple) {
           input.prop({ 'multiple': true });
         }
-        
+
         each(inputOptions, function (_, option) {
           // assume the element to attach to is the input...
           var elem = input;
@@ -833,7 +897,7 @@
     promptDialog = exports.dialog(options);
 
     // clear the existing handler focusing the submit button...
-    promptDialog.off('shown.bs.modal');
+    promptDialog.off('shown.bs.modal', focusPrimaryButton);
 
     // ...and replace it with one focusing our input, if possible
     promptDialog.on('shown.bs.modal', function () {
@@ -902,11 +966,11 @@
   //  range of inputs and return valid options suitable for passing to bootbox.dialog
   function mergeDialogOptions(className, labels, properties, args) {
     var locale;
-    if(args && args[0]){
+    if (args && args[0]) {
       locale = args[0].locale || defaults.locale;
       var swapButtons = args[0].swapButtonOrder || defaults.swapButtonOrder;
 
-      if(swapButtons){
+      if (swapButtons) {
         labels = labels.reverse();
       }
     }
@@ -1029,13 +1093,13 @@
         button.label = key;
       }
 
-      if (!button.className) {     
+      if (!button.className) {
         var isPrimary = false;
-        if(options.swapButtonOrder){
+        if (options.swapButtonOrder) {
           isPrimary = index === 0;
         }
-        else{
-          isPrimary = index === total-1;
+        else {
+          isPrimary = index === total - 1;
         }
 
         if (total <= 2 && isPrimary) {
@@ -1067,6 +1131,29 @@
   }
 
 
+  function focusPrimaryButton(e) {
+    e.data.dialog.find('.bootbox-accept').first().trigger('focus');
+  }
+
+
+  function destroyModal(e) {
+    // ensure we don't accidentally intercept hidden events triggered
+    // by children of the current dialog. We shouldn't need to handle this anymore, 
+    // now that Bootstrap namespaces its events, but still worth doing.
+    if (e.target === e.data.dialog[0]) {
+      e.data.dialog.remove();
+    }
+  }
+
+
+  function unbindModal(e) {
+    if (e.target === e.data.dialog[0]) {
+      e.data.dialog.off('escape.close.bb');
+      e.data.dialog.off('click');
+    }
+  }
+
+
   //  Handle the invoked dialog callback
   function processCallback(e, dialog, callback) {
     e.stopPropagation();
@@ -1084,9 +1171,9 @@
       dialog.modal('hide');
     }
   }
-  
+
   // Validate `min` and `max` values based on the current `inputType` value
-  function minAndMaxAreValid(type, min, max){
+  function minAndMaxAreValid(type, min, max) {
     var result = false;
     var minValid = true;
     var maxValid = true;
@@ -1109,19 +1196,21 @@
     }
     else {
       if (min !== undefined && isNaN(min)) {
+        minValid = false;
         throw new Error('"min" must be a valid number. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-min for more information.');
       }
 
       if (max !== undefined && isNaN(max)) {
+        maxValid = false;
         throw new Error('"max" must be a valid number. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-max for more information.');
       }
     }
-    
-    if(minValid && maxValid){
-      if(max <= min){
+
+    if (minValid && maxValid) {
+      if (max <= min) {
         throw new Error('"max" must be greater than "min". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-max for more information.');
       }
-      else{
+      else {
         result = true;
       }
     }
@@ -1129,34 +1218,26 @@
     return result;
   }
 
-  function timeIsValid(value){
+  function timeIsValid(value) {
     return /([01][0-9]|2[0-3]):[0-5][0-9]?:[0-5][0-9]/.test(value);
   }
 
-  function dateIsValid(value){
+  function dateIsValid(value) {
     return /(\d{4})-(\d{2})-(\d{2})/.test(value);
   }
-
-
-  //  Register the default locale
-  exports.addLocale('en', {
-    OK: 'OK',
-    CANCEL: 'Cancel',
-    CONFIRM: 'OK'
-  });
-
 
   //  The Bootbox object
   return exports;
 }));
 /*! @preserve
  * bootbox.locales.js
- * version: 5.0.0
+ * version: 5.4.0
  * author: Nick Payne <nick@kurai.co.uk>
  * license: MIT
  * http://bootboxjs.com/
  */
-(function (global, factory) {
+(function (global, factory) {  
+  'use strict';
   if (typeof define === 'function' && define.amd) {
     define(['bootbox'], factory);
   } else if (typeof module === 'object' && module.exports) {
@@ -1165,7 +1246,7 @@
     factory(global.bootbox);
   }
 }(this, function (bootbox) {
-
+  'use strict';
   (function () {
     bootbox.addLocale('ar', {
       OK: 'موافق',
@@ -1335,6 +1416,14 @@
   })();
 
   (function () {
+    bootbox.addLocale('ka', {
+      OK: 'OK',
+      CANCEL: 'გაუქმება',
+      CONFIRM: 'დადასტურება'
+    });
+  })();
+
+  (function () {
     bootbox.addLocale('ko', {
       OK: 'OK',
       CANCEL: '취소',
@@ -1427,6 +1516,22 @@
       OK: 'OK',
       CANCEL: 'Avbryt',
       CONFIRM: 'OK'
+    });
+  })();
+
+  (function () {
+    bootbox.addLocale('sw', {
+      OK: 'Sawa',
+      CANCEL: 'Ghairi',
+      CONFIRM: 'Thibitisha'
+    });
+  })();
+
+  (function () {
+    bootbox.addLocale('ta', {
+      OK      : 'சரி',
+      CANCEL  : 'ரத்து செய்',
+      CONFIRM : 'உறுதி செய்'
     });
   })();
 
