@@ -27,7 +27,8 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('subject_id')->nullable()->comment('学科ID');
             $table->string('major', 50)->nullable()->comment('专业');
             $table->string('direction', 50)->nullable()->comment('研究方向');
-            $table->string('position', 50)->nullable()->comment('职称/职务');
+            $table->string('title', 50)->nullable()->comment('职称');
+            $table->string('position', 50)->nullable()->comment('职称');
             $table->string('phone', 20)->nullable()->comment('联系电话');
             $table->string('address')->nullable()->comment('通讯地址');
             $table->string('leader', 20)->nullable()->comment('学校联系人');
@@ -36,7 +37,15 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('group_id')->nullable()->comment('组ID');
             $table->string('course', 100)->nullable()->comment('参赛课程名称');
             $table->string('teaching_begin_time')->nullable()->comment('开始本科教学时间');
+            $table->string('teaching_total_time')->nullable()->comment('本科教学总时间');
             $table->timestamp('email_verified_at')->nullable();
+            $table->text('experience')->nullable()->comment('学习工作经历');
+            $table->text('teaching')->nullable()->comment('近两年主讲课程情况');
+            $table->text('thesis')->nullable()->comment('发表教学论文、著作');
+            $table->text('project')->nullable()->comment('主持、参与教学改革项目');
+            $table->text('reward')->nullable()->comment('教学奖励');
+            $table->text('achievement')->nullable()->comment('主要科研成果');
+            $table->text('opinion')->nullable()->comment('所在高校意见');
             $table->string('portrait', 128)->nullable()->comment('照片');
             $table->boolean('is_enable')->default(true)->comment('是否启用，0-禁用，1-启用');
             $table->boolean('is_super')->default(false)->comment('是否超级管理员，0-否，1-是');
