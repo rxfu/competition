@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('name', 50)->nullable()->comment('姓名');
             $table->unsignedBigInteger('gender_id')->nullable()->comment('性别ID');
             $table->string('birthday')->nullable()->comment('出生日期');
+            $table->unsignedInteger('idtype')->nullable()->comment('证件类型，0-身份证，1-其他证件');
             $table->string('idnumber', 18)->unique()->nullable()->comment('身份证号');
             $table->unsignedBigInteger('education_id')->nullable()->comment('学历ID');
             $table->unsignedBigInteger('degree_id')->nullable()->comment('学位ID');
@@ -28,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('major', 50)->nullable()->comment('专业');
             $table->string('direction', 50)->nullable()->comment('研究方向');
             $table->string('title', 50)->nullable()->comment('职称');
-            $table->string('position', 50)->nullable()->comment('职称');
+            $table->string('position', 50)->nullable()->comment('职务');
             $table->string('phone', 20)->nullable()->comment('联系电话');
             $table->string('address')->nullable()->comment('通讯地址');
             $table->string('leader', 20)->nullable()->comment('学校联系人');
