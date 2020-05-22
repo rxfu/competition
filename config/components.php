@@ -465,7 +465,7 @@ return [
         'document' => true,
         [
             'field' => 'portrait',
-            'list' => true,
+            'list' => false,
             'create' => true,
             'edit' => true,
             'type' => 'file',
@@ -510,6 +510,13 @@ return [
             'confirm' => true,
             'type' => 'text',
             'required' => true,
+        ],
+        [
+            'field' => 'birthday',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'type' => 'datetime',
         ],
         [
             'field' => 'title',
@@ -715,7 +722,7 @@ return [
         'audit' => true,
         [
             'field' => 'portrait',
-            'list' => true,
+            'list' => false,
             'create' => true,
             'edit' => true,
             'type' => 'file',
@@ -760,6 +767,13 @@ return [
             'confirm' => true,
             'type' => 'text',
             'required' => true,
+        ],
+        [
+            'field' => 'birthday',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'type' => 'datetime',
         ],
         [
             'field' => 'title',

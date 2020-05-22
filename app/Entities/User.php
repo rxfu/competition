@@ -13,14 +13,14 @@ class User extends Authenticatable
 {
     use Notifiable;
     use PresentableTrait;
- 
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'username', 'password', 'name', 'email', 'is_enable', 'is_super', 'birthday', 'idnumber', 'gender_id', 'education_id', 'degree_id', 'department_id', 'subject_id', 'major', 'direction', 'position', 'phone', 'address', 'leader', 'leader_phone', 'group_id', 'course', 'teaching_begin_time', 'portrait', 'creator_id', 'role_id', 'is_passed', 'is_confirmed', 'memo',
+        'username', 'password', 'name', 'email', 'is_enable', 'is_super', 'birthday', 'idnumber', 'gender_id', 'education_id', 'degree_id', 'department_id', 'subject_id', 'major', 'direction', 'position', 'phone', 'address', 'leader', 'leader_phone', 'group_id', 'course', 'teaching_begin_time', 'portrait', 'creator_id', 'role_id', 'is_passed', 'is_confirmed', 'memo', 'idtype', 'teaching_total_time', 'experience', 'teaching', 'thesis', 'project', 'reward', 'achievement', 'opinion', 'title'
     ];
 
     /**

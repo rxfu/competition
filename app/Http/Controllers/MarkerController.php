@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Entities\Document;
-use App\Entities\Setting;
+use Auth;
 use App\Entities\User;
 use App\Rules\Idnumber;
-use App\Services\DegreeService;
-use App\Services\DepartmentService;
-use App\Services\EducationService;
-use App\Services\GenderService;
-use App\Services\GroupService;
-use App\Services\SubjectService;
-use App\Services\UserService;
-use Auth;
+use App\Entities\Setting;
+use App\Entities\Document;
 use Illuminate\Http\Request;
+use App\Services\UserService;
+use App\Services\GroupService;
+use App\Services\DegreeService;
+use App\Services\GenderService;
+use App\Services\SubjectService;
+use App\Services\EducationService;
+use App\Services\DepartmentService;
+use Illuminate\Support\Facades\Validator;
 
 class MarkerController extends BaseController
 {
@@ -45,26 +46,24 @@ class MarkerController extends BaseController
         $this->storeRules = [
             'name' => 'required',
             'idtype' => 'required',
-            'idnumber' => ['exclude_if:idtype,1', 'required', 'string', new Idnumber],
+            'idnumber' => 'required|string',
             // 'idnumber' => 'required',
-            // 'birthday' => 'required',
+            'birthday' => 'required_if:idtype,1',
             'email' => 'required|email|unique:users',
             'title' => 'required',
             'major' => 'required',
             'phone' => 'required|unique:users',
-            'teaching_begin_time' => 'required|date|before_or_equal:2016-6-30',
         ];
 
         $this->updateRules = [
             'idtype' => 'required',
-            'idnumber' => ['exclude_if:idtype,1', 'required', 'string', new Idnumber],
+            'idnumber' => 'required|string',
             // 'idnumber' => 'required',
-            // 'birthday' => 'required',
+            'birthday' => 'required_if:idtype,1',
             'email' => 'required|email|unique:users,email,' . request('id'),
             'title' => 'required',
             'major' => 'required',
             'phone' => 'required|unique:users,phone,' . request('id'),
-            'teaching_begin_time' => 'required|date|before_or_equal:2016-6-30',
         ];
     }
 
@@ -92,14 +91,29 @@ class MarkerController extends BaseController
     {
         $request->offsetSet('username', $request->phone);
         $request->offsetSet('password', substr($request->idnumber, -6));
-        $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
         $request->offsetSet('is_enable', true);
         $request->offsetSet('is_super', false);
         $request->offsetSet('creator_id', Auth::id());
         $request->offsetSet('role_id', config('setting.marker'));
         $request->offsetSet('department_id', Auth::user()->department_id);
 
-        return parent::store($request);
+        if ($request->idtype == 0) {
+            $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
+        }
+
+        $v = Validator::make($request->all(), $this->storeRules);
+        $v->sometimes('idnumber', new Idnumber, function ($input) {
+            return $input->idtype = 0;
+        });
+
+        if ($v->fails()) {
+            return back()->withErrors($v)->withInput();
+        }
+
+        $user = $this->service->store($request->all());
+        $this->service->upload($request->file('portrait'), $user->id, $user->idnumber);
+
+        return redirect()->route($this->module . '.index')->withSuccess('创建' . trans($this->module . '.module') . '成功');
     }
 
     public function edit($id)
@@ -117,9 +131,25 @@ class MarkerController extends BaseController
 
     public function update(Request $request, $id)
     {
-        // $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
+        if ($request->idtype == 0) {
+            $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
+        }
 
-        return parent::update($request, $id);
+        if ($request->isMethod('put')) {
+            $v = Validator::make($request->all(), $this->updateRules);
+            $v->sometimes('idnumber', new Idnumber, function ($input) {
+                return $input->idtype = 0;
+            });
+
+            if ($v->fails()) {
+                return back()->withErrors($v)->withInput();
+            }
+
+            $this->service->update($id, $request->all());
+            $this->service->upload($request->file('portrait'), $id, $request->idnumber);
+
+            return redirect()->route($this->module . '.index')->withSuccess('更新' . trans($this->module . '.module') . '成功');
+        }
     }
 
     public function audit($id)

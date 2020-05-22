@@ -88,9 +88,9 @@ class UserService extends Service
     public function getAllByPlayers($id)
     {
         $reviews = Review::with('marker', 'player')
-        ->wherePlayerId($id)
-        ->where('year', '=', date('Y'))
-        ->get();
+            ->wherePlayerId($id)
+            ->where('year', '=', date('Y'))
+            ->get();
 
         return $reviews;
     }
@@ -116,5 +116,31 @@ class UserService extends Service
     public function getAllPlayersGroupByGroup()
     {
         return $this->repository->getObject()->with('group', 'document')->whereRoleId(config('setting.player'))->orderBy('group_id')->get();
+    }
+
+    public function upload($file, $userId, $filename)
+    {
+        try {
+            if (!is_null($file)) {
+                $ext = $file->clientExtension();
+                $filename = $filename . '.' . $ext;
+                $path = 'portrait';
+
+                $success = $file->storeAs($path, $filename);
+                $data = [
+                    'portrait' => 'storage/' . $path . '/' . $filename,
+                ];
+
+                if ($success) {
+                    $this->repository->update($userId, $data);
+                } else {
+                    throw new InvalidRequestException('上传文件失败', $this->repository->getObject(), 'update');
+                }
+            }
+        } catch (FileNotFoundException $e) {
+            throw new InternalException('上传文件不存在', $this->repository->getObject(), 'upload', $e);
+        } catch (QueryException $e) {
+            throw new InternalException('上传文件更新数据失败', $this->repository->getObject(), 'update', $e);
+        }
     }
 }

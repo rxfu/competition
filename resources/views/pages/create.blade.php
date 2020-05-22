@@ -117,6 +117,17 @@ $(function() {
     		down: 'fas fa-arrow-down'
     	}
 	});
+	$('#teaching_begin_time').datetimepicker({
+		format: 'L',
+    	locale: 'zh-cn',
+    	icons: {
+    		time: 'far fa-clock',
+    		date: 'far fa-calendar-alt',
+    		up: 'fas fa-arrow-up',
+    		down: 'fas fa-arrow-down'
+    	},
+		maxDate: '6/30/2016'
+	});
     $('.datetimepicker').datetimepicker({
     	locale: 'zh-cn',
     	icons: {
