@@ -30,4 +30,10 @@ return [
     'role_id' => '所属角色',
     'is_passed' => '审核状态',
     'memo' => '备注',
+    'idtype' => '证件类型',
+    'experience' => '工作简历(含学历)',
+    'thesis' => '发表教学著作、论文',
+    'project' => '主持教学改革项目',
+    'achievement' => '主要科研成果',
+    'reward' => '所获荣誉和奖励',
 ];

@@ -20,16 +20,6 @@ class MarkerController extends BaseController
 {
     protected $module = 'marker';
 
-    protected $storeRules = [
-        'name' => 'required',
-        'idnumber' => 'required',
-        'birthday' => 'required',
-        'email' => 'required|email|unique:users',
-        'position' => 'required',
-        'major' => 'required',
-        'phone' => 'required|unique:users',
-    ];
-
     private $genderService;
 
     private $educationService;
@@ -52,14 +42,29 @@ class MarkerController extends BaseController
         $this->subjectService = $subjectService;
         $this->groupService = $groupService;
 
-        $this->updateRules = $this->storeRules = [
-            // 'idnumber' => ['required', 'string', new Idnumber],
-            'idnumber' => 'required',
-            'birthday' => 'required',
+        $this->storeRules = [
+            'name' => 'required',
+            'idtype' => 'required',
+            'idnumber' => ['exclude_if:idtype,1', 'required', 'string', new Idnumber],
+            // 'idnumber' => 'required',
+            // 'birthday' => 'required',
+            'email' => 'required|email|unique:users',
+            'title' => 'required',
+            'major' => 'required',
+            'phone' => 'required|unique:users',
+            'teaching_begin_time' => 'required|date|before_or_equal:2016-6-30',
+        ];
+
+        $this->updateRules = [
+            'idtype' => 'required',
+            'idnumber' => ['exclude_if:idtype,1', 'required', 'string', new Idnumber],
+            // 'idnumber' => 'required',
+            // 'birthday' => 'required',
             'email' => 'required|email|unique:users,email,' . request('id'),
-            'position' => 'required',
+            'title' => 'required',
             'major' => 'required',
             'phone' => 'required|unique:users,phone,' . request('id'),
+            'teaching_begin_time' => 'required|date|before_or_equal:2016-6-30',
         ];
     }
 
@@ -87,7 +92,7 @@ class MarkerController extends BaseController
     {
         $request->offsetSet('username', $request->phone);
         $request->offsetSet('password', substr($request->idnumber, -6));
-        // $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
+        $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
         $request->offsetSet('is_enable', true);
         $request->offsetSet('is_super', false);
         $request->offsetSet('creator_id', Auth::id());
@@ -155,25 +160,25 @@ class MarkerController extends BaseController
                 if (is_null($id)) {
                     $item = Document::whereHas('user', function ($query) {
                         $query->whereGroupId(Auth::user()->group_id)
-                        ->whereRoleId(config('setting.player'))
-                        ->whereHas('playerReviews', function ($q) {
-                                    $q->where('year', '=', date('Y'))->whereMarkerId(Auth::id())->whereNull('live_score');
-                        });
+                            ->whereRoleId(config('setting.player'))
+                            ->whereHas('playerReviews', function ($q) {
+                                $q->where('year', '=', date('Y'))->whereMarkerId(Auth::id())->whereNull('live_score');
+                            });
                     })
-                    ->where('year', '=', date('Y'))
-                    ->whereNotNull('seq')
-                    ->orderBy('seq')
-                    ->first(['user_id', 'seq']);
+                        ->where('year', '=', date('Y'))
+                        ->whereNotNull('seq')
+                        ->orderBy('seq')
+                        ->first(['user_id', 'seq']);
 
                     return view('pages.teaching-confirm', compact('item'));
                 } else {
                     $item = $this->service->get($id);
-                    
+
                     return view('pages.teaching', compact('item'));
                 }
             } else {
                 $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
-        
+
                 return view('pages.teaching-list', compact('items'));
             }
         }
@@ -210,9 +215,9 @@ class MarkerController extends BaseController
     {
         if ($request->isMethod('put')) {
             $request->offsetSet('is_confirmed', true);
-    
+
             $this->service->confirm($id, $request->all());
-    
+
             return redirect()->route('home.dashboard')->withSuccess('专家' . Auth::user()->name . '信息已确认');
         }
     }

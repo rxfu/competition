@@ -512,14 +512,6 @@ return [
             'required' => true,
         ],
         [
-            'field' => 'birthday',
-            'list' => true,
-            'create' => true,
-            'edit' => true,
-            'type' => 'datetime',
-            'required' => true,
-        ],
-        [
             'field' => 'title',
             'list' => true,
             'create' => true,
@@ -556,7 +548,7 @@ return [
             'create' => true,
             'edit' => true,
             'confirm' => true,
-            'type' => 'text',
+            'type' => 'datetime',
             'required' => true,
         ],
         [
@@ -652,6 +644,7 @@ return [
             'confirm' => true,
             'type' => 'textarea',
             'responsive' => 'none',
+            'required' => true,
         ],
         [
             'field' => 'reward',
@@ -766,14 +759,6 @@ return [
             'edit' => true,
             'confirm' => true,
             'type' => 'text',
-            'required' => true,
-        ],
-        [
-            'field' => 'birthday',
-            'list' => true,
-            'create' => true,
-            'edit' => true,
-            'type' => 'datetime',
             'required' => true,
         ],
         [

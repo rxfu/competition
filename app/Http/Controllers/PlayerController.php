@@ -19,16 +19,6 @@ class PlayerController extends BaseController
 {
     protected $module = 'player';
 
-    protected $storeRules = [
-        'name' => 'required',
-        'idnumber' => 'required',
-        'birthday' => 'required',
-        'position' => 'required',
-        'teaching_begin_time' => 'required',
-        'phone' => 'required|unique:users',
-        'course' => 'required',
-    ];
-
     private $genderService;
 
     private $educationService;
@@ -51,11 +41,25 @@ class PlayerController extends BaseController
         $this->subjectService = $subjectService;
         $this->groupService = $groupService;
 
+        $this->storeRules = [
+            'name' => 'required',
+            'idtype' => 'required',
+            'idnumber' => ['exclude_if:idtype,1', 'required', 'string', new Idnumber],
+            // 'idnumber' => 'required',
+            // 'birthday' => 'required',
+            'title' => 'required',
+            'teaching_begin_time' => 'required',
+            'phone' => 'required|unique:users',
+            'course' => 'required',
+        ];
+
         $this->updateRules = [
             'name' => 'required',
-            'idnumber' => 'required',
-            'birthday' => 'required',
-            'position' => 'required',
+            'idtype' => 'required',
+            'idnumber' => ['exclude_if:idtype,1', 'required', 'string', new Idnumber],
+            // 'idnumber' => 'required',
+            // 'birthday' => 'required',
+            'title' => 'required',
             'teaching_begin_time' => 'required',
             'phone' => 'required|unique:users,phone,' . request('id'),
             'course' => 'required',
@@ -71,7 +75,7 @@ class PlayerController extends BaseController
         } else {
             $items = $this->service->getAllPlayers($department);
         }
-        
+
         return view('pages.list', compact('items'));
     }
 
@@ -91,7 +95,7 @@ class PlayerController extends BaseController
     {
         $request->offsetSet('username', $request->phone);
         $request->offsetSet('password', substr($request->idnumber, -6));
-        // $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
+        $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
         $request->offsetSet('is_enable', true);
         $request->offsetSet('is_super', false);
         $request->offsetSet('creator_id', Auth::id());
@@ -157,9 +161,9 @@ class PlayerController extends BaseController
     {
         if ($request->isMethod('put')) {
             $request->offsetSet('is_confirmed', true);
-    
+
             $this->service->confirm($id, $request->all());
-    
+
             return redirect()->route('home.dashboard')->withSuccess('选手' . Auth::user()->name . '信息已确认');
         }
     }
@@ -178,9 +182,9 @@ class PlayerController extends BaseController
     public function draw()
     {
         $players = User::has('document')
-        ->whereRoleId(config('setting.player'))
-        ->whereGroupId(Auth::user()->group_id)
-        ->get();
+            ->whereRoleId(config('setting.player'))
+            ->whereGroupId(Auth::user()->group_id)
+            ->get();
 
         if (empty($players[0]->document->seq)) {
             $seqs = range(1, $players->count());
@@ -188,7 +192,7 @@ class PlayerController extends BaseController
 
             foreach ($players as $idx => $player) {
                 $document = Document::find($player->id);
-        
+
                 if ($document) {
                     $document->seq = $seqs[$idx];
                     $document->save();
