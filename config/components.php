@@ -708,6 +708,15 @@ return [
             'responsive' => 'none',
         ],
         [
+            'field' => 'opinion',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'confirm' => true,
+            'type' => 'textarea',
+            'responsive' => 'none',
+        ],
+        [
             'field' => 'memo',
             'list' => true,
             'create' => true,
@@ -922,6 +931,15 @@ return [
             'create' => false,
             'edit' => false,
             'presenter' => true,
+            'responsive' => 'none',
+        ],
+        [
+            'field' => 'opinion',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'confirm' => true,
+            'type' => 'textarea',
             'responsive' => 'none',
         ],
         [

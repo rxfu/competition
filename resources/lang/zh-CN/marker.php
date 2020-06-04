@@ -37,4 +37,5 @@ return [
     'project' => '主持教学改革项目',
     'achievement' => '主要科研成果',
     'reward' => '所获荣誉和奖励',
+    'opinion' => '所在高校意见',
 ];
