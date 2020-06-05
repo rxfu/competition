@@ -110,7 +110,7 @@ class PlayerController extends BaseController
 
         $v = Validator::make($request->all(), $this->storeRules);
         $v->sometimes('idnumber', new Idnumber, function ($input) {
-            return $input->idtype = 0;
+            return $input->idtype == 0;
         });
 
         if ($v->fails()) {
@@ -145,7 +145,7 @@ class PlayerController extends BaseController
         if ($request->isMethod('put')) {
             $v = Validator::make($request->all(), $this->updateRules);
             $v->sometimes('idnumber', new Idnumber, function ($input) {
-                return $input->idtype = 0;
+                return $input->idtype == 0;
             });
 
             if ($v->fails()) {

@@ -2,15 +2,18 @@
 
 namespace App\Rules;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Validation\Rule;
 
-class Idnumber implements Rule {
+class Idnumber implements Rule
+{
 	/**
 	 * Create a new rule instance.
 	 *
 	 * @return void
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 		//
 	}
 
@@ -21,7 +24,8 @@ class Idnumber implements Rule {
 	 * @param  mixed  $value
 	 * @return bool
 	 */
-	public function passes($attribute, $value) {
+	public function passes($attribute, $value)
+	{
 		$id = strtoupper($value);
 
 		if (preg_match('/^\d{6}(18|19|20)\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/', $id)) {
@@ -29,7 +33,10 @@ class Idnumber implements Rule {
 			$month = substr($id, 10, 2);
 			$day   = substr($id, 12, 2);
 
-			if (checkdate($month, $day, $year)) {
+			$birthday = Carbon::createFromDate($year, $month, $day);
+			$limitday = Carbon::createFromDate(1980, 8, 31);
+
+			if (checkdate($month, $day, $year) && $birthday->gt($limitday)) {
 				$idbase           = substr($id, 0, 17);
 				$factor           = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
 				$verifyNumberList = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
@@ -51,7 +58,8 @@ class Idnumber implements Rule {
 	 *
 	 * @return string
 	 */
-	public function message() {
-		return ':attribute 身份证号格式不正确';
+	public function message()
+	{
+		return ':attribute 身份证号格式不正确或出生日期早于1980年8月31日';
 	}
 }

@@ -48,6 +48,10 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'user.import',
             'name' => '导入用户',
         ]);
+        Permission::create([
+            'slug' => 'user.pdf',
+            'name' => '生成推荐表',
+        ]);
 
         Permission::create([
             'slug' => 'role.index',
@@ -81,7 +85,7 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'role.assign',
             'name' => '授予角色权限',
         ]);
-        
+
         Permission::create([
             'slug' => 'permission.index',
             'name' => '查看权限列表',
@@ -106,7 +110,7 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'permission.delete',
             'name' => '删除权限',
         ]);
-        
+
         Permission::create([
             'slug' => 'group.index',
             'name' => '查看组列表',
@@ -131,7 +135,7 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'group.delete',
             'name' => '删除组',
         ]);
-        
+
         Permission::create([
             'slug' => 'gender.index',
             'name' => '查看性别列表',
@@ -156,7 +160,7 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'gender.delete',
             'name' => '删除性别',
         ]);
-        
+
         Permission::create([
             'slug' => 'department.index',
             'name' => '查看院校列表',
@@ -181,7 +185,7 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'department.delete',
             'name' => '删除院校',
         ]);
-        
+
         Permission::create([
             'slug' => 'subject.index',
             'name' => '查看学科列表',
@@ -281,7 +285,7 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'setting.delete',
             'name' => '删除设置',
         ]);
-        
+
         Permission::create([
             'slug' => 'player.index',
             'name' => '查看选手列表',

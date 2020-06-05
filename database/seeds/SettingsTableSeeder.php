@@ -14,10 +14,10 @@ class SettingsTableSeeder extends Seeder
     {
         Setting::create([
             'name' => '教学比赛系统',
-            'slug' => 'contest2019',
-            'begin_at' => '2019-05-27 00:00:00',
-            'end_at' => '2019-06-07 00:00:00',
-            'year' => '2019',
+            'slug' => 'contest2020',
+            'begin_at' => '2020-06-15 00:00:00',
+            'end_at' => '2020-06-20 00:00:00',
+            'year' => '2020',
         ]);
     }
 }

@@ -106,6 +106,14 @@
 									    </a>
 									@endif
 								@endcan
+
+								@can($model . '.pdf')
+									@if (config('components.' . $model . '.pdf'))
+										<a href="{{ route('player.pdf', $item->getKey()) }}" class="btn btn-success btn-flat btn-sm" title="生成推荐表">
+											<i class="icon fa fa-file-pdf"></i> 生成推荐表
+										</a>
+									@endif
+								@endcan
 	                        </td>
 						</tr>
 					@endforeach

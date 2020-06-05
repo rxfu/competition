@@ -37655,7 +37655,7 @@ define('bootbox', function (require, exports, module) {
 
 define('moment', function (require, exports, module) {
 //! moment.js
-//! version : 2.25.3
+//! version : 2.26.0
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -40419,8 +40419,6 @@ define('moment', function (require, exports, module) {
             token = tokens[i];
             parsedInput = (string.match(getParseRegexForToken(token, config)) ||
                 [])[0];
-            // console.log('token', token, 'parsedInput', parsedInput,
-            //         'regex', getParseRegexForToken(token, config));
             if (parsedInput) {
                 skipped = string.substr(0, string.indexOf(parsedInput));
                 if (skipped.length > 0) {
@@ -43276,7 +43274,7 @@ define('moment', function (require, exports, module) {
 
     //! moment.js
 
-    hooks.version = '2.25.3';
+    hooks.version = '2.26.0';
 
     setHookCallback(createLocal);
 
