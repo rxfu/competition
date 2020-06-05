@@ -53,6 +53,7 @@ class MarkerController extends BaseController
             'title' => 'required',
             'major' => 'required',
             'phone' => 'required|unique:users',
+            'portrait' => 'required',
         ];
 
         $this->updateRules = [

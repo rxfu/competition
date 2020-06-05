@@ -15,6 +15,7 @@ use App\Services\SubjectService;
 use App\Services\EducationService;
 use App\Services\DepartmentService;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class PlayerController extends BaseController
 {
@@ -53,6 +54,7 @@ class PlayerController extends BaseController
             'phone' => 'required|unique:users',
             'course' => 'required',
             'project' => 'required',
+            'portrait' => 'required',
         ];
 
         $this->updateRules = [
@@ -235,5 +237,14 @@ class PlayerController extends BaseController
         }
 
         return view('pages.draw');
+    }
+
+    public function pdf($id)
+    {
+        $player = User::findOrFail($id);
+
+        $pdf = PDF::loadView('exports.player', compact('player'));
+
+        return $pdf->download($player->name . '.pdf');
     }
 }

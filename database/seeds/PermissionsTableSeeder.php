@@ -48,10 +48,6 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'user.import',
             'name' => '导入用户',
         ]);
-        Permission::create([
-            'slug' => 'user.pdf',
-            'name' => '生成推荐表',
-        ]);
 
         Permission::create([
             'slug' => 'role.index',
@@ -334,6 +330,10 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'player.document',
             'name' => '上传材料',
         ]);
+        Permission::create([
+            'slug' => 'player.pdf',
+            'name' => '生成选手推荐表',
+        ]);
 
         Permission::create([
             'slug' => 'document.store',
@@ -387,6 +387,10 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
             'slug' => 'marker.teaching',
             'name' => '浏览课堂教学',
+        ]);
+        Permission::create([
+            'slug' => 'marker.pdf',
+            'name' => '生成专家推荐表',
         ]);
 
         Permission::create([

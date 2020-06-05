@@ -463,6 +463,7 @@ return [
     'player' => [
         'reset' => true,
         'document' => true,
+        'pdf' => true,
         [
             'field' => 'portrait',
             'list' => false,
@@ -729,6 +730,7 @@ return [
     'marker' => [
         'reset' => true,
         'audit' => true,
+        'pdf' => true,
         [
             'field' => 'portrait',
             'list' => false,

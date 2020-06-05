@@ -13,7 +13,7 @@ class SettingsTableSeeder extends Seeder
     public function run()
     {
         Setting::create([
-            'name' => '教学比赛系统',
+            'name' => '第七届全区高校青年教师教学竞赛',
             'slug' => 'contest2020',
             'begin_at' => '2020-06-15 00:00:00',
             'end_at' => '2020-06-20 00:00:00',

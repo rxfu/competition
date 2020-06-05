@@ -43,6 +43,7 @@ class User extends Authenticatable
         'is_super' => 'boolean',
         'is_passed' => 'boolean',
         'is_confirmed' => 'boolean',
+        'birthday' => 'date',
     ];
 
     protected $appends = ['total'];

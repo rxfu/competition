@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('teaching/{id?}', 'MarkerController@teaching')->name('teaching');
                 Route::get('upload', 'MarkerController@showUploadForm')->name('upload');
                 Route::post('import', 'MarkerController@import')->name('import');
+                Route::get('pdf/{id}', 'MarkerController@pdf')->name('pdf');
             });
 
             Route::name('player.')->prefix('player')->group(function () {
@@ -43,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('import', 'PlayerController@import')->name('import');
                 Route::get('seq', 'PlayerController@showSeqForm')->name('seq');
                 Route::get('draw', 'PlayerController@draw')->name('draw');
+                Route::get('pdf/{id}', 'PlayerController@pdf')->name('pdf');
             });
 
             Route::name('document.')->prefix('document')->group(function () {
