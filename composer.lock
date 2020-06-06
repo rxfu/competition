@@ -11,12 +11,12 @@
             "version": "dev-v3-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ColorlibHQ/AdminLTE.git",
+                "url": "https://github.com/almasaeed2010/AdminLTE.git",
                 "reference": "7e09433c4d0ea5fd17671f218a250d4dc3e56444"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ColorlibHQ/AdminLTE/zipball/7e09433c4d0ea5fd17671f218a250d4dc3e56444",
+                "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/7e09433c4d0ea5fd17671f218a250d4dc3e56444",
                 "reference": "7e09433c4d0ea5fd17671f218a250d4dc3e56444",
                 "shasum": ""
             },
