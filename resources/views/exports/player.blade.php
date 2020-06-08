@@ -30,7 +30,7 @@
                 font-style: normal;
             }
             @font-face {
-                font-family: SimHei;
+                font-family: SimSun;
                 src: url('{{ asset('fonts/simhei.ttf') }}') format('truetype');
                 font-weight: bold;
                 font-style: normal;
@@ -41,22 +41,26 @@
                 color: #000 !important;
             }
             h1 {
-                font-family: SimHei;
-                font-size: 32pt;
+                font-size: 24pt;
                 font-weight: bold;
-                line-height: 48pt;
+                padding-top: 24pt;
             }
             p {
                 text-indent: 2em;
             }
-            table th {
-                font-family: SimHei;
+            table {
+                width: 720px;
+                table-layout: fixed;
             }
             table th, table td {
                 border: 1px solid #000 !important;
+                word-wrap: break-word;
+                word-break: break-all;
+                text-align: center;
+                padding: 10px;
             }
             @page {
-                margin: 0;
+                margin: 50px 0;
             }
         </style>
     </head>
@@ -67,14 +71,14 @@
             </header>
             <table>
                 <tr>
-                    <th>姓名</th>
-                    <td>{{ $player->name }}</td>
-                    <th>性别</th>
-                    <td>{{ $player->gender->name }}</td>
-                    <th>职称</th>
-                    <td>{{ $player->title }}</td>
-                    <td rowspan="6">
-                        <img src="{{ asset($player->portrait) }}" title="照片" width="160" height="320">
+                    <th width="90px">姓名</th>
+                    <td width="90px">{{ $player->name }}</td>
+                    <th width="90px">性别</th>
+                    <td width="90px">{{ $player->gender->name }}</td>
+                    <th width="90px">职称</th>
+                    <td width="90px">{{ $player->title }}</td>
+                    <td width="180px" colspan="2" rowspan="3">
+                        <img src="{{ asset($player->portrait) }}" title="照片" width="165" height="225">
                     </td>
                 </tr>
                 <tr>
@@ -85,7 +89,7 @@
                 </tr>
                 <tr>
                     <th>从教学校</th>
-                    <td width="200">{{ optional($player->department)->name }}广西中医药大学赛恩斯新医药学院</td>
+                    <td>{{ optional($player->department)->name }}</td>
                     <th>开始本科教学时间</th>
                     <td>{{ $player->teaching_begin_time }}</td>
                     <th>本科教学总时间</th>
@@ -93,54 +97,54 @@
                 </tr>
                 <tr>
                     <th>身份证号码</th>
-                    <td colspan="2">{{ $player->idnumber }}</td>
+                    <td colspan="3">{{ $player->idnumber }}</td>
                     <th>年龄</th>
-                    <td colspan="2">{{ $player->birthday->diff(now())->format('%y') }}</td>
+                    <td colspan="3">{{ $player->birthday->diff(now())->format('%y') }}</td>
                 </tr>
                 <tr>
                     <th>联系电话</th>
-                    <td colspan="2">{{ $player->phone }}</td>
+                    <td colspan="3">{{ $player->phone }}</td>
                     <th>邮箱</th>
-                    <td colspan="2">{{ $player->email }}</td>
+                    <td colspan="3">{{ $player->email }}</td>
                 </tr>
                 <tr>
                     <th>参赛学科</th>
-                    <td colspan="2">{{ $player->subject->name }}</td>
+                    <td colspan="3">{{ $player->subject->name }}</td>
                     <th>组别</th>
-                    <td colspan="2">{{ $player->group->name }}</td>
+                    <td colspan="3">{{ $player->group->name }}</td>
                 </tr>
                 <tr>
                     <th>参赛课程</th>
-                    <td colspan="6">{{ $player->course }}</td>
+                    <td colspan="7">{{ $player->course }}</td>
                 </tr>
                 <tr>
                     <th>学习工作经历</th>
-                    <td colspan="6">{!! $player->experience !!}</td>
+                    <td colspan="7" class="text-left">{!! $player->experience !!}</td>
                 </tr>
                 <tr>
                     <th>近两年主讲课程情况</th>
-                    <td colspan="6">{!! $player->teaching !!}</td>
+                    <td colspan="7" class="text-left">{!! $player->teaching !!}</td>
                 </tr>
                 <tr>
                     <th>发表教学论文、著作</th>
-                    <td colspan="6">{!! $player->thesis !!}</td>
+                    <td colspan="7" class="text-left">{!! $player->thesis !!}</td>
                 </tr>
                 <tr>
                     <th>主持、参与教学改革项目</th>
-                    <td colspan="6">{!! $player->project !!}</td>
+                    <td colspan="7" class="text-left">{!! $player->project !!}</td>
                 </tr>
                 <tr>
                     <th>教学奖励</th>
-                    <td colspan="6">{!! $player->reward !!}</td>
+                    <td colspan="7" class="text-left">{!! $player->reward !!}</td>
                 </tr>
                 <tr>
                     <th>所在高校意见</th>
-                    <td colspan="6">
+                    <td colspan="7" class="text-left">
                         <p>（对该教师近4年是否出现过教学事故、在学校的评教活动中获得的评价、是否同意推荐该教师参赛等情况进行说明）</p>
                         <p>{!! $player->opinion !!}</p>
                         <p></p>
-                        <p>盖&nbsp;&nbsp;章</p>
-                        <p>{{ now()->format('Y年n月j日') }} </p>
+                        <p class="text-right">盖&nbsp;章&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p class="text-right">{{ now()->format('Y年n月j日') }}&nbsp;&nbsp;&nbsp;&nbsp;</p>
                     </td>
                 </tr>
             </table>

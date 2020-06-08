@@ -79,7 +79,7 @@
   ),
   'simsun' => array(
     'normal' => $fontDir . '/simsun-normal_be3e1b7bd157f337f6adb2b97da16685',
-    'bold' => $fontDir . '/simsun-bold_be3e1b7bd157f337f6adb2b97da16685',
+    'bold' => $fontDir . '/simsun-bold_bb8d980753d8be5ed434c142419621fa',
   ),
   'simhei' => array(
     'bold' => $fontDir . '/simhei-bold_bb8d980753d8be5ed434c142419621fa',
