@@ -72,14 +72,32 @@ class DocumentController extends BaseController
             if (!$exists) {
                 return back()->withDanger('选手身份证号不正确，请重新输入');
             }
-            
+
             $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
             $document = Document::findOrFail($player->id);
 
             $document->is_drawed = true;
             $document->save();
-            
+
             return back()->withSeq($document->seq)->withSuccess('选手' .  $player->name . '抽签号已保存');
+        }
+    }
+
+    public function secno(Request $request)
+    {
+        if ($request->isMethod('put')) {
+            $exists = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->exists();
+            if (!$exists) {
+                return back()->withDanger('选手身份证号不正确，请重新输入');
+            }
+
+            $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
+            $document = Document::findOrFail($player->id);
+
+            $document->secno = random_int(1, 20);
+            $document->save();
+
+            return back()->withSecno($document->secno)->withSuccess('选手' .  $player->name . '节段号已保存');
         }
     }
 }

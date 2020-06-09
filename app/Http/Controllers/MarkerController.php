@@ -252,4 +252,26 @@ class MarkerController extends BaseController
             return redirect()->route('home.dashboard')->withSuccess('专家' . Auth::user()->name . '信息已确认');
         }
     }
+
+    public function pdf($id)
+    {
+        $marker = $this->service->get($id);
+
+        $pdf = PDF::loadView('exports.marker', compact('marker'));
+
+        return $pdf->download($marker->name . '.pdf');
+    }
+
+    public function showRecommendationForm($id)
+    {
+        return view('pages.recommend', compact('id'));
+    }
+
+    public function recommend(Request $request, $id)
+    {
+        $item = $this->service->get($id);
+        $this->service->recommend($request->file('upfile'), $item->id, $item->idnumber, 'marker');
+
+        return redirect()->route('marker.index')->withSuccess('上传推荐表成功');
+    }
 }

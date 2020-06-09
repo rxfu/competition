@@ -49,10 +49,13 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('pdf/{id}', 'PlayerController@pdf')->name('pdf');
                 Route::get('recommendation/{id}', 'PlayerController@showRecommendationForm')->name('recommend');
                 Route::post('recommendation/{id}', 'PlayerController@recommend');
+                Route::get('secno', 'PlayerController@showSecnoForm')->name('secno');
+                Route::get('draw-secno', 'PlayerController@drawSecno')->name('draw-secno');
             });
 
             Route::name('document.')->prefix('document')->group(function () {
                 Route::put('seq', 'DocumentController@seq')->name('seq');
+                Route::put('secno', 'DocumentController@secno')->name('secno');
             });
 
             Route::name('review.')->prefix('review')->group(function () {

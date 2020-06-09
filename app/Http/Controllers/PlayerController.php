@@ -260,4 +260,20 @@ class PlayerController extends BaseController
 
         return redirect()->route('player.index')->withSuccess('上传推荐表成功');
     }
+
+    public function showSecnoForm()
+    {
+        if (Auth::user()->is_super) {
+            $items = $this->service->getAllPlayers();
+        } else {
+            $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
+        }
+
+        return view('pages.secno', compact('items'));
+    }
+
+    public function drawSecno()
+    {
+        return view('pages.secno-draw');
+    }
 }

@@ -22,11 +22,12 @@ class CreateDocumentsTable extends Migration
             $table->string('catalog', 128)->nullable()->comment('教学目录');
             $table->text('application')->nullable()->comment('特殊软件安装申请');
             $table->unsignedInteger('seq')->nullable()->comment('抽签号');
+            $table->unsignedInteger('secno')->nullable()->comment('抽选节段号');
             $table->boolean('is_drawed')->default(false)->comment('是否抽签，0-否，1-是');
             $table->timestamps();
 
             $table->primary('user_id');
-            
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
             $table->index(['year', 'user_id']);
