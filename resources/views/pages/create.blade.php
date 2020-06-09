@@ -108,7 +108,7 @@
 <script>
 $(function() {
 	$('#birthday').datetimepicker({
-		format: 'L',
+		format: 'Y-MM-DD',
     	locale: 'zh-cn',
     	icons: {
     		time: 'far fa-clock',
@@ -118,7 +118,7 @@ $(function() {
     	}
 	});
 	$('#teaching_begin_time').datetimepicker({
-		format: 'L',
+		format: 'Y-MM-DD',
     	locale: 'zh-cn',
     	icons: {
     		time: 'far fa-clock',
@@ -126,7 +126,7 @@ $(function() {
     		up: 'fas fa-arrow-up',
     		down: 'fas fa-arrow-down'
     	},
-		maxDate: '6/30/2016'
+		maxDate: '2016-6-30'
 	});
     $('.datetimepicker').datetimepicker({
     	locale: 'zh-cn',

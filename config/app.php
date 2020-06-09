@@ -233,7 +233,8 @@ return [
         /**
          * Custom Facades...
          */
-        'PDF' => Barryvdh\Dompdf\Facade::class,
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 
     ],
 

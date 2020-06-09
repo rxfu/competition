@@ -12,29 +12,9 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>@yield('title', 'Default') | {{ config('setting.name', 'Laravel') }}</title>
+        <title>选手推荐表 | {{ config('setting.name', 'Laravel') }}</title>
 
-        <!-- Styles -->
-        <!---Bootstrap 4 -->
-        <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-        <!-- Theme style -->
-        <link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet">
-        <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <!-- Custom styles -->
         <style>
-            @font-face {
-                font-family: SimSun;
-                src: url('{{ asset('fonts/simsun.ttf') }}') format('truetype');
-                font-weight: normal;
-                font-style: normal;
-            }
-            @font-face {
-                font-family: SimSun;
-                src: url('{{ asset('fonts/simhei.ttf') }}') format('truetype');
-                font-weight: bold;
-                font-style: normal;
-            }
             body {
                 font-family: SimSun;
                 font-size: 14pt;
@@ -49,7 +29,6 @@
                 text-indent: 2em;
             }
             table {
-                width: 720px;
                 table-layout: fixed;
             }
             table th, table td {
@@ -59,26 +38,45 @@
                 text-align: center;
                 padding: 10px;
             }
+            table, tr, td, th, tbody, thead, tfoot {
+                page-break-inside: avoid !important;
+            }
             @page {
                 margin: 50px 0;
+            }
+            .text-center {
+                text-align: center;
+            }
+            .text-left {
+                text-align: left;
+            }
+            .text-right {
+                text-align: right;
+            }
+            .inscribe {
+                margin-top: 80px !important;
+            }
+            .inscribe p {
+                position: relative;
+                left: 200px;
             }
         </style>
     </head>
     <body>
-        <main class="container">
+        <main>
             <header class="text-center">
                 <h1>{{ App\Entities\Setting::find(1)->name }}<br>决赛参赛选手推荐表</h1>
             </header>
-            <table>
+            <table cellspacing="0" cellpadding="0">
                 <tr>
-                    <th width="90px">姓名</th>
-                    <td width="90px">{{ $player->name }}</td>
-                    <th width="90px">性别</th>
-                    <td width="90px">{{ $player->gender->name }}</td>
-                    <th width="90px">职称</th>
-                    <td width="90px">{{ $player->title }}</td>
-                    <td width="180px" colspan="2" rowspan="3">
-                        <img src="{{ asset($player->portrait) }}" title="照片" width="165" height="225">
+                    <th width="14%">姓名</th>
+                    <td width="12.5%">{{ $player->name }}</td>
+                    <th width="11%">性别</th>
+                    <td width="12.5%">{{ $player->gender->name }}</td>
+                    <th width="12.5%">职称</th>
+                    <td width="12.5%">{{ $player->title }}</td>
+                    <td width="25%" colspan="2" rowspan="4">
+                        <img src="{{ asset($player->portrait) }}" title="照片" width="120" height="160">
                     </td>
                 </tr>
                 <tr>
@@ -88,24 +86,24 @@
                     <td colspan="2">{{ $player->degree->name }}</td>
                 </tr>
                 <tr>
-                    <th>从教学校</th>
-                    <td>{{ optional($player->department)->name }}</td>
-                    <th>开始本科教学时间</th>
-                    <td>{{ $player->teaching_begin_time }}</td>
-                    <th>本科教学总时间</th>
-                    <td>{{ $player->teaching_total_time }}</td>
-                </tr>
-                <tr>
                     <th>身份证号码</th>
-                    <td colspan="3">{{ $player->idnumber }}</td>
+                    <td colspan="2">{{ $player->idnumber }}</td>
                     <th>年龄</th>
-                    <td colspan="3">{{ $player->birthday->diff(now())->format('%y') }}</td>
+                    <td colspan="2">{{ Carbon\Carbon::parse($player->birthday)->diff(now())->format('%y') }}</td>
                 </tr>
                 <tr>
                     <th>联系电话</th>
-                    <td colspan="3">{{ $player->phone }}</td>
+                    <td colspan="2">{{ $player->phone }}</td>
                     <th>邮箱</th>
-                    <td colspan="3">{{ $player->email }}</td>
+                    <td colspan="2">{{ $player->email }}</td>
+                </tr>
+                <tr>
+                    <th>从教学校</th>
+                    <td colspan="2">{{ optional($player->department)->name }}</td>
+                    <th>开始本科教学时间</th>
+                    <td colspan="2">{{ $player->teaching_begin_time }}</td>
+                    <th>本科教学总时间</th>
+                    <td>{{ $player->teaching_total_time }}</td>
                 </tr>
                 <tr>
                     <th>参赛学科</th>
@@ -119,44 +117,36 @@
                 </tr>
                 <tr>
                     <th>学习工作经历</th>
-                    <td colspan="7" class="text-left">{!! $player->experience !!}</td>
+                    <td colspan="7" class="text-left">{!! nl2br($player->experience) !!}</td>
                 </tr>
                 <tr>
                     <th>近两年主讲课程情况</th>
-                    <td colspan="7" class="text-left">{!! $player->teaching !!}</td>
+                    <td colspan="7" class="text-left">{!! nl2br($player->teaching) !!}</td>
                 </tr>
                 <tr>
                     <th>发表教学论文、著作</th>
-                    <td colspan="7" class="text-left">{!! $player->thesis !!}</td>
+                    <td colspan="7" class="text-left">{!! nl2br($player->thesis) !!}</td>
                 </tr>
                 <tr>
                     <th>主持、参与教学改革项目</th>
-                    <td colspan="7" class="text-left">{!! $player->project !!}</td>
+                    <td colspan="7" class="text-left">{!! nl2br($player->project) !!}</td>
                 </tr>
                 <tr>
                     <th>教学奖励</th>
-                    <td colspan="7" class="text-left">{!! $player->reward !!}</td>
+                    <td colspan="7" class="text-left">{!! nl2br($player->reward) !!}</td>
                 </tr>
                 <tr>
                     <th>所在高校意见</th>
                     <td colspan="7" class="text-left">
                         <p>（对该教师近4年是否出现过教学事故、在学校的评教活动中获得的评价、是否同意推荐该教师参赛等情况进行说明）</p>
-                        <p>{!! $player->opinion !!}</p>
-                        <p></p>
-                        <p class="text-right">盖&nbsp;章&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                        <p class="text-right">{{ now()->format('Y年n月j日') }}&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>{!! nl2br($player->opinion) !!}</p>
+                        <div class="text-center inscribe">
+                            <p>盖&nbsp;章&nbsp;</p>
+                            <p>{{ now()->format('Y年n月j日') }}&nbsp;</p>
+                        </div>
                     </td>
                 </tr>
             </table>
         </main>
-            
-        <!-- jQuery -->
-        <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-        <!-- Bootstrap 4 -->
-        <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <!-- AdminLTE App -->
-        <script src="{{ asset('js/adminlte.min.js') }}"></script>
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
     </body>
 </html>

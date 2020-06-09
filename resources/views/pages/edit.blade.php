@@ -26,7 +26,7 @@
 						            @elseif ('password' === $component['type'])
 				                    	<input type="password" name="{{ $component['field'] }}" id="{{ $component['field'] }}" class="form-control{{ $errors->has($component['field']) ? ' is_invalid' : '' }}" placeholder="{{ __($model . '.' . $component['field']) }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }}>
 						            @elseif ('textarea' === $component['type'])
-						            	<textarea name="{{ $component['field'] }}" id="{{ $component['field'] }}" rows="5" class="form-control{{ $errors->has($component['field']) ? ' is_invalid' : '' }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }}>{{ old($component['field'], $item->{$component['field']}) }}</textarea>
+						            	<textarea name="{{ $component['field'] }}" id="{{ $component['field'] }}" rows="5" class="form-control{{ $errors->has($component['field']) ? ' is_invalid' : '' }}"{{ !empty($component['required']) ? ' required' : '' }}{{ !empty($component['readonly']) ? ' readonly' : '' }}{{ !empty($component['disabled']) ? ' disabled' : '' }}>{{ preg_replace('/<br\\s*?\/??>/i', '', old($component['field'], $item->{$component['field']})) }}</textarea>
 						            @elseif ('radio' === $component['type'])
 						            	@foreach (explode('|', $component['values']) as $pair)
 						            		@php
@@ -114,7 +114,7 @@
 <script>
 $(function() {
 	$('#birthday').datetimepicker({
-		format: 'L',
+		format: 'Y-MM-DD',
     	locale: 'zh-cn',
     	icons: {
     		time: 'far fa-clock',
@@ -122,6 +122,17 @@ $(function() {
     		up: 'fas fa-arrow-up',
     		down: 'fas fa-arrow-down'
     	}
+	});
+	$('#teaching_begin_time').datetimepicker({
+		format: 'Y-MM-DD',
+    	locale: 'zh-cn',
+    	icons: {
+    		time: 'far fa-clock',
+    		date: 'far fa-calendar-alt',
+    		up: 'fas fa-arrow-up',
+    		down: 'fas fa-arrow-down'
+    	},
+		maxDate: '2016-6-30'
 	});
     $('.datetimepicker').datetimepicker({
     	locale: 'zh-cn',

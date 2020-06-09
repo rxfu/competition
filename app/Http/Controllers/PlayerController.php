@@ -245,7 +245,6 @@ class PlayerController extends BaseController
 
         $pdf = PDF::loadView('exports.player', compact('player'));
 
-        // return view('exports.player', compact('player'));
         return $pdf->download($player->name . '.pdf');
     }
 }
