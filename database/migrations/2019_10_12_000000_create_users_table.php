@@ -48,6 +48,7 @@ class CreateUsersTable extends Migration
             $table->text('achievement')->nullable()->comment('主要科研成果');
             $table->text('opinion')->nullable()->comment('所在高校意见');
             $table->string('portrait', 128)->nullable()->comment('照片');
+            $table->string('recommend', 128)->nullable()->comment('推荐表');
             $table->boolean('is_enable')->default(true)->comment('是否启用，0-禁用，1-启用');
             $table->boolean('is_super')->default(false)->comment('是否超级管理员，0-否，1-是');
             $table->unsignedBigInteger('creator_id')->nullable()->comment('创建者ID');

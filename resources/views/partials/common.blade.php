@@ -112,6 +112,9 @@
 										<a href="{{ route('player.pdf', $item->getKey()) }}" class="btn btn-success btn-flat btn-sm" title="生成推荐表">
 											<i class="icon fa fa-file-pdf"></i> 生成推荐表
 										</a>
+										<a href="{{ route('player.recommend', $item->getKey()) }}" class="btn btn-warning btn-flat btn-sm" title="上传推荐表">
+											<i class="icon fa fa-file-upload"></i> 上传推荐表
+										</a>
 									@endif
 								@endcan
 	                        </td>

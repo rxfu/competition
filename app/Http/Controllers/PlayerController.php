@@ -241,10 +241,23 @@ class PlayerController extends BaseController
 
     public function pdf($id)
     {
-        $player = User::findOrFail($id);
+        $player = $this->service->get($id);
 
         $pdf = PDF::loadView('exports.player', compact('player'));
 
         return $pdf->download($player->name . '.pdf');
+    }
+
+    public function showRecommendationForm($id)
+    {
+        return view('pages.recommend', compact('id'));
+    }
+
+    public function recommend(Request $request, $id)
+    {
+        $item = $this->service->get($id);
+        $this->service->recommend($request->file('upfile'), $item->id, $item->idnumber, 'player');
+
+        return redirect()->route('player.index')->withSuccess('上传推荐表成功');
     }
 }
