@@ -16,6 +16,7 @@ use App\Services\SubjectService;
 use App\Services\EducationService;
 use App\Services\DepartmentService;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class MarkerController extends BaseController
 {

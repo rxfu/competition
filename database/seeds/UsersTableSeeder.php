@@ -1,6 +1,7 @@
 <?php
 
 use App\Entities\User;
+use App\Entities\Department;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -19,12 +20,13 @@ class UsersTableSeeder extends Seeder
             'is_super' => true,
             'creator_id' => 1,
             'is_confirmed' => true,
+            'department_id' => Department::whereName('广西师范大学')->first()->id,
         ]);
 
         foreach (['文科组', '理科组', '工科组', '思政组'] as $idx => $user) {
             User::create([
                 'username' => $user,
-                'password' => 'cq2019%%%',
+                'password' => 'cq2020%%%',
                 'name' => $user . '抽签',
                 'creator_id' => 1,
                 'group_id' => $idx + 1,

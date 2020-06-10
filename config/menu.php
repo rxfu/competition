@@ -33,6 +33,11 @@ return [
                     'route' => 'player.seq',
                     'can' => ['player.seq'],
                 ],
+                'secno' => [
+                    'title' => '选手抽节段',
+                    'route' => 'player.secno',
+                    'can' => ['player.secno'],
+                ],
             ],
         ],
         'marker' => [

@@ -334,6 +334,18 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'player.pdf',
             'name' => '生成选手推荐表',
         ]);
+        Permission::create([
+            'slug' => 'player.secno',
+            'name' => '显示抽节段列表',
+        ]);
+        Permission::create([
+            'slug' => 'player.draw-secno',
+            'name' => '选手抽节段',
+        ]);
+        Permission::create([
+            'slug' => 'document.secno',
+            'name' => '保存节段号',
+        ]);
 
         Permission::create([
             'slug' => 'document.store',
