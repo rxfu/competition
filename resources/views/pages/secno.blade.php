@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card card-primary">
+<div class="card card-success">
     <div class="card-header">
         <h3 class="card-title">{{ optional(Auth::user()->group)->name }}选手列表</h3>
     </div>
@@ -31,7 +31,7 @@
 
     <div class="card-footer">
         <div class="row justify-content-sm-center">
-            <a href="{{ route('player.draw') }}" class="btn btn-primary btn-lg">开始抽签</a>
+            <a href="{{ route('player.draw-secno') }}" class="btn btn-success btn-lg">开始抽节段</a>
         </div>
     </div>
 </div>

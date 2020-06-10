@@ -217,7 +217,7 @@ class PlayerController extends BaseController
 
     public function draw()
     {
-        $players = User::has('document')
+        /* $players = User::has('document')
             ->whereRoleId(config('setting.player'))
             ->whereGroupId(Auth::user()->group_id)
             ->get();
@@ -234,7 +234,7 @@ class PlayerController extends BaseController
                     $document->save();
                 }
             }
-        }
+        } */
 
         return view('pages.draw');
     }
@@ -250,7 +250,8 @@ class PlayerController extends BaseController
 
     public function showRecommendationForm($id)
     {
-        return view('pages.recommend', compact('id'));
+        $item = $this->service->get($id);
+        return view('pages.recommend', compact('item'));
     }
 
     public function recommend(Request $request, $id)

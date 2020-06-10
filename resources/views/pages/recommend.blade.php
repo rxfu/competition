@@ -12,7 +12,7 @@
 				<h3 class="card-title">上传{{ __($model . '.module') }}推荐表</h3>
 			</div>
 
-		    <form role="form" id="recommend-form" name="recommend-form" method="post" action="{{ route($model . '.recommend', $id) }}" enctype="multipart/form-data">
+		    <form role="form" id="recommend-form" name="recommend-form" method="post" action="{{ route($model . '.recommend', $item->id) }}" enctype="multipart/form-data">
 		        @csrf
 				<div class="card-body">
 	                <div class="form-group row">
@@ -20,13 +20,18 @@
 	                    <div class="col-md-9">
 	                    	<input type="file" name="upfile" id="upfile" class="form-control-file{{ $errors->has('upfile') ? ' is_invalid' : '' }}" required>
 	                    	<small class="form-text text-muted">要求文件类型为zip</small>
+							@if ($errors->has('upfile'))
+								<div class="invalid-feedback" role="alert">
+									<strong>{{ $errors->first('upfile') }}</strong>
+								</div>
+							@endif
+							@if (!empty($item->recommend))
+								<small class="form-text text-muted">
+									<a href="{{ asset($item->recommend) }}" title="{{ __($model . '.module') }}推荐表">{{ __($model . '.module') }}推荐表</a>
+								</small>
+							@endif
 	                    </div>
 	                </div>
-                    @if ($errors->has('upfile'))
-                        <div class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('upfile') }}</strong>
-                        </div>
-                    @endif
 				</div>
 
 				<div class="card-footer">

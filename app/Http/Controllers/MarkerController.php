@@ -265,7 +265,8 @@ class MarkerController extends BaseController
 
     public function showRecommendationForm($id)
     {
-        return view('pages.recommend', compact('id'));
+        $item = $this->service->get($id);
+        return view('pages.recommend', compact('item'));
     }
 
     public function recommend(Request $request, $id)

@@ -76,10 +76,26 @@ class DocumentController extends BaseController
             $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
             $document = Document::findOrFail($player->id);
 
-            $document->is_drawed = true;
-            $document->save();
+            if ($drawed = empty($document->seq)) {
+                $players = User::has('document')
+                    ->whereRoleId(config('setting.player'))
+                    ->whereGroupId(Auth::user()->group_id)
+                    ->get();
 
-            return back()->withSeq($document->seq)->withSuccess('选手' .  $player->name . '抽签号已保存');
+                $total = range(1, $players->count());
+                $seqs = [];
+                foreach ($players as $player) {
+                    $seqs[] = $player->document->seq;
+                }
+                $surplus = array_diff($total, $seqs);
+                $number = array_rand($surplus, 1);
+
+                $document->seq = $surplus[$number];
+                $document->is_drawed = true;
+                $document->save();
+            }
+
+            return back()->withDrawed($drawed)->withSeq($document->seq)->withSuccess('选手' .  $player->name . '抽签号已保存');
         }
     }
 
@@ -94,10 +110,12 @@ class DocumentController extends BaseController
             $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
             $document = Document::findOrFail($player->id);
 
-            $document->secno = random_int(1, 20);
-            $document->save();
+            if ($drawed = empty($document->secno)) {
+                $document->secno = random_int(1, 20);
+                $document->save();
+            }
 
-            return back()->withSecno($document->secno)->withSuccess('选手' .  $player->name . '节段号已保存');
+            return back()->withDrawed($drawed)->withSecno($document->secno)->withSuccess('选手' .  $player->name . '节段号已保存');
         }
     }
 }

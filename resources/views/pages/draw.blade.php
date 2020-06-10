@@ -13,6 +13,11 @@
                 </div>
             </div>
             @if (session()->has('seq'))
+                @if (session('drawed') == false)
+                    <h1 class="text-center text-primary" style="font-size: 4em">
+                        <strong>您已抽过签，您的抽签号是</strong>
+                    </h1>
+                @endif
                 <h1 class="text-center text-danger" style="font-size: 12em">
                     <strong>{{ session()->get('seq') }}</strong>
                 </h1>
