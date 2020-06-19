@@ -21,6 +21,20 @@
                 <h1 class="text-center text-danger" style="font-size: 12em">
                     <strong>{{ session()->get('seq') }}</strong>
                 </h1>
+            @else
+            <div class="lottery-bg">
+                <span id="message">点击抽奖</span>
+                <div class="lotterybg">
+                    <canvas id="myCanvas" width="285px" height="170px"></canvas>
+                    <img src="{{ asset('img/lottery/lighting.png') }}" class="lighting"/>
+                </div>
+            </div>
+            <img src="{{ asset('img/lottery/start-btn.png') }}" id="start" onclick="play()"/>
+            <div class="award"><span id="awardBall"></span></div>
+            <img src="{{ asset('img/lottery/1.png') }}" id="ball1" class="imgSrc">
+            <img src="{{ asset('img/lottery/2.png') }}" id="ball2" class="imgSrc">
+            <img src="{{ asset('img/lottery/3.png') }}" id="ball3" class="imgSrc">
+            <img src="{{ asset('img/lottery/4.png') }}" id="ball4" class="imgSrc">
             @endif
         </div>
 

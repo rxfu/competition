@@ -3,7 +3,6 @@
 namespace App\Imports;
 
 use App\Entities\User;
-use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -18,10 +17,10 @@ class UserImport implements ToModel, WithHeadingRow
         $this->department = $department;
     }
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
         return new User([

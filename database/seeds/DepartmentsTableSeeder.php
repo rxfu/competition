@@ -28,16 +28,13 @@ class DepartmentsTableSeeder extends Seeder
             'name' => '广西大学',
         ]);
         Department::create([
-            'name' => '广西广播电视大学',
-        ]);
-        Department::create([
             'name' => '广西警察学院',
         ]);
         Department::create([
             'name' => '广西科技大学',
         ]);
         Department::create([
-            'name' => '广西科技大学鹿山学院',
+            'name' => '柳州工学院',
         ]);
         Department::create([
             'name' => '广西科技师范学院',
