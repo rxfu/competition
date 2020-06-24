@@ -22,7 +22,7 @@
                     <div class="turnable">
                         <img src="{{ asset('img/lottery/circle.png') }}" alt="抽签盘" class="img-thumbnail rounded-circle shadow">
                         <div class="center">
-                            <span class="number">立即<br>抽签</span>
+                            <span id="number" class="number">立即<br>抽签</span>
                         </div>
                     </div>
                 </div>
@@ -36,3 +36,14 @@
     </form>
 </div>
 @stop
+
+@push('scripts')
+<script type="text/javascript">
+    function fontSize(){
+        var deviceWidth = document.documentElement.clientWidth > 760 ? 76 : document.documentElement.clientWidth;
+        document.getElementById('number').style.fontSize = (deviceWidth/76) * 3 + "rem";
+    }
+    fontSize();
+    window.onresize = fontSize;
+</script>
+@endpush
