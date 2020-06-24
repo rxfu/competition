@@ -19,7 +19,6 @@
 	                    <label for="upfile" class="col-sm-3 col-form-label">上传文件</label>
 	                    <div class="col-md-9">
 	                    	<input type="file" name="upfile" id="upfile" class="form-control-file{{ $errors->has('upfile') ? ' is_invalid' : '' }}" required>
-	                    	<small class="form-text text-muted">要求文件类型为zip</small>
 							@if ($errors->has('upfile'))
 								<div class="invalid-feedback" role="alert">
 									<strong>{{ $errors->first('upfile') }}</strong>

@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Entities\User;
-use App\Rules\Idnumber;
 use App\Entities\Setting;
 use App\Entities\Document;
+use App\Rules\IdnumberMarker;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Services\GroupService;
@@ -104,7 +104,7 @@ class MarkerController extends BaseController
         }
 
         $v = Validator::make($request->all(), $this->storeRules);
-        $v->sometimes('idnumber', new Idnumber, function ($input) {
+        $v->sometimes('idnumber', new IdnumberMarker, function ($input) {
             return $input->idtype == 0;
         });
 
@@ -139,7 +139,7 @@ class MarkerController extends BaseController
 
         if ($request->isMethod('put')) {
             $v = Validator::make($request->all(), $this->updateRules);
-            $v->sometimes('idnumber', new Idnumber, function ($input) {
+            $v->sometimes('idnumber', new IdnumberMarker, function ($input) {
                 return $input->idtype == 0;
             });
 

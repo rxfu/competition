@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\DepartmentService;
-use App\Services\GroupService;
+use Illuminate\Http\Request;
 use App\Services\RoleService;
 use App\Services\UserService;
-use Auth;
-use Illuminate\Http\Request;
+use App\Services\GroupService;
+use App\Services\DepartmentService;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends BaseController
 {
@@ -89,12 +89,20 @@ class UserController extends BaseController
                 'leader' => 'required',
                 'leader_phone' => 'required',
             ]);
-    
+
             $request->offsetSet('is_confirmed', true);
-    
+
             $this->service->confirm($id, $request->all());
-    
+
             return redirect()->route('home.dashboard')->withSuccess('用户' . Auth::user()->name . '信息已确认');
         }
+    }
+
+    public function uploadSummary(Request $request)
+    {
+        $item = $this->service->get(Auth::id());
+        $this->service->uploadSummary($request->file('upfile'), $item->id, $item->username);
+
+        return back()->withSuccess('上传总结表成功');
     }
 }

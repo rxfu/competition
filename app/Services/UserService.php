@@ -168,4 +168,30 @@ class UserService extends Service
             throw new InternalException('上传文件更新数据失败', $this->repository->getObject(), 'update', $e);
         }
     }
+
+    public function uploadSummary($file, $userId, $filename)
+    {
+        try {
+            if (!is_null($file)) {
+                $ext = $file->clientExtension();
+                $filename = $filename . '.' . $ext;
+                $path = 'summary';
+
+                $success = $file->storeAs($path, $filename);
+                $data = [
+                    'summary' => 'storage/' . $path . '/' . $filename,
+                ];
+
+                if ($success) {
+                    $this->repository->update($userId, $data);
+                } else {
+                    throw new InvalidRequestException('上传文件失败', $this->repository->getObject(), 'update');
+                }
+            }
+        } catch (FileNotFoundException $e) {
+            throw new InternalException('上传文件不存在', $this->repository->getObject(), 'upload', $e);
+        } catch (QueryException $e) {
+            throw new InternalException('上传文件更新数据失败', $this->repository->getObject(), 'update', $e);
+        }
+    }
 }

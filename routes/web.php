@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('import', 'MarkerController@import')->name('import');
                 Route::get('pdf/{id}', 'MarkerController@pdf')->name('pdf');
                 Route::get('recommendation/{id}', 'MarkerController@showRecommendationForm')->name('recommend');
-                Route::post('recommendation/{id}', 'MarkerController@recommend');
+                Route::post('recommendation/{id}', 'MarkerController@recommend')->name('uprecommend');
             });
 
             Route::name('player.')->prefix('player')->group(function () {
@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('draw', 'PlayerController@draw')->name('draw');
                 Route::get('pdf/{id}', 'PlayerController@pdf')->name('pdf');
                 Route::get('recommendation/{id}', 'PlayerController@showRecommendationForm')->name('recommend');
-                Route::post('recommendation/{id}', 'PlayerController@recommend');
+                Route::post('recommendation/{id}', 'PlayerController@recommend')->name('uprecommend');
                 Route::get('secno', 'PlayerController@showSecnoForm')->name('secno');
                 Route::get('draw-secno', 'PlayerController@drawSecno')->name('draw-secno');
             });
@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
             Route::name('user.')->prefix('user')->group(function () {
                 Route::get('upload', 'UserController@showUploadForm')->name('upload');
                 Route::post('import', 'UserController@import')->name('import');
+                Route::post('upload-summary', 'UserController@uploadSummary')->name('upload-summary');
             });
 
             foreach (['user', 'role', 'permission', 'group', 'gender', 'department', 'subject', 'education', 'degree', 'document', 'review', 'setting', 'player', 'marker'] as $endpoint) {

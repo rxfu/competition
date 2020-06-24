@@ -76,7 +76,7 @@ class DocumentController extends BaseController
             $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
             $document = Document::findOrFail($player->id);
 
-            if ($drawed = empty($document->seq)) {
+            if ($drawed = $document->is_drawed) {
                 $players = User::has('document')
                     ->whereRoleId(config('setting.player'))
                     ->whereGroupId(Auth::user()->group_id)

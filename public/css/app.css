@@ -1,195 +1,29 @@
-body {
-    margin: 0;
-    padding: 0;
-    border: none;
+.turnable {
+    width: 32.08%;
 }
 
-.lottery-bg {
-    background: url(../img/lottery/bg.png) top no-repeat;
-    background-size: 100%;
-    overflow: hidden;
-    position: absolute;
-    width: 400px;
-    height: 660px;
-    margin-top: 0;
-    margin-left: 50%;
-    -webkit-transform: translate(-50%);
-    -moz-transform: translate(-50%);
-    -ms-transform: translate(-50%);
-    -o-transform: translate(-50%);
-    transform: translate(-50%);
-}
-
-#message {
-    position: absolute;
-    text-align: center;
-    height: 25px;
-    font-size: 22px;
-    margin-top: 110px;
-    margin-left: 50%;
-    -webkit-transform: translate(-50%);
-    -moz-transform: translate(-50%);
-    -ms-transform: translate(-50%);
-    -o-transform: translate(-50%);
-    transform: translate(-50%);
-}
-
-.lotterybg {
-    background: url(../img/lottery/lotterybg.png) top no-repeat;
-    background-size: 100%;
-    overflow: visible;
-    width: 80%;
+.turnable .image {
+    width: 100%;
     height: 100%;
-    margin-top: 160px;
-    margin-left: 50%;
-    -webkit-transform: translate(-50%);
-    -moz-transform: translate(-50%);
-    -ms-transform: translate(-50%);
-    -o-transform: translate(-50%);
-    transform: translate(-50%);
+    border-radius: 100%;
+    box-shadow: 0px 0px 30px 20px rgba(0, 0, 0, 0.1)
 }
 
-#myCanvas {
+.turnable .center {
     position: absolute;
-    border: none;
-    width: 285px;
-    height: 170px;
-    margin-top: 15px;
-    margin-left: 50%;
-    -webkit-transform: translate(-50%);
-    -moz-transform: translate(-50%);
-    -ms-transform: translate(-50%);
-    -o-transform: translate(-50%);
-    transform: translate(-50%);
+    top: 49%;
+    left: 38%;
+    width: 24%;
+    margin: 0 auto;
+    text-align: center;
 }
 
-.lighting {
-    display: block;
-    max-width: 99%;
-    margin-top: 0;
-    margin-left: 0;
-}
-
-#start {
-    position: absolute;
-    z-index: 3;
-    width: 202px;
-    margin-top: 413px;
-    margin-left: 50%;
-    -webkit-transform: translate(-50%);
-    -moz-transform: translate(-50%);
-    -ms-transform: translate(-50%);
-    -o-transform: translate(-50%);
-    transform: translate(-50%);
-}
-
-.imgSrc {
-    display: none;
-    position: absolute;
-}
-
-.award {
-    position: absolute;
-    border: none;
-    width: 60px;
-    height: 200px;
-    top: 470px;
-    margin-left: 50%;
-    -webkit-transform: translate(-50%);
-    -moz-transform: translate(-50%);
-    -ms-transform: translate(-50%);
-    -o-transform: translate(-50%);
-    transform: translate(-50%);
-}
-
-.dropBall1 {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 60px;
-    height: 60px;
-    display: block;
-    background: url(../img/lotter/1.png) no-repeat;
-    background-size: contain;
-    animation: drop 1s ease-out forwards;
-    -webkit-animation: drop 1s ease-out forwards;
-}
-
-.dropBall2 {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 60px;
-    height: 60px;
-    display: block;
-    background: url(../img/lottery/2.png) no-repeat;
-    background-size: contain;
-    animation: drop 1s ease-out forwards;
-    -webkit-animation: drop 1s ease-out forwards;
-}
-
-.dropBall3 {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 60px;
-    height: 60px;
-    display: block;
-    background: url(../img/lottery/3.png) no-repeat;
-    background-size: contain;
-    animation: drop 1s ease-out forwards;
-    -webkit-animation: drop 1s ease-out forwards;
-}
-
-.dropBall4 {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 60px;
-    height: 60px;
-    display: block;
-    background: url(../img/lottery/4.png) no-repeat;
-    background-size: contain;
-    animation: drop 1s ease-out forwards;
-    -webkit-animation: drop 1s ease-out forwards;
-}
-
-@keyframes drop {
-    0% {
-        transform: scale(0.7);
-    }
-
-    50% {
-        transform: scale(1);
-    }
-
-    51% {
-        transform: translateY(0px);
-    }
-
-    100% {
-        transform: translateY(100px);
-    }
-}
-
-@-webkit-keyframes drop {
-    0% {
-        -webkit-transform: scale(0.7);
-    }
-
-    50% {
-        -webkit-transform: scale(1);
-    }
-
-    51% {
-        -webkit-transform: translateY(0px);
-    }
-
-    100% {
-        -webkit-transform: translateY(100px);
-    }
+.turnable .center span {
+    display: inline-block;
+    width: 100%;
+    line-height: 2.6rem;
+    color: #f01501;
+    font-size: 2.4rem;
+    font-weight: bold;
+    font-family: 微软雅黑
 }
