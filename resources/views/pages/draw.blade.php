@@ -19,7 +19,7 @@
                     <strong>{{ session()->get('seq') }}</strong>
                 </h1>
                 <div class="row justify-content-sm-center">
-                    <div class="turnable">
+                    <div class="turntable">
                         <img src="{{ asset('img/lottery/circle.png') }}" alt="抽签盘" class="img-thumbnail rounded-circle shadow">
                         <div class="center">
                             <span id="number" class="number">立即<br>抽签</span>
@@ -40,10 +40,43 @@
 @push('scripts')
 <script type="text/javascript">
     function fontSize(){
-        var deviceWidth = document.documentElement.clientWidth > 760 ? 76 : document.documentElement.clientWidth;
-        document.getElementById('number').style.fontSize = (deviceWidth/76) * 3 + "rem";
+        // var deviceWidth = document.documentElement.clientWidth > 760 ? 76 : document.documentElement.clientWidth;
+        var deviceWidth = document.documentElement.clientWidth / 10 * 3;
+        document.getElementById('number').style.fontSize = (deviceWidth / 76) + "rem";
     }
     fontSize();
     window.onresize = fontSize;
+
+    var running = true;
+    var t;
+    
+    function turnNumbers() {
+        var numbers = Array.from(new Array(40).keys()).slice(1);
+        var n = Math.floor(Math.random() * 40);
+        $('#number').text(numbers[n]);
+        t = setTimeout(turnNumbers, 0);
+    }
+
+    function stop() {
+        clearInterval(t);
+        t = 0;
+    }
+    
+    $('form').submit(function(e) {
+        e.preventDefault();
+
+        if (running == true) {
+            running = false;
+            stop();
+            $('.btn').removeClass('btn-danger').addClass('btn-primary').text('开始抽签');
+            $(".turntable .img-thumbnail").css("animation-play-state", "paused");
+        } else {
+            running = true;
+            turnNumbers();
+            $('.btn').removeClass('btn-primary').addClass('btn-danger').text('停止抽签');
+            $(".turntable .img-thumbnail").css("animation", "5s linear 0s normal none infinite rotate");
+            $(".turntable .img-thumbnail").css("animation-play-state", "running");
+        } 
+    })
 </script>
 @endpush
