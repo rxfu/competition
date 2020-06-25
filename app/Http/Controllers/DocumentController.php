@@ -95,7 +95,13 @@ class DocumentController extends BaseController
                 $document->save();
             }
 
-            return back()->withDrawed($drawed)->withSeq($document->seq)->withSuccess('选手' .  $player->name . '抽签号已保存');
+            if ($request->ajax()) {
+                return response()->json([
+                    'data' => $document->seq,
+                ]);
+            } else {
+                return back()->withDrawed($drawed)->withSeq($document->seq)->withSuccess('选手' .  $player->name . '抽签号已保存');
+            }
         }
     }
 
@@ -115,7 +121,13 @@ class DocumentController extends BaseController
                 $document->save();
             }
 
-            return back()->withDrawed($drawed)->withSecno($document->secno)->withSuccess('选手' .  $player->name . '节段号已保存');
+            if ($request->ajax()) {
+                return reponse()->json([
+                    'data' => $document->secno,
+                ]);
+            } else {
+                return back()->withDrawed($drawed)->withSecno($document->secno)->withSuccess('选手' .  $player->name . '节段号已保存');
+            }
         }
     }
 }

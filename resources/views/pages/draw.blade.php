@@ -22,7 +22,7 @@
                     <div class="turntable">
                         <img src="{{ asset('img/lottery/circle.png') }}" alt="抽签盘" class="img-thumbnail rounded-circle shadow">
                         <div class="center">
-                            <span id="number" class="number">立即<br>抽签</span>
+                            <span id="number" class="number">00</span>
                         </div>
                     </div>
                 </div>
@@ -47,9 +47,9 @@
     fontSize();
     window.onresize = fontSize;
 
-    var running = true;
+    var running = false;
     var t;
-    
+
     function turnNumbers() {
         var numbers = Array.from(new Array(40).keys()).slice(1);
         var n = Math.floor(Math.random() * 40);
@@ -68,6 +68,7 @@
         if (running == true) {
             running = false;
             stop();
+            $('#number').text('25');
             $('.btn').removeClass('btn-danger').addClass('btn-primary').text('开始抽签');
             $(".turntable .img-thumbnail").css("animation-play-state", "paused");
         } else {
