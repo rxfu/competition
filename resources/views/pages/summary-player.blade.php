@@ -20,6 +20,7 @@
                     <th scope="col">职称</th>
                     <th scope="col">所在院校</th>
                     <th scope="col">开始本科教学时间</th>
+                    <th scope="col">本科教学总时间</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +36,7 @@
                         <td>{{ $item->position }}</td>
                         <td>{{ $item->department->name }}</td>
                         <td>{{ $item->teaching_begin_time }}</td>
+                        <td>{{ $item->teaching_total_time }}</td>
                     </tr>
                 @endforeach
             </tbody>
