@@ -52,6 +52,7 @@ class PlayerController extends BaseController
             'title' => 'required',
             'teaching_begin_time' => 'required|before_or_equal:2016-7-30',
             'phone' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
             'course' => 'required',
             'project' => 'required',
             'portrait' => 'required',
@@ -66,6 +67,7 @@ class PlayerController extends BaseController
             'title' => 'required',
             'teaching_begin_time' => 'required|before_or_equal:2016-7-30',
             'phone' => 'required|unique:users,phone,' . request('id'),
+            'email' => 'required|email|unique:users,email,' . request('id'),
             'course' => 'required',
             'project' => 'required',
         ];

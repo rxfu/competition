@@ -132,7 +132,8 @@ $(function() {
     		up: 'fas fa-arrow-up',
     		down: 'fas fa-arrow-down'
     	},
-		maxDate: '2016-7-30'
+		maxDate: '2016-7-30',
+		date: '{{ $item->teaching_begin_time }}'
 	});
     $('.datetimepicker').datetimepicker({
     	locale: 'zh-cn',
