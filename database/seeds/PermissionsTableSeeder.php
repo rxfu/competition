@@ -48,6 +48,10 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'user.import',
             'name' => '导入用户',
         ]);
+        Permission::create([
+            'slug' => 'user.upload-summary',
+            'name' => '上传总结材料',
+        ]);
 
         Permission::create([
             'slug' => 'role.index',
@@ -335,6 +339,14 @@ class PermissionsTableSeeder extends Seeder
             'name' => '生成选手推荐表',
         ]);
         Permission::create([
+            'slug' => 'player.recommend',
+            'name' => '上传选手推荐表',
+        ]);
+        Permission::create([
+            'slug' => 'player.uprecommend',
+            'name' => '保存选手推荐表',
+        ]);
+        Permission::create([
             'slug' => 'player.secno',
             'name' => '显示抽节段列表',
         ]);
@@ -403,6 +415,14 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
             'slug' => 'marker.pdf',
             'name' => '生成专家推荐表',
+        ]);
+        Permission::create([
+            'slug' => 'marker.recommend',
+            'name' => '上传专家推荐表',
+        ]);
+        Permission::create([
+            'slug' => 'marker.uprecommend',
+            'name' => '保存专家推荐表',
         ]);
 
         Permission::create([
