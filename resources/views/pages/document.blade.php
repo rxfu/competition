@@ -36,7 +36,7 @@
 	                        @endif
 	                    	@if (!empty($item->document->syllabus))
 	                    		<small class="form-text text-muted">
-	                    			<a class="pdf" href="{{ asset('js/vendor/pdfjs/web/viewer.html?file=/' . $item->document->syllabus) }}" title="教学大纲">教学大纲</a>
+	                    			<a class="pdf" href="{{ asset($item->document->syllabus) }}" title="教学大纲">教学大纲</a>
 	                    		</small>
 	                    	@endif
 	                    </div>
@@ -95,7 +95,7 @@
 	                <div class="form-group row">
 	                    <label for="application" class="col-sm-3 col-form-label">特殊软件安装申请</label>
 	                    <div class="col-md-9">
-	                    	<textarea name="application" id="application" rows="5" class="form-control{{ $errors->has('application') ? ' is_invalid' : '' }}" placeholder="因竞赛场地硬件升级，电脑系统版本为win10专业版。除第六届广西高校青年教师教学竞赛承办方在QQ群提及的应用软件，原则上不另行安装选手提供的其他软件，如确有需要，在提交竞赛材料时，填写申请说明，并备注电话，经技术人员同意后方可安装。">{{ old('application', optional($item->document)->application) }}</textarea>
+	                    	<textarea name="application" id="application" rows="5" class="form-control{{ $errors->has('application') ? ' is_invalid' : '' }}" placeholder="因竞赛场地硬件升级，电脑系统版本为win10专业版。除广西高校青年教师教学竞赛承办方在QQ群提及的应用软件，原则上不另行安装选手提供的其他软件，如确有需要，在提交竞赛材料时，填写申请说明，并备注电话，经技术人员同意后方可安装。">{{ old('application', optional($item->document)->application) }}</textarea>
 	                        @if ($errors->has('application'))
 		                        <div class="invalid-feedback" role="alert">
 		                            <strong>{{ $errors->first('application') }}</strong>
