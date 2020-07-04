@@ -13,7 +13,7 @@ class ReviewController extends BaseController
     protected $module = 'review';
 
     protected $storeRules = [
-        'scores.*' => 'required|numeric|min:0|max:20',
+        'scores.*' => 'required|numeric|min:0|max:100',
     ];
 
     public function __construct(ReviewService $reviewService)
@@ -43,7 +43,7 @@ class ReviewController extends BaseController
             if (!$request->ajax()) {
                 $data['design_confirmed'] = true;
             }
-            
+
             $this->service->store($data);
         }
 
@@ -57,8 +57,8 @@ class ReviewController extends BaseController
     public function teaching(Request $request, $id)
     {
         $this->validate($request, [
-            'live_score' => 'required|numeric|min:0|max:75',
-            'reflection_score' => 'required|numeric|min:0|max:5',
+            'live_score' => 'required|numeric|min:0|max:100',
+            'reflection_score' => 'required|numeric|min:0|max:100',
         ]);
 
         $next = null;
@@ -68,28 +68,28 @@ class ReviewController extends BaseController
         ];
 
         $exists = User::whereGroupId(Auth::user()->group_id)
-                        ->whereRoleId(config('setting.player'))
-                        ->whereId($id)
-                        ->exists();
+            ->whereRoleId(config('setting.player'))
+            ->whereId($id)
+            ->exists();
 
         if ($exists) {
             $data['player_id'] = $id;
             $data['live_score'] = $request->input('live_score');
             $data['reflection_score'] = $request->input('reflection_score');
-            
+
             $this->service->store($data);
 
             $player = Document::whereHas('user', function ($query) {
-                        $query->whereGroupId(Auth::user()->group_id)
-                            ->whereRoleId(config('setting.player'))
-                            ->whereHas('playerReviews', function ($q) {
-                                $q->where('year', '=', date('Y'))->whereMarkerId(Auth::id())->whereNull('live_score');
-                            });
+                $query->whereGroupId(Auth::user()->group_id)
+                    ->whereRoleId(config('setting.player'))
+                    ->whereHas('playerReviews', function ($q) {
+                        $q->where('year', '=', date('Y'))->whereMarkerId(Auth::id())->whereNull('live_score');
+                    });
             })
-                    ->where('year', '=', date('Y'))
-                    ->whereNotNull('seq')
-                    ->orderBy('seq')
-                    ->first(['user_id', 'seq']);
+                ->where('year', '=', date('Y'))
+                ->whereNotNull('seq')
+                ->orderBy('seq')
+                ->first(['user_id', 'seq']);
 
             if ($player) {
                 return redirect()->route('marker.teaching', $player->user_id)->withSuccess(Auth::user()->name . '评分成功，开始第' . $player->seq . '号选手评分');
