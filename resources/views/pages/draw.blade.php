@@ -12,26 +12,41 @@
                     <input type="text" name="idnumber" id="idnumber" class="form-control" placeholder="请输入身份证号">
                 </div>
             </div>
-                <h1 class="text-center text-primary" style="font-size: 4em">
-                    <strong>您的抽签号是</strong>
-                </h1>
-                <h1 class="text-center text-danger" style="font-size: 12em">
-                    <strong>{{ session()->get('seq') }}</strong>
-                </h1>
-                <div class="row justify-content-sm-center">
-                    <div class="turntable">
-                        <img src="{{ asset('img/lottery/circle.png') }}" alt="抽签盘" class="img-thumbnail rounded-circle shadow">
-                        <div class="center">
-                            <span id="number" class="number">00</span>
-                        </div>
+            <!--
+            <h1 class="text-center text-primary" style="font-size: 4em">
+                <strong>您的抽签号是</strong>
+            </h1>
+            <h1 class="text-center text-danger" style="font-size: 12em">
+                <strong>{{ session()->get('seq') }}</strong>
+            </h1>
+            <div class="row justify-content-sm-center">
+                <div class="turntable">
+                    <img src="{{ asset('img/lottery/circle.png') }}" alt="抽签盘" class="img-thumbnail rounded-circle shadow">
+                    <div class="center">
+                        <span id="number" class="number">00</span>
                     </div>
                 </div>
-                <br>
-                <div class="row justify-content-sm-center">
-                    <button type="submit" class="btn btn-primary">
-                        开始抽签
-                    </button>
-                </div>
+            </div>
+            <br>
+            <div class="row justify-content-sm-center">
+                <button type="submit" class="btn btn-primary">
+                    开始抽签
+                </button>
+            </div>
+        -->
+        <div class="bg">
+            <span id="message">点击抽奖</span>
+            <div class="lotterybg">
+                <canvas id="myCanvas" width="285px" height="170px"></canvas>
+                <img src="img/lighting.png" class="lighting"/>
+            </div>
+        </div>
+        <img src="img/start-btn.png" id="start" onclick="play()"/>
+        <div class="award"><span id="awardBall"></span></div>
+        <img src="img/1.png" id="ball1" class="imgSrc">
+        <img src="img/2.png" id="ball2" class="imgSrc">
+        <img src="img/3.png" id="ball3" class="imgSrc">
+        <img src="img/4.png" id="ball4" class="imgSrc">
         </div>
     </form>
 </div>
