@@ -237,8 +237,19 @@ class PlayerController extends BaseController
                 }
             }
         } */
+        $players = User::has('document')
+            ->whereRoleId(config('setting.player'))
+            ->whereGroupId(Auth::user()->group_id)
+            ->get();
 
-        return view('pages.draw');
+        $seqs = [];
+        foreach ($players as $player) {
+            if (!is_null($player->document->seq)) {
+                $seqs[] = $player->document->seq;
+            }
+        }
+
+        return view('pages.draw', compact('players', 'seqs'));
     }
 
     public function pdf($id)

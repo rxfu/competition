@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="card card-primary">
-    <form role="form" id="mark-form" name="mark-form" method="post" action="{{ route('document.seq') }}">
+    <form role="form" id="mark-form" name="mark-form" method="post" action="">
         @csrf
         @method('put')
         <div class="card-body">
@@ -12,217 +12,189 @@
                     <input type="text" name="idnumber" id="idnumber" class="form-control" placeholder="请输入身份证号">
                 </div>
             </div>
-            <!--
-            <h1 class="text-center text-primary" style="font-size: 4em">
-                <strong>您的抽签号是</strong>
-            </h1>
-            <h1 class="text-center text-danger" style="font-size: 12em">
-                <strong>{{ session()->get('seq') }}</strong>
-            </h1>
+            <div class="items"></div>
+        </div>
+        <div class="card-footer">
             <div class="row justify-content-sm-center">
-                <div class="turntable">
-                    <img src="{{ asset('img/lottery/circle.png') }}" alt="抽签盘" class="img-thumbnail rounded-circle shadow">
-                    <div class="center">
-                        <span id="number" class="number">00</span>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="row justify-content-sm-center">
-                <button type="submit" class="btn btn-primary">
+                <button type="button" class="btn btn-primary" id="draw">
                     开始抽签
                 </button>
             </div>
-        -->
-        <!--
-            <div class="bg">
-                <span id="message">点击抽奖</span>
-                <div class="lotterybg">
-                    <canvas id="myCanvas" width="285px" height="170px"></canvas>
-                    <img src="{{ asset('img/lottery/lighting.png') }}" class="lighting"/>
-                </div>
-            </div>
-            <img src="{{ asset('img/lottery/start-btn.png') }}" id="start" onclick="play()"/>
-            <div class="award"><span id="awardBall"></span></div>
-            <img src="{{ asset('img/lottery/1.png') }}" id="ball1" class="imgSrc">
-            <img src="{{ asset('img/lottery/2.png') }}" id="ball2" class="imgSrc">
-            <img src="{{ asset('img/lottery/3.png') }}" id="ball3" class="imgSrc">
-            <img src="{{ asset('img/lottery/4.png') }}" id="ball4" class="imgSrc">
-        -->
-        
-            <div class="capsule">
-                <!--机器-->
-                <div class="base">
-                    <div class="go"></div>
-                </div>
-                
-                <!--球-->
-                <div class="dan_gund">
-                    <span  class="qiu_1 diaol_1"></span>
-                    <span  class="qiu_2 diaol_2"> </span>
-                    <span  class="qiu_3 diaol_3"></span>
-                    
-                    <span  class="qiu_4 diaol_4"></span>
-                    <span  class="qiu_5 diaol_5"></span>
-                    <span  class="qiu_6 diaol_6"></span>>
-                    
-                    <span  class="qiu_7 diaol_7"></span>
-                    <span  class="qiu_8 diaol_8"></span>
-                    
-                    
-                    <span  class="qiu_9 diaol_9"></span>
-                    <span  class="qiu_10 diaol_10"></span> 
-                    <span  class="qiu_11 diaol_11"></span>   
-                        
-                </div>
-
-                <!--中奖掉落-->
-                <div class="medon"><img src="{{ asset('img/capsule/mendong.png') }}"></div>
-                <div class="zjdl ">
-                    <span></span>
-                </div>
-            </div>
-            <img src="{{ asset('img/capsule/1.png') }}" class="imgSrc" id="ball1">
-            <img src="{{ asset('img/capsule/2.png') }}" class="imgSrc" id="ball2">
-            <img src="{{ asset('img/capsule/3.png') }}" class="imgSrc" id="ball3">
-            <img src="{{ asset('img/capsule/4.png') }}" class="imgSrc" id="ball4">
         </div>
     </form>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="dialog" tabindex="-1" role="dialog" aria-labelledby="dialogTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <h1 class="text-danger" style="font-size: 20rem">
+              <strong id="number"></strong>
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
 @stop
 
 @push('styles')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/capsule.css') }}">
+<style>
+div.items {
+    float:left;
+    padding:15px;
+    padding-left:35px;
+    width:100%;
+    font-family:'\5FAE\8F6F\96C5\9ED1';
+}
+div.item {
+    /* margin-bottom:8px;
+    margin-left:8px; */
+    display: inline-block;
+    /* float:left; */
+    vertical-align:middle;
+    font-size:30px;
+    text-align:center;
+    /* background:rgba(0,170,210,.8);
+    border:solid 1px rgba(0,170,210,.1);
+    color:#fff; */
+}
+@media (min-width:900px) {
+    div.item {
+        width:40px;
+        line-height:40px;
+        height:40px;
+    }
+}
+@media (min-width:1200px) {
+    div.item {
+        width:60px;
+        line-height:60px;
+        height:60px;
+    }
+}
+@media (min-width:1440px) {
+    div.item {
+        width:60px;
+        line-height:60px;
+        height:60px;
+    }
+}
+@media (min-width:1500px) {
+    div.items {
+        width:80px;
+    }
+    div.item {
+        width:80px;
+        line-height:50px;
+        height:50px;
+    }
+}
+</style>
 @endpush
 
 @push('scripts')
-<!--script type="text/javascript">
-    function fontSize(){
-        // var deviceWidth = document.documentElement.clientWidth > 760 ? 76 : document.documentElement.clientWidth;
-        var deviceWidth = document.documentElement.clientWidth / 10 * 3;
-        document.getElementById('number').style.fontSize = (deviceWidth / 76) + "rem";
-    }
-    fontSize();
-    window.onresize = fontSize;
-
-    var running = false;
-    var t;
-
-    function turnNumbers() {
-        var numbers = Array.from(new Array(40).keys()).slice(1);
-        var n = Math.floor(Math.random() * 40);
-        $('#number').text(numbers[n]);
-        t = setTimeout(turnNumbers, 0);
-    }
-
-    function stop() {
-        clearInterval(t);
-        t = 0;
-    }
-    
-    $('form').submit(function(e) {
-        e.preventDefault();
-
-        if (running == true) {
-            running = false;
-            stop();
-            $('#number').text('25');
-            $('.btn').removeClass('btn-danger').addClass('btn-primary').text('开始抽签');
-            $(".turntable .img-thumbnail").css("animation-play-state", "paused");
-        } else {
-            running = true;
-            turnNumbers();
-            $('.btn').removeClass('btn-primary').addClass('btn-danger').text('停止抽签');
-            $(".turntable .img-thumbnail").css("animation", "5s linear 0s normal none infinite rotate");
-            $(".turntable .img-thumbnail").css("animation-play-state", "running");
-        } 
-    })
-</script-->
+<script type="text/javascript" src="{{ asset('js/jquery.pulsate.min.js') }}"></script>
 <script type="text/javascript">
-    $(function(e) {
-        //一等奖 关闭
-        $("#jianpin_one em img").click(function(){
-            $("#jianpin_one").hide();
-            }
-        );		
-        //二等奖 关闭
-        $("#jianpin_two em img").click(function(){
-            $("#jianpin_two").hide();
-            }
-        );		
-        //三等奖 关闭
-        $("#jianpin_three em img").click(function(){
-            $("#jianpin_three").hide();
-            }
-        );			
-        //没有中奖 关闭
-        $("#jianpin_kong em img").click(function(){
-            $("#jianpin_kong").hide();
-            }
-        );			
-        //积分不足 关闭
-        $("#no_jifeng em img").click(function(){
-            $("#no_jifeng").hide();
-            }
-        );		
-            
-    var score=470;
-    $(".wdjifen").html(score);
+    //参与抽奖人数初始值
+    var itemCount = {{ $players->count() }};
+    //默认跑马灯频率
+    var frequency = 50;
+    //是否正在运行跑马灯
+    var isRun = false;
+    //跑马灯循环
+    var tx;
+    // 已抽过签号
+    var drawedItems = [{{ implode(',', $seqs) }}];
+    // 当前值
+    var current = 0;
 
+    $(function() {
+        for (var i = 1; i <= itemCount; i++) {
+            var color;
+            if ($.inArray(i, drawedItems) >= 0) {
+                color = 'bg-danger';
+            } else {
+                color = 'bg-success';
+            }
 
-    $(".go").click(function(){
-        score-=100;
-            if(score<0){
-                for(i=1;i<=11;i++){
-                    $(".qiu_"+i).removeClass("wieyi_"+i);
+            $('div.items').append('<div class="' + color + ' m-3 img-circle item i' + i + '"><strong>' + i + '</strong></div>')
+        }
+
+        $('#draw').click(function() {
+            if ($('#idnumber').val() == '') {
+                alert('身份证号为空，请重新输入身份证号!');
+                return false;
+            } else{
+                if (isRun) {
+                    $('#idnumber').removeAttr('readonly');
+                    isRun = false;
+                    $(this).removeClass('btn-danger').addClass('btn-primary').text('开始抽签');
+                    $(".item.bg-warning").removeClass("bg-warning").addClass('bg-success');
+                    $('div.item').eq(current - 1).removeClass('bg-success').addClass("bg-danger");
+                    $('.item.bg-danger').pulsate({
+                        color: '#dc3545',
+                        repeat: 5
+                    });
+                    $('#dialog').on('show.bs.modal', function(e) {
+                        var modal = $(this);
+                        modal.find('.modal-body #number').text(current);
+                    }).modal('show');
+                } else {
+                    $('#idnumber').attr('readonly', 'readonly');
+                    $.ajax({
+                        async: false,
+                        type: 'post',
+                        url: "{{ route('document.seq') }}",
+                        dataType: 'json',
+                        data: {
+                            _method: 'put',
+                            _token: '{{ csrf_token() }}',
+                            idnumber: $('#idnumber').val()
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            if (data.is_drawed == true) {
+                                alert('您已经抽过签了，您的抽签号是' + data.seq);
+                                $('#idnumber').removeAttr('readonly');
+                            } else {
+                                isRun = true;
+                                start();
+                                $('#draw').removeClass('btn-primary').addClass('btn-danger').text('停止抽签');
+                                current = data.seq;
+                            }
+                        },
+                        error: function(e) {
+                            console.log(e.status);
+                            console.log(e.responseText);
+                            alert(e.responseText);
+                        }
+                    });
                 }
-                $("#no_jifeng").show();
-                }else{
-                    draw()
-                    }
-            });
-        
-        
-    function draw(){
-        var number =Math.floor(4*Math.random()+1);  
+            }
+        });
 
-        for(i=1;i<=11;i++){
-                $(".qiu_"+i).removeClass("diaol_"+i);
-                $(".qiu_"+i).addClass("wieyi_"+i);
-            };
-                
-        setTimeout(function (){
-            for(i=1;i<=11;i++){
-            $(".qiu_"+i).removeClass("wieyi_"+i);
-            }
-        },1100);	
-        setTimeout(function(){
-            switch(number){
-                case 1:$(".zjdl").children("span").addClass("diaL_one");break;
-                case 2:$(".zjdl").children("span").addClass("diaL_two");break;
-                case 3:$(".zjdl").children("span").addClass("diaL_three");break;
-                case 4:$(".zjdl").children("span").addClass("diaL_four");break;
-            }
-            $(".zjdl").removeClass("none").addClass("dila_Y");
-                    setTimeout(function (){
-                    switch(number){
-                        case 1:$("#jianpin_one").show();break;
-                        case 2:$("#jianpin_two").show();break;
-                        case 3:$("#jianpin_three").show();break;
-                        case 4:$("#jianpin_kong").show();break;
-                    }
-                },900);
-            },1100)
-        
-        //取消动画
-        setTimeout(function (){
-                $(".zjdl").addClass("none").removeClass("dila_Y");
-                $(".wdjifen").html(score);
-                $(".zjdl").children("span").removeAttr('class');
-                
-            },2500)
-                
-    }	
+        return false;
     });
+
+    function start() {
+        //产生随机数临时变量
+        var rand = 0;
+        //存储上一次随机数的临时变量
+        var prenum;
+        tx = setInterval(function() {
+            if(isRun) {
+                while(true) {
+                    rand = Math.floor(Math.random() * ( $("div.item:not(.bg-danger)").length));
+                    if(rand == 0 || rand != prenum) {
+                        break;
+                    }
+                }
+                prenum = rand;
+                $(".item.bg-warning").removeClass("bg-warning").addClass('bg-success');
+                $("div.item:not(.bg-danger):not(.bg-warning)").eq(rand).removeClass('bg-success').addClass("bg-warning");
+            }
+        }, frequency);
+    }
 </script>
 @endpush

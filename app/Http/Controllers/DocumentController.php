@@ -70,34 +70,57 @@ class DocumentController extends BaseController
         if ($request->isMethod('put')) {
             $exists = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->exists();
             if (!$exists) {
-                return back()->withDanger('选手身份证号不正确，请重新输入');
+                if ($request->ajax()) {
+                    return '选手身份证号不正确，请重新输入';
+                } else {
+                    return back()->withDanger('选手身份证号不正确，请重新输入');
+                }
             }
 
             $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
-            $document = Document::findOrFail($player->id);
+            $document = Document::find($player->id);
 
-            if ($drawed = $document->is_drawed) {
+            if (is_null($document)) {
+                if ($request->ajax()) {
+                    return '选手未上传材料，不能抽签';
+                } else {
+                    return back()->withDanger('选手未上传材料，不能抽签');
+                }
+            }
+
+            $seqs = [];
+            if (!($drawed = $document->is_drawed)) {
                 $players = User::has('document')
                     ->whereRoleId(config('setting.player'))
                     ->whereGroupId(Auth::user()->group_id)
                     ->get();
 
                 $total = range(1, $players->count());
-                $seqs = [];
                 foreach ($players as $player) {
-                    $seqs[] = $player->document->seq;
+                    if (!is_null($player->document->seq)) {
+                        $seqs[] = $player->document->seq;
+                    }
                 }
                 $surplus = array_diff($total, $seqs);
                 $number = array_rand($surplus, 1);
 
                 $document->seq = $surplus[$number];
                 $document->is_drawed = true;
-                $document->save();
+
+                if (!$document->save()) {
+                    if ($request->ajax()) {
+                        return '选手抽签号保存失败，请重新抽签！';
+                    } else {
+                        return back()->withDanger('选手抽签号保存失败，请重新抽签！');
+                    }
+                }
             }
 
             if ($request->ajax()) {
                 return response()->json([
-                    'data' => $document->seq,
+                    'seq' => $document->seq,
+                    'is_drawed' => $drawed,
+                    'seqs' => $seqs,
                 ]);
             } else {
                 return back()->withDrawed($drawed)->withSeq($document->seq)->withSuccess('选手' .  $player->name . '抽签号已保存');
@@ -110,20 +133,41 @@ class DocumentController extends BaseController
         if ($request->isMethod('put')) {
             $exists = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->exists();
             if (!$exists) {
-                return back()->withDanger('选手身份证号不正确，请重新输入');
+                if ($request->ajax()) {
+                    return '选手身份证号不正确，请重新输入';
+                } else {
+                    return back()->withDanger('选手身份证号不正确，请重新输入');
+                }
             }
 
             $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
-            $document = Document::findOrFail($player->id);
+            $document = Document::find($player->id);
 
-            if ($drawed = empty($document->secno)) {
+            if (is_null($document)) {
+                if ($request->ajax()) {
+                    return '选手未上传材料，不能抽节段';
+                } else {
+                    return back()->withDanger('选手未上传材料，不能抽节段');
+                }
+            }
+
+            if (is_null($document->seq)) {
+                if ($request->ajax()) {
+                    return '选手未抽签，不能抽节段';
+                } else {
+                    return back()->withDanger('选手未抽签，不能抽节段');
+                }
+            }
+
+            if (!($drawed = !empty($document->secno))) {
                 $document->secno = random_int(1, 20);
                 $document->save();
             }
 
             if ($request->ajax()) {
-                return reponse()->json([
-                    'data' => $document->secno,
+                return response()->json([
+                    'secno' => $document->secno,
+                    'is_drawed' => $drawed,
                 ]);
             } else {
                 return back()->withDrawed($drawed)->withSecno($document->secno)->withSuccess('选手' .  $player->name . '节段号已保存');

@@ -18,7 +18,7 @@ class UserRepository extends Repository
             if ($trashed) {
                 return $this->object->with('role.permissions')->withTrashed()->findOrFail($id);
             }
-        
+
             return $this->object->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             throw new InternalException($this->getModel() . ': ' . $id . ' 对象不存在', $this->getObject(), 'get', $e);
@@ -65,5 +65,10 @@ class UserRepository extends Repository
     public function getAllPlayersByGroup($id)
     {
         return $this->object->with('group', 'document', 'review')->whereRoleId(config('setting.player'))->whereGroupId($id)->get();
+    }
+
+    public function getAll($order = 'id', $direction = 'asc')
+    {
+        return $this->object->with('role', 'department', 'group')->orderBy($order, $direction)->get();
     }
 }
