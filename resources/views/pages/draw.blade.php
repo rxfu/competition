@@ -16,7 +16,7 @@
         </div>
         <div class="card-footer">
             <div class="row justify-content-sm-center">
-                <button type="button" class="btn btn-primary" id="draw">
+                <button type="button" class="btn btn-primary btn-lg" id="draw">
                     开始抽签
                 </button>
             </div>
@@ -81,13 +81,11 @@ div.item {
     }
 }
 @media (min-width:1500px) {
-    div.items {
-        width:80px;
-    }
     div.item {
         width:80px;
-        line-height:50px;
-        height:50px;
+        line-height:80px;
+        height:80px;
+        font-size: 40px;
     }
 }
 </style>
@@ -115,10 +113,10 @@ div.item {
             if ($.inArray(i, drawedItems) >= 0) {
                 color = 'bg-danger';
             } else {
-                color = 'bg-success';
+                color = 'bg-primary';
             }
 
-            $('div.items').append('<div class="' + color + ' m-3 img-circle item i' + i + '"><strong>' + i + '</strong></div>')
+            $('div.items').append('<div class="' + color + ' m-3 img-circle shadow item i' + i + '"><strong>' + i + '</strong></div>')
         }
 
         $('#draw').click(function() {
@@ -130,8 +128,8 @@ div.item {
                     $('#idnumber').removeAttr('readonly');
                     isRun = false;
                     $(this).removeClass('btn-danger').addClass('btn-primary').text('开始抽签');
-                    $(".item.bg-warning").removeClass("bg-warning").addClass('bg-success');
-                    $('div.item').eq(current - 1).removeClass('bg-success').addClass("bg-danger");
+                    $(".item.bg-warning").removeClass("bg-warning").addClass('bg-primary');
+                    $('div.item').eq(current - 1).removeClass('bg-primary').addClass("bg-danger");
                     $('.item.bg-danger').pulsate({
                         color: '#dc3545',
                         repeat: 5
@@ -168,6 +166,7 @@ div.item {
                             console.log(e.status);
                             console.log(e.responseText);
                             alert(e.responseText);
+                            $('#idnumber').removeAttr('readonly');
                         }
                     });
                 }
@@ -191,8 +190,8 @@ div.item {
                     }
                 }
                 prenum = rand;
-                $(".item.bg-warning").removeClass("bg-warning").addClass('bg-success');
-                $("div.item:not(.bg-danger):not(.bg-warning)").eq(rand).removeClass('bg-success').addClass("bg-warning");
+                $(".item.bg-warning").removeClass("bg-warning").addClass('bg-primary');
+                $("div.item:not(.bg-danger):not(.bg-warning)").eq(rand).removeClass('bg-primary').addClass("bg-warning");
             }
         }, frequency);
     }

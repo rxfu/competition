@@ -38,7 +38,7 @@
                                     {{ optional($item->review)->design_score }}
                                 @else
                                     <input type="text" name="scores[{{ $item->id }}]" id="scores[{{ $item->id }}]" data-id="{{ $item->id }}" value="{{ old('scores[' . $item->id . ']', optional($item->review)->design_score) }}" placeholder="教学设计得分" class="form-control" required>
-                                    <!--small class="form-text text-info">教学设计满分 20 分</small-->
+                                    <small class="form-text text-info">教学设计满分 20 分</small>
                                     <div id="status{{ $item->id }}"></div>
                                 @endif
                             </td>

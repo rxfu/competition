@@ -128,7 +128,7 @@ class User extends Authenticatable
         } else {
             $scores = [];
             foreach ($items as $item) {
-                $scores[] = $item->design_score * 0.2 + $item->live_score * 0.75 + $item->reflection_score * 0.05;
+                $scores[] = $item->design_score + $item->live_score + $item->reflection_score;
             }
 
             if ($items->count() > 2) {

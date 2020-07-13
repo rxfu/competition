@@ -208,13 +208,25 @@ class PlayerController extends BaseController
 
     public function showSeqForm()
     {
+        $allDrawed = true;
+
         if (Auth::user()->is_super) {
             $items = $this->service->getAllPlayers();
         } else {
             $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
+
+            foreach ($items as $item) {
+                if ($item->document && is_null($item->document->seq)) {
+                    $allDrawed = false;
+                }
+            }
         }
 
-        return view('pages.seq', compact('items'));
+        if ($allDrawed) {
+            return view('pages.seq', compact('items'));
+        } else {
+            return redirect()->route('player.draw');
+        }
     }
 
     public function draw()
@@ -277,13 +289,25 @@ class PlayerController extends BaseController
 
     public function showSecnoForm()
     {
+        $allDrawed = true;
+
         if (Auth::user()->is_super) {
             $items = $this->service->getAllPlayers();
         } else {
             $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
+
+            foreach ($items as $item) {
+                if ($item->document && is_null($item->document->seq)) {
+                    $allDrawed = false;
+                }
+            }
         }
 
-        return view('pages.secno', compact('items'));
+        if ($allDrawed) {
+            return view('pages.secno', compact('items'));
+        } else {
+            return redirect()->route('player.draw-secno');
+        }
     }
 
     public function drawSecno()

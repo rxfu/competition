@@ -17,7 +17,7 @@
 
         <div class="card-footer">
             <div class="row justify-content-sm-center">
-                <button type="button" class="btn btn-primary" id="draw">
+                <button type="button" class="btn btn-success btn-lg" id="draw">
                     开始抽节段
                 </button>
             </div>
@@ -82,13 +82,11 @@ div.item {
     }
 }
 @media (min-width:1500px) {
-    div.items {
-        width:80px;
-    }
     div.item {
         width:80px;
-        line-height:50px;
-        height:50px;
+        line-height:80px;
+        height:80px;
+        font-size: 40px;
     }
 }
 </style>
@@ -112,7 +110,7 @@ div.item {
         for (var i = 1; i <= itemCount; i++) {
             var color;
 
-            $('div.items').append('<div class="bg-info m-3 item i' + i + '"><strong>' + i + '</strong></div>')
+            $('div.items').append('<div class="bg-success m-3 img-rounded shadow item i' + i + '"><strong>' + i + '</strong></div>')
         }
 
         $('#draw').click(function() {
@@ -123,9 +121,9 @@ div.item {
                 if (isRun) {
                     $('#idnumber').removeAttr('readonly');
                     isRun = false;
-                    $(this).removeClass('btn-danger').addClass('btn-primary').text('开始抽节段');
-                    $(".item.bg-warning").removeClass("bg-warning").addClass('bg-info');
-                    $('div.item').eq(current - 1).removeClass('bg-info').addClass("bg-danger");
+                    $(this).removeClass('btn-danger').addClass('btn-success').text('开始抽节段');
+                    $(".item.bg-warning").removeClass("bg-warning").addClass('bg-success');
+                    $('div.item').eq(current - 1).removeClass('bg-success').addClass("bg-danger");
                     $('.item.bg-danger').pulsate({
                         color: '#dc3545',
                         repeat: 5
@@ -152,10 +150,10 @@ div.item {
                                 alert('您已经抽过节段了，您抽的节段是' + data.secno);
                                 $('#idnumber').removeAttr('readonly');
                             } else {
-                                $('div.item').removeClass('bg-danger').addClass('bg-info');
+                                $('div.item').removeClass('bg-danger').addClass('bg-success');
                                 isRun = true;
                                 start();
-                                $('#draw').removeClass('btn-primary').addClass('btn-danger').text('停止抽节段');
+                                $('#draw').removeClass('btn-success').addClass('btn-danger').text('停止抽节段');
                                 current = data.secno;
                             }
                         },
@@ -163,6 +161,7 @@ div.item {
                             console.log(e.status);
                             console.log(e.responseText);
                             alert(e.responseText);
+                            $('#idnumber').removeAttr('readonly');
                         }
                     });
                 }
@@ -186,8 +185,8 @@ div.item {
                     }
                 }
                 prenum = rand;
-                $(".item.bg-warning").removeClass("bg-warning").addClass('bg-info');
-                $("div.item:not(.bg-warning)").eq(rand).removeClass('bg-info').addClass("bg-warning");
+                $(".item.bg-warning").removeClass("bg-warning").addClass('bg-success');
+                $("div.item:not(.bg-warning)").eq(rand).removeClass('bg-success').addClass("bg-warning");
             }
         }, frequency);
     }
