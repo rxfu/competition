@@ -10,14 +10,16 @@
         <table id="itemsTable" class="table table-bordered table-striped datatable">
             <thead>
                 <tr>
+                    <th scope="col">抽签号</th>
                     <th scope="col">姓名</th>
                     <th scope="col">所在学校</th>
                     <th scope="col">节段号</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($items as $item)
+                @foreach ($items->sortBy('document.seq') as $item)
                     <tr>
+                        <td>{{ optional($item->document)->seq }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->department->name }}</td>
                         <td>

@@ -218,6 +218,7 @@ class PlayerController extends BaseController
             foreach ($items as $item) {
                 if ($item->document && is_null($item->document->seq)) {
                     $allDrawed = false;
+                    break;
                 }
             }
         }
@@ -297,8 +298,9 @@ class PlayerController extends BaseController
             $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
 
             foreach ($items as $item) {
-                if ($item->document && is_null($item->document->seq)) {
+                if ($item->document && is_null($item->document->secno)) {
                     $allDrawed = false;
+                    break;
                 }
             }
         }

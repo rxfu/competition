@@ -9,7 +9,7 @@
             <div class="form-group row">
                 <label for="idnumber" class="col-sm-3 col-form-label">身份证号</label>
                 <div class="col-md-9">
-                    <input type="text" name="idnumber" id="idnumber" class="form-control" placeholder="请输入身份证号">
+                    <input type="text" name="idnumber" id="idnumber" class="form-control" placeholder="请输入身份证号" onkeydown="if (event.keyCode == 13) return false">
                 </div>
             </div>
             <div class="items"></div>
@@ -146,16 +146,16 @@ div.item {
                         },
                         success: function(data) {
                             console.log(data);
-                            if (data.is_drawed == true) {
-                                alert('您已经抽过节段了，您抽的节段是' + data.secno);
-                                $('#idnumber').removeAttr('readonly');
-                            } else {
+                            // if (data.is_drawed == true) {
+                            //     alert('您已经抽过节段了，您抽的节段是' + data.secno);
+                            //     $('#idnumber').removeAttr('readonly');
+                            // } else {
                                 $('div.item').removeClass('bg-danger').addClass('bg-success');
                                 isRun = true;
                                 start();
                                 $('#draw').removeClass('btn-success').addClass('btn-danger').text('停止抽节段');
                                 current = data.secno;
-                            }
+                            // }
                         },
                         error: function(e) {
                             console.log(e.status);
