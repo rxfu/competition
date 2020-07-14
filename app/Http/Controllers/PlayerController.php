@@ -292,18 +292,18 @@ class PlayerController extends BaseController
     {
         $allDrawed = true;
 
-        if (Auth::user()->is_super) {
-            $items = $this->service->getAllPlayers();
-        } else {
-            $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
+        // if (Auth::user()->is_super) {
+        $items = $this->service->getAllPlayers();
+        // } else {
+        //     $items = $this->service->getAllPlayersByGroup(Auth::user()->group_id);
 
-            foreach ($items as $item) {
-                if ($item->document && is_null($item->document->secno)) {
-                    $allDrawed = false;
-                    break;
-                }
+        foreach ($items as $item) {
+            if ($item->document && is_null($item->document->secno)) {
+                $allDrawed = false;
+                break;
             }
         }
+        // }
 
         if ($allDrawed) {
             return view('pages.secno', compact('items'));

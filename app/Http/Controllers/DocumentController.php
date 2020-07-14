@@ -131,7 +131,8 @@ class DocumentController extends BaseController
     public function secno(Request $request)
     {
         if ($request->isMethod('put')) {
-            $exists = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->exists();
+            // $exists = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->exists();
+            $exists = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->exists();
             if (!$exists) {
                 if ($request->ajax()) {
                     return '选手身份证号不正确，请重新输入';
@@ -140,7 +141,8 @@ class DocumentController extends BaseController
                 }
             }
 
-            $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
+            // $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
+            $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->firstOrFail();
             $document = Document::find($player->id);
 
             if (is_null($document)) {

@@ -21,7 +21,7 @@ return [
         'player' => [
             'title' => '选手管理',
             'icon' => 'user',
-            'can' => ['player.index', 'player.seq'],
+            'can' => ['player.index', 'player.seq', 'player.secno'],
             'children' => [
                 'player' => [
                     'title' => '选手列表',
