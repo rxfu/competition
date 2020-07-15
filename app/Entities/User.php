@@ -126,6 +126,8 @@ class User extends Authenticatable
         if ($items->count() === 0) {
             $total = 0;
         } else {
+            // 先计总分，后去掉最高分、最低分，最后求平均
+            /* 
             $scores = [];
             foreach ($items as $item) {
                 $scores[] = $item->design_score + $item->live_score + $item->reflection_score;
@@ -138,6 +140,30 @@ class User extends Authenticatable
             }
 
             $total = array_sum($scores) / count($scores);
+            */
+            /* 
+            教学设计分：去掉最高分、最低分，求平均；
+            现场分：课堂教学分 + 反思分，总分去掉最高分、最低分，求平均；
+            最终分 = 教学设计份 + 现场分。
+             */
+            $designScores = [];
+            $liveScores = [];
+            foreach ($items as $item) {
+                $designScores[] = $item->design_score;
+                $liveScores[] = $item->live_score + $item->reflection_score;
+            }
+
+            if ($items->count() > 2) {
+                sort($designScores);
+                array_pop($designScores);
+                array_shift($designScores);
+
+                sort($liveScores);
+                array_pop($liveScores);
+                array_shift($liveScores);
+            }
+
+            $total = array_sum($designScores) / count($designScores) + array_sum($liveScores) / count($liveScores);
         }
 
         return $total;
