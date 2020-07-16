@@ -9,6 +9,8 @@ class Review extends Model
 {
     use PresentableTrait;
 
+    protected $appends = ['live'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -28,5 +30,10 @@ class Review extends Model
     public function player()
     {
         return $this->belongsTo('App\Entities\User', 'player_id');
+    }
+
+    public function getLiveAttribute()
+    {
+        return $this->live_score + $this->reflection_score;
     }
 }

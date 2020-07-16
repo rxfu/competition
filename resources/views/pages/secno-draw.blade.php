@@ -9,7 +9,7 @@
             <div class="form-group row">
                 <label for="idnumber" class="col-sm-3 col-form-label">身份证号</label>
                 <div class="col-md-9">
-                    <input type="text" name="idnumber" id="idnumber" class="form-control" placeholder="请输入身份证号" onkeydown="if (event.keyCode == 13) return false">
+                    <input type="text" name="idnumber" id="idnumber" class="form-control" placeholder="请输入身份证号" onkeydown="if (event.keyCode == 13) return false" autofocus>
                 </div>
             </div>
             <div class="items"></div>

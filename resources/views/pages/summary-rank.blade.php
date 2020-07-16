@@ -6,7 +6,7 @@
 @endphp
 <div class="row">
     @foreach ($ranks as $group => $rank)
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div class="card card-{{ $colors[$loop->index] }}">
                 <div class="card-header">
                     <h3 class="card-title">{{ $rank['title'] }}</h3>
@@ -18,7 +18,9 @@
                             <th scope="col">抽签号</th>
                             <th scope="col">姓名</th>
                             <th scope="col">学校</th>
-                            <th scope="col">得分</th>
+                            <th scope="col">教学设计分</th>
+                            <th scope="col">课堂教学及反思分</th>
+                            <th scope="col">最终得分</th>
                             <th scope="col">名次</th>
                         </tr>
                     </thead>
@@ -34,6 +36,8 @@
                                     <a href="{{ route('summary.detail', $item->id) }}" title="{{ $item->name }}">{{ $item->name }}</a>
                                 </td>
                                 <td>{{ $item->department->name }}</td>
+                                <td>{{ number_format($item->design, 2) }}</td>
+                                <td>{{ number_format($item->live, 2) }}</td>
                                 <td>{{ number_format($item->total, 2) }}</td>
                                 <td>
                                     @if ($item->total == optional($preitem)->total)
