@@ -10,7 +10,7 @@
 			@foreach($group->markers as $marker)
 				<th colspan="3">{{ $marker->name }}</th>
 			@endforeach
-			<th rowspan="2">总分</th>
+			<th colspan="3">总计</th>
 			<th rowspan="2">排名</th>
 		</tr>
 		<tr>
@@ -19,6 +19,9 @@
 				<th>课堂教学</th>
 				<th>教学反思</th>
 			@endforeach
+			<th>教学设计</th>
+			<th>课堂教学及反思</th>
+			<th>最终得分</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -36,6 +39,8 @@
 					<td>{{ optional(App\Entities\Review::whereMarkerId($marker->id)->wherePlayerId($player->id)->first())->live_score }}</td>
 					<td>{{ optional(App\Entities\Review::whereMarkerId($marker->id)->wherePlayerId($player->id)->first())->reflection_score }}</td>
 				@endforeach
+				<td>{{ number_format($player->design, 2) }}</td>
+				<td>{{ number_format($player->live, 2) }}</td>
 				<td>{{ number_format($player->total, 2) }}</td>
 				<td>
                     @if ($player->total == optional($preitem)->total)
