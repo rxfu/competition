@@ -19,6 +19,8 @@
                     <th scope="col">性别</th>
                     <th scope="col">出生日期</th>
                     <th scope="col">职称/职务</th>
+                    <th scope="col">是否教学名师</th>
+                    <th scope="col">与教学竞赛评审相关的经历</th>
                     <th scope="col">手机号码</th>
                     <th scope="col">邮箱</th>
                     <th scope="col">所在院校</th>
@@ -35,7 +37,9 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->gender->name }}</td>
                         <td>{{ $item->birthday }}</td>
-                        <td>{{ $item->position }}</td>
+                        <td>{{ $item->title }}</td>
+                        <td>{{ $item->present()->isFamous }}</td>
+                        <td>{{ $item->experience }}</td>
                         <td>{{ $item->phone }}</td>
                         <td>{{ $item->email }}</td>
                         <td>{{ $item->department->name }}</td>

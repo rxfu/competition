@@ -20,4 +20,9 @@ class UserPresenter extends Presenter
     {
         return $this->is_passed ? '已通过' : '未审核';
     }
+
+    public function isFamous()
+    {
+        return $this->is_famous ? '是' : '否';
+    }
 }

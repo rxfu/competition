@@ -23,10 +23,10 @@ class UsersTableSeeder extends Seeder
             'department_id' => Department::whereName('广西师范大学')->first()->id,
         ]);
 
-        foreach (['文科组', '理科组', '工科组', '思政组'] as $idx => $user) {
+        foreach (['文科组', '理科组', '工科组', '医科组', '思政组'] as $idx => $user) {
             User::create([
                 'username' => $user,
-                'password' => 'cq2020%%%',
+                'password' => 'cq2021%%%',
                 'name' => $user . '抽签',
                 'creator_id' => 1,
                 'group_id' => $idx + 1,

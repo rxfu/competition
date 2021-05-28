@@ -491,7 +491,7 @@ return [
             'collection' => 'genders',
             'required' => true,
         ],
-        [
+        /* [
             'field' => 'idtype',
             'list' => true,
             'create' => true,
@@ -511,13 +511,14 @@ return [
             'confirm' => true,
             'type' => 'text',
             'required' => true,
-        ],
+        ], */
         [
             'field' => 'birthday',
             'list' => true,
             'create' => true,
             'edit' => true,
             'type' => 'datetime',
+            'required' => true,
         ],
         [
             'field' => 'title',
@@ -625,6 +626,7 @@ return [
             'confirm' => true,
             'type' => 'textarea',
             'responsive' => 'none',
+            'required' => true,
         ],
         [
             'field' => 'teaching',
@@ -652,7 +654,6 @@ return [
             'confirm' => true,
             'type' => 'textarea',
             'responsive' => 'none',
-            'required' => true,
         ],
         [
             'field' => 'reward',
@@ -758,7 +759,7 @@ return [
             'collection' => 'genders',
             'required' => true,
         ],
-        [
+        /* [
             'field' => 'idtype',
             'list' => true,
             'create' => true,
@@ -778,13 +779,14 @@ return [
             'confirm' => true,
             'type' => 'text',
             'required' => true,
-        ],
+        ], */
         [
             'field' => 'birthday',
             'list' => true,
             'create' => true,
             'edit' => true,
             'type' => 'datetime',
+            'required' => true,
         ],
         [
             'field' => 'title',
@@ -853,6 +855,7 @@ return [
             'edit' => true,
             'confirm' => true,
             'type' => 'text',
+            'required' => true,
         ],
         [
             'field' => 'group_id',
@@ -883,12 +886,23 @@ return [
             'required' => true,
         ],
         [
+            'field' => 'is_famous',
+            'list' => true,
+            'create' => true,
+            'edit' => true,
+            'presenter' => true,
+            'type' => 'radio',
+            'values' => '0:否|1:是',
+            'default' => '0',
+            'required' => true,
+        ],
+        [
             'field' => 'experience',
             'list' => true,
             'create' => true,
             'edit' => true,
             'type' => 'textarea',
-            'responsive' => 'none',
+            'required' => true,
         ],
         [
             'field' => 'thesis',

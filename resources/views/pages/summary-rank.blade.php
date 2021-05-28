@@ -2,7 +2,7 @@
 
 @section('content')
 @php
-    $colors = ['primary', 'success', 'info', 'danger', 'warning'];
+    $colors = ['primary', 'info', 'warning', 'success', 'danger'];
 @endphp
 <div class="row">
     @foreach ($ranks as $group => $rank)

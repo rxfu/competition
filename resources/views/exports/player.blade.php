@@ -86,8 +86,8 @@
                     <td colspan="2">{{ $player->degree->name }}</td>
                 </tr>
                 <tr>
-                    <th>身份证号码</th>
-                    <td colspan="2">{{ $player->idnumber }}</td>
+                    <th>出生年月</th>
+                    <td colspan="2">{{ Carbon\Carbon::parse($player->birthday)->format('Y-m') }}</td>
                     <th>年龄</th>
                     <td colspan="2">{{ Carbon\Carbon::parse($player->birthday)->diff(now())->format('%y') }}</td>
                 </tr>
@@ -116,7 +116,7 @@
                     <td colspan="7">{{ $player->course }}</td>
                 </tr>
                 <tr>
-                    <th>学习工作经历</th>
+                    <th>学习工作经历（大学开始）</th>
                     <td colspan="7" class="text-left">{!! nl2br($player->experience) !!}</td>
                 </tr>
                 <tr>

@@ -68,16 +68,20 @@ class DocumentController extends BaseController
     public function seq(Request $request)
     {
         if ($request->isMethod('put')) {
-            $exists = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->exists();
+            // $exists = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->exists();
+            $exists = User::whereUsername($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->exists();
             if (!$exists) {
                 if ($request->ajax()) {
-                    return '选手身份证号不正确，请重新输入';
+                    // return '选手身份证号不正确，请重新输入';
+                    return '选手手机号不正确，请重新输入';
                 } else {
-                    return back()->withDanger('选手身份证号不正确，请重新输入');
+                    // return back()->withDanger('选手身份证号不正确，请重新输入');
+                    return back()->withDanger('选手手机号不正确，请重新输入');
                 }
             }
 
-            $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
+            // $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
+            $player = User::whereUsername($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
             $document = Document::find($player->id);
 
             if (is_null($document)) {
@@ -131,18 +135,20 @@ class DocumentController extends BaseController
     public function secno(Request $request)
     {
         if ($request->isMethod('put')) {
-            // $exists = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->exists();
-            $exists = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->exists();
+            // $exists = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->exists();
+            $exists = User::whereUsername($request->input('idnumber'))->whereRoleId(config('setting.player'))->exists();
             if (!$exists) {
                 if ($request->ajax()) {
-                    return '选手身份证号不正确，请重新输入';
+                    // return '选手身份证号不正确，请重新输入';
+                    return '选手手机号不正确，请重新输入';
                 } else {
-                    return back()->withDanger('选手身份证号不正确，请重新输入');
+                    // return back()->withDanger('选手身份证号不正确，请重新输入');
+                    return back()->withDanger('选手手机号不正确，请重新输入');
                 }
             }
 
-            // $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->whereGroupId(Auth::user()->group_id)->firstOrFail();
-            $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->firstOrFail();
+            // $player = User::whereIdnumber($request->input('idnumber'))->whereRoleId(config('setting.player'))->firstOrFail();
+            $player = User::whereUsername($request->input('idnumber'))->whereRoleId(config('setting.player'))->firstOrFail();
             $document = Document::find($player->id);
 
             if (is_null($document)) {

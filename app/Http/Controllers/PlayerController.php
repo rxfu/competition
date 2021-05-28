@@ -45,31 +45,31 @@ class PlayerController extends BaseController
 
         $this->storeRules = [
             'name' => 'required',
-            'idtype' => 'required',
-            'idnumber' => 'required|string',
-            // 'idnumber' => 'required',
-            'birthday' => 'required_if:idtype,1|after:1980-8-31',
+            // 'idtype' => 'required',
+            // 'idnumber' => 'required|string',
+            // 'birthday' => 'required_if:idtype,1|after:1981-5-31',
+            'birthday' => 'required|after:1981-5-31',
             'title' => 'required',
-            'teaching_begin_time' => 'required|before_or_equal:2016-7-30',
+            'teaching_begin_time' => 'required|before_or_equal:2017-6-30',
             'phone' => 'required|unique:users',
             'email' => 'required|email|unique:users',
             'course' => 'required',
-            'project' => 'required',
+            'experience' => 'required',
             'portrait' => 'required',
         ];
 
         $this->updateRules = [
             'name' => 'required',
-            'idtype' => 'required',
-            'idnumber' => 'required|string',
-            // 'idnumber' => 'required',
-            'birthday' => 'required_if:idtype,1|after:1980-8-31',
+            // 'idtype' => 'required',
+            // 'idnumber' => 'required|string',
+            // 'birthday' => 'required_if:idtype,1|after:1981-5-31',
+            'birthday' => 'required|after:1981-5-31',
             'title' => 'required',
-            'teaching_begin_time' => 'required|before_or_equal:2016-7-30',
+            'teaching_begin_time' => 'required|before_or_equal:2017-6-30',
             'phone' => 'required|unique:users,phone,' . request('id'),
             'email' => 'required|email|unique:users,email,' . request('id'),
             'course' => 'required',
-            'project' => 'required',
+            'experience' => 'required',
         ];
     }
 
@@ -101,28 +101,33 @@ class PlayerController extends BaseController
     public function store(Request $request)
     {
         $request->offsetSet('username', $request->phone);
-        $request->offsetSet('password', substr($request->idnumber, -6));
+        // $request->offsetSet('password', substr($request->idnumber, -6));
+        $request->offsetSet('password', 'gxqjs@' . substr($request->phone, -6));
         $request->offsetSet('is_enable', true);
         $request->offsetSet('is_super', false);
         $request->offsetSet('creator_id', Auth::id());
         $request->offsetSet('role_id', config('setting.player'));
         $request->offsetSet('department_id', Auth::user()->department_id);
 
-        if ($request->idtype == 0) {
-            $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
-        }
+        // if ($request->idtype == 0) {
+        //     $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
+        // }
 
         $v = Validator::make($request->all(), $this->storeRules);
-        $v->sometimes('idnumber', new Idnumber, function ($input) {
-            return $input->idtype == 0;
-        });
+        // $v->sometimes('idnumber', new Idnumber, function ($input) {
+        //     return $input->idtype == 0;
+        // });
 
         if ($v->fails()) {
             return back()->withErrors($v)->withInput();
         }
 
         $user = $this->service->store($request->all());
-        $this->service->upload($request->file('portrait'), $user->id, $user->idnumber);
+
+        if ($request->has('portrait')) {
+            // $this->service->upload($request->file('portrait'), $user->id, $user->idnumber);
+            $this->service->upload($request->file('portrait'), $user->id, $user->username);
+        }
 
         return redirect()->route($this->module . '.index')->withSuccess('创建' . trans($this->module . '.module') . '成功');
     }
@@ -142,22 +147,30 @@ class PlayerController extends BaseController
 
     public function update(Request $request, $id)
     {
-        if ($request->idtype == 0) {
-            $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
-        }
+        $request->offsetSet('username', $request->phone);
+        // $request->offsetSet('password', substr($request->idnumber, -6));
+        $request->offsetSet('password', 'gxqjs@' . substr($request->phone, -6));
+
+        // if ($request->idtype == 0) {
+        //     $request->offsetSet('birthday', substr($request->idnumber, 6, 4) . '-' . substr($request->idnumber, 10, 2) . '-' . substr($request->idnumber, 12, 2));
+        // }
 
         if ($request->isMethod('put')) {
             $v = Validator::make($request->all(), $this->updateRules);
-            $v->sometimes('idnumber', new Idnumber, function ($input) {
-                return $input->idtype == 0;
-            });
+            // $v->sometimes('idnumber', new Idnumber, function ($input) {
+            //     return $input->idtype == 0;
+            // });
 
             if ($v->fails()) {
                 return back()->withErrors($v)->withInput();
             }
 
             $this->service->update($id, $request->all());
-            $this->service->upload($request->file('portrait'), $id, $request->idnumber);
+
+            if ($request->has('portrait')) {
+                // $this->service->upload($request->file('portrait'), $id, $request->idnumber);
+                $this->service->upload($request->file('portrait'), $id, $request->username);
+            }
 
             return redirect()->route($this->module . '.index')->withSuccess('更新' . trans($this->module . '.module') . '成功');
         }
@@ -283,7 +296,8 @@ class PlayerController extends BaseController
     public function recommend(Request $request, $id)
     {
         $item = $this->service->get($id);
-        $this->service->recommend($request->file('upfile'), $item->id, $item->idnumber, 'player');
+        // $this->service->recommend($request->file('upfile'), $item->id, $item->idnumber, 'player');
+        $this->service->recommend($request->file('upfile'), $item->id, $item->username, 'player');
 
         return redirect()->route('player.index')->withSuccess('上传推荐表成功');
     }

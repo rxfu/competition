@@ -36,7 +36,7 @@ return [
     'application' => '特殊软件安装申请',
     'idtype' => '证件类型',
     'teaching_total_time' => '本科教学总时间',
-    'experience' => '学习工作经历',
+    'experience' => '学习工作经历（大学开始）',
     'teaching' => '近两年主讲课程情况',
     'thesis' => '发表教学论文、著作',
     'project' => '主持、参与教学改革项目',

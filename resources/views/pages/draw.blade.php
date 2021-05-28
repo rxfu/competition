@@ -7,9 +7,9 @@
         @method('put')
         <div class="card-body">
             <div class="form-group row">
-                <label for="idnumber" class="col-sm-3 col-form-label">身份证号</label>
+                <label for="idnumber" class="col-sm-3 col-form-label">手机号</label>
                 <div class="col-md-9">
-                    <input type="text" name="idnumber" id="idnumber" class="form-control" placeholder="请输入身份证号" onkeydown="if (event.keyCode == 13) return false" autofocus>
+                    <input type="text" name="idnumber" id="idnumber" class="form-control" placeholder="请输入手机号" onkeydown="if (event.keyCode == 13) return false" autofocus>
                 </div>
             </div>
             <div class="items"></div>
@@ -121,7 +121,7 @@ div.item {
 
         $('#draw').click(function() {
             if ($('#idnumber').val() == '') {
-                alert('身份证号为空，请重新输入身份证号!');
+                alert('手机号为空，请重新输入手机号!');
                 return false;
             } else{
                 if (isRun) {

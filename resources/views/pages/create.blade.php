@@ -126,7 +126,7 @@ $(function() {
     		up: 'fas fa-arrow-up',
     		down: 'fas fa-arrow-down'
     	},
-		maxDate: '2016-7-30'
+		maxDate: '2017-6-30'
 	});
     $('.datetimepicker').datetimepicker({
     	locale: 'zh-cn',

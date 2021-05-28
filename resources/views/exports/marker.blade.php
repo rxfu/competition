@@ -110,13 +110,13 @@
                     <td colspan="3">{{ $marker->phone }}</td>
                 </tr>
                 <tr>
-                    <th>身份证号码</th>
-                    <td colspan="3">{{ $marker->idnumber }}</td>
+                    <th>是否教学名师</th>
+                    <td colspan="3">{{ $marker->is_famous ? '是' : '否' }}</td>
                     <th>邮箱</th>
                     <td colspan="3">{{ $marker->email }}</td>
                 </tr>
                 <tr>
-                    <th>工作简历（含学历）</th>
+                    <th>与教学竞赛评审相关的经历</th>
                     <td colspan="7" class="text-left">{!! nl2br($marker->experience) !!}</td>
                 </tr>
                 <tr>

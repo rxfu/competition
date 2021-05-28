@@ -22,6 +22,9 @@ class GroupsTableSeeder extends Seeder
             'name' => '工科组',
         ]);
         Group::create([
+            'name' => '医科组',
+        ]);
+        Group::create([
             'name' => '思政组',
         ]);
     }
