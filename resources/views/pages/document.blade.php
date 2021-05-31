@@ -62,7 +62,7 @@
 	                    <label for="section" class="col-sm-3 col-form-label">教学节段PPT</label>
 	                    <div class="col-md-9">
 	                    	<input type="file" name="section" id="section" class="form-control-file{{ $errors->has('section') ? ' is_invalid' : '' }}"{{ empty($item->document->section) ? ' required' : '' }}>
-	                    	<small class="form-text text-muted">要求文件类型为zip或rar</small>
+	                    	<small class="form-text text-muted">要求文件类型为zip或rar，文件大小不超过2GB</small>
 	                        @if ($errors->has('section'))
 		                        <div class="invalid-feedback" role="alert">
 		                            <strong>{{ $errors->first('section') }}</strong>
