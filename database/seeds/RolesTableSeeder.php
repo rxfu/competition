@@ -16,7 +16,7 @@ class RolesTableSeeder extends Seeder
             'slug' => 'manager',
             'name' => '院校管理员',
         ]);
-        $role->permissions()->sync([1, 10, 67, 68, 69, 70, 71, 72, 76, 77, 78, 79, 80, 81, 85, 86, 87, 88, 89, 90, 91, 92, 93, 98, 99, 100, 104, 105]);
+        $role->permissions()->sync([1, 10, 67, 68, 69, 70, 71, 72, 76, 78, 79, 80, 81, 85, 86, 87, 88, 89, 90, 91, 92, 98, 99, 100, 104, 105]);
 
         $role = Role::create([
             'slug' => 'marker',
