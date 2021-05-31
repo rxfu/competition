@@ -146,16 +146,16 @@ div.item {
                         },
                         success: function(data) {
                             console.log(data);
-                            // if (data.is_drawed == true) {
-                            //     alert('您已经抽过节段了，您抽的节段是' + data.secno);
-                            //     $('#idnumber').removeAttr('readonly');
-                            // } else {
+                            if (data.is_drawed == true) {
+                                alert('您已经抽过节段了，您抽的节段是' + data.secno);
+                                $('#idnumber').removeAttr('readonly');
+                            } else {
                                 $('div.item').removeClass('bg-danger').addClass('bg-success');
                                 isRun = true;
                                 start();
                                 $('#draw').removeClass('btn-success').addClass('btn-danger').text('停止抽节段');
                                 current = data.secno;
-                            // }
+                            }
                         },
                         error: function(e) {
                             console.log(e.status);
