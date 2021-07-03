@@ -34,6 +34,15 @@ class UsersTableSeeder extends Seeder
                 'is_confirmed' => true,
             ]);
         }
+
+        User::create([
+            'username' => '节段',
+            'password' => 'jd2021%%%',
+            'name' => '抽节段',
+            'creator_id' => 1,
+            'role_id' => config('setting.sector'),
+            'is_confirmed' => true,
+        ]);
         /*
         factory(App\Entities\User::class, 50)->create()->filter(function ($user) {
             return $user->role_id === config('setting.player');
