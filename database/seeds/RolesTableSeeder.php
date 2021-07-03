@@ -36,7 +36,7 @@ class RolesTableSeeder extends Seeder
         $role->permissions()->sync([1, 73, 74, 75, 104, 105]);
 
         $role = Role::create([
-            'slug' => 'drawer',
+            'slug' => 'sector',
             'name' => '抽节段',
         ]);
         $role->permissions()->sync([1, 82, 83, 84, 104, 105]);
